@@ -1,5 +1,8 @@
 from abc import abstractmethod, ABC
+from typing import Dict
 
 
 class Computation(ABC):
-    pass
+    @abstractmethod
+    def evaluate(self, feed_dict: Dict[str, 'Computation']):
+        pass
