@@ -39,13 +39,11 @@ class ComputationGradientTestCase(unittest.TestCase):
 
     def test_gradient_rejected_for_repeated_parent_node(self):
         self.c.accumulate(self.a, np.ones((3,4)))
-        with self.assertRaises(ValueError) as error:
-            self.assertEqual(error.exception.args[0], 'Invalid node for gradient propagation')
+        with self.assertRaises(ValueError):
             self.c.accumulate(self.a, np.ones((3,4)))
 
     def test_gradient_rejected_for_invalid_parent_node(self):
         self.c.accumulate(self.a, np.ones((3,4)))
         self.assertEqual(self.c.ctx[self.a], 0)
-        with self.assertRaises(ValueError) as error:
-            self.assertEqual(error.exception.args[0], 'Invalid node for gradient propagation')
+        with self.assertRaises(ValueError):
             self.c.accumulate(self.c, np.ones((3,4)))

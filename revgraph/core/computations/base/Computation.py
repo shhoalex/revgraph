@@ -21,7 +21,7 @@ class Computation(ABC):
 
     def accumulate(self, reference: 'Computation', gradient: np.array):
         if self.ctx[reference] <= 0:
-            raise Exception('Repeated propagation of gradient')
+            raise ValueError('Invalid node for gradient propagation')
         else:
             self.ctx[reference] -= 1
         if self.shape is None:
