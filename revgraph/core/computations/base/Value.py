@@ -8,7 +8,7 @@ from .Computation import Computation
 class Value(Computation):
     def __init__(self,
                  data: Optional[Union[np.ndarray, list]] = None,
-                 shape: Optional[Tuple[int, ...]] = None,
+                 shape: Optional[Tuple[Optional[int], ...]] = None,
                  requires_grad: bool = False):
         super(Value, self).__init__(shape, requires_grad)
         self.data = data
