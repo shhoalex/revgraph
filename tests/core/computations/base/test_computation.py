@@ -135,6 +135,6 @@ class ComputationUnbroadcastingTest(unittest.TestCase):
 
     def test_unbroadcast_with_different_col_and_row(self):
         m = np.ones((1,1,1,1))
-        result = self.c.broadcast(m)
+        result = self.c.unbroadcast(m)
         self.assertEqual(result.shape, (3,2))
         self.assertEqual(result.all(), np.ones((3,2)).all())
