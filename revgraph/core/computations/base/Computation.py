@@ -35,6 +35,8 @@ class Computation(ABC):
         else:
             assert gradient.shape == self.gradient.shape
             self.gradient += gradient
+        if self.context_completed():
+            self.on_all_gradients_accumulated()
 
     def register(self, reference: 'Computation'):
         # Add a permanent computational node (independent of context)
@@ -66,4 +68,8 @@ class Computation(ABC):
 
     @abstractmethod
     def forward(self):
+        pass
+
+    @abstractmethod
+    def on_all_gradients_accumulated(self):
         pass
