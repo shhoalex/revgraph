@@ -35,6 +35,30 @@ class Computation(ABC):
         # Add a permanent computational node (independent of context)
         self.references[reference] += 1
 
+    def unbroadcast(self,
+                    matrix: np.ndarray,
+                    shape: Optional[Tuple[int, ...]] = None) -> np.ndarray:
+        shape = shape if shape else self.shape
+        while matrix.ndim < len(shape):
+            matrix = np.expand_dims(matrix,0)
+
+        for ((n,i),j) in zip(enumerate(matrix.shape), shape):
+            if i == j:
+                continue
+            elif i == 1:
+                # j!=1 -> Expand matrix
+                new_shape = list(matrix.shape)
+                new_shape[n] = j
+                matrix = np.broadcast_to(matrix, new_shape)
+            elif j == 1:
+                # i!=1 -> Sum and reshape matrix (since np.sum removes 1 dimension)
+                new_shape = list(matrix.shape)
+                new_shape[n] = 1
+                matrix = matrix.sum(n).reshape(new_shape)
+            else:
+                raise ValueError(f'Cannot broadcast shape {matrix.shape} to {shape}')
+        return matrix
+
     @abstractmethod
     def forward(self):
         pass
