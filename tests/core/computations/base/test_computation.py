@@ -20,7 +20,7 @@ class ComputationGradientTestCase(unittest.TestCase):
         self.c = ComputationImpl(None, True)
         self.c.register(self.a)
         self.c.register(self.b)
-        self.c.new_session()
+        self.c.new_context()
 
     def tearDown(self) -> None:
         del self.c

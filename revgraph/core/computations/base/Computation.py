@@ -13,10 +13,9 @@ class Computation(ABC):
         self.shape = shape
         self.requires_grad = requires_grad
         self.references = defaultdict(lambda: 0)
-        self.current_count = 0
         self.ctx = None
 
-    def new_session(self):
+    def new_context(self):
         self.ctx = self.references.copy()
 
     def accumulate(self, reference: 'Computation', gradient: np.array):
