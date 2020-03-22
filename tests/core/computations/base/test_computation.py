@@ -97,44 +97,13 @@ class ComputationUnbroadcastingTest(unittest.TestCase):
         self.assertEqual(result.all(), np.array([[5,5,5,5,5]]).T.all())
 
     def test_unbroadcast_with_extra_dimension(self):
-        m = np.ones((1,1,5))
+        m = np.ones((5,))
         result = self.a.unbroadcast(m)
         self.assertEqual(result.shape, (1,5))
         self.assertEqual(result.all(), np.array([[1,1,1,1,1]]).all())
-
-        result = self.b.unbroadcast(m)
-        self.assertEqual(result.shape, (5,1))
-        self.assertEqual(result.all(), np.array([[5,5,5,5,5]]).T.all())
-
-        m = np.ones((1,1,5,1,1,1))
-        result = self.a.unbroadcast(m)
-        self.assertEqual(result.shape, (1,5))
-        self.assertEqual(result.all(), np.array([[1,1,1,1,1]]).all())
-
-    def test_unbroadcast_with_extra_dimension_and_different_row(self):
-        m = np.ones((2,1,5))
-        result = self.a.unbroadcast(m)
-        self.assertEqual(result.shape, (1,5))
-        self.assertEqual(result.all(), np.array([[2,2,2,2,2]]).all())
-
-        m = np.array([[0,1,2,3,4], [5,6,7,8,9]]).reshape((2,1,1,5))
-        result = self.a.unbroadcast(m)
-        self.assertEqual(result.shape, (1,5))
-        self.assertEqual(result.all(), np.array([[5,7,9,11,13]]))
-
-    def test_unbroadcast_with_extra_dimension_and_different_col(self):
-        m = np.ones((1,1,1))
-        result = self.a.unbroadcast(m)
-        self.assertEqual(result.shape, (1,5))
-        self.assertEqual(result.all(), np.array([[1,1,1,1,1]]))
-
-        m = np.ones((5,1,5,1))
-        result = self.a.unbroadcast(m)
-        self.assertEqual(result.shape, (5,1))
-        self.assertEqual(result.all(), np.array([[5,5,5,5,5]]).T.all())
 
     def test_unbroadcast_with_different_col_and_row(self):
-        m = np.ones((1,1,1,1))
+        m = np.ones((1,))
         result = self.c.unbroadcast(m)
         self.assertEqual(result.shape, (3,2))
         self.assertEqual(result.all(), np.ones((3,2)).all())
