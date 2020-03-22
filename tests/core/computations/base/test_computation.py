@@ -48,6 +48,21 @@ class ComputationGradientTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.c.accumulate(self.c, np.ones((3,4)))
 
+    def test_context_completed_correctly(self):
+        self.c.accumulate(self.a, np.ones((3,4)))
+        self.assertFalse(self.c.context_completed())
+        self.c.accumulate(self.b, np.ones((3,4)))
+        self.assertTrue(self.c.context_completed())
+
+    def test_context_completed_correctly_for_repeated_parent_node(self):
+        self.c.register(self.a)
+        self.c.accumulate(self.a, np.ones((3,4)))
+        self.assertFalse(self.c.context_completed())
+        self.c.accumulate(self.a, np.ones((3, 4)))
+        self.assertFalse(self.c.context_completed())
+        self.c.accumulate(self.b, np.ones((3,4)))
+        self.assertTrue(self.c.context_completed())
+
 
 class ComputationUnbroadcastingTest(unittest.TestCase):
     def setUp(self) -> None:
