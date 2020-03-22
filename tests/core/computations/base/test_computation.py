@@ -107,3 +107,12 @@ class ComputationUnbroadcastingTest(unittest.TestCase):
         result = self.c.unbroadcast(m)
         self.assertEqual(result.shape, (3,2))
         self.assertEqual(result.all(), np.ones((3,2)).all())
+
+    def test_unbroadcast_with_invalid_shape(self):
+        m = np.ones((3,3))
+        with self.assertRaises(ValueError):
+            self.c.unbroadcast(m)
+
+        m = np.ones((4,2))
+        with self.assertRaises(ValueError):
+            self.c.unbroadcast(m)
