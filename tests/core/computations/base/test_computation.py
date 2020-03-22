@@ -56,6 +56,7 @@ class ComputationGradientTestCase(unittest.TestCase):
 
     def test_context_completed_correctly_for_repeated_parent_node(self):
         self.c.register(self.a)
+        self.c.new_context()
         self.c.accumulate(self.a, np.ones((3,4)))
         self.assertFalse(self.c.context_completed())
         self.c.accumulate(self.a, np.ones((3, 4)))
