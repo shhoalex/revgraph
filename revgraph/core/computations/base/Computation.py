@@ -14,15 +14,21 @@ class Computation(ABC):
         self.requires_grad = requires_grad
         self.references = defaultdict(lambda: 0)
         self.ctx = None
+        self.ctx_counter = None
+
+    def context_completed(self):
+        return self.ctx_counter == 0
 
     def new_context(self):
         self.ctx = self.references.copy()
+        self.ctx_counter = sum(self.ctx.values())
 
     def accumulate(self, reference: 'Computation', gradient: np.array):
         if self.ctx[reference] <= 0:
             raise ValueError('Invalid node for gradient propagation')
         else:
             self.ctx[reference] -= 1
+            self.ctx_counter -= 1
         if self.shape is None:
             self.shape = gradient.shape
             self.gradient = gradient
