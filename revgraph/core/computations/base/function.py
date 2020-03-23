@@ -23,6 +23,11 @@ class Function(Computation, ABC):
         if self.context_completed():
             self.backward()
 
+    def new_context(self):
+        super(Function, self).new_context()
+        for arg in self.args:
+            arg.new_context()
+
     @abstractmethod
     def backward(self) -> None:
         pass
