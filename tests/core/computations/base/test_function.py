@@ -11,7 +11,7 @@ class FunctionImpl(Function):
         return self.args[0]
 
     def backward(self):
-        self.args[0].accumulate(self.gradient)
+        self.args[0].accumulate(self, self.gradient)
 
 
 class ComputationImpl(Computation):
@@ -30,6 +30,7 @@ class FunctionTestCase(unittest.TestCase):
 
     def test_function_propagates_gradient(self):
         self.f.new_context()
+        self.a.new_context()
         self.assertFalse(self.f.context_completed())
         self.f.accumulate(self.parent, np.ones((2,3)))
         self.assertTrue(self.f.context_completed())
