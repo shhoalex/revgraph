@@ -32,6 +32,9 @@ class Computation(ABC):
         if self.shape is None:
             self.shape = gradient.shape
             self.gradient = gradient
+        elif self.gradient is None:
+            self.shape = gradient.shape
+            self.gradient = gradient
         else:
             assert gradient.shape == self.gradient.shape
             self.gradient += gradient
