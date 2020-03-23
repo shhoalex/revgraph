@@ -14,6 +14,10 @@ class Function(Computation, ABC):
         super(Function, self).__init__(shape, requires_grad)
         self.args = args
 
+        for arg in self.args:
+            if arg.requires_grad:
+                arg.register(self)
+
     def accumulate(self, reference: Computation, gradient: np.ndarray):
         super(Function, self).accumulate(reference, gradient)
         if self.context_completed():
