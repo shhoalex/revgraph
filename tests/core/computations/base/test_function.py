@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.computations.base.Function import Function
-from revgraph.core.computations.base.Value import Value
+from revgraph.core.computations.base.Computation import Computation
 
 
 class FunctionImpl(Function):
@@ -14,13 +14,18 @@ class FunctionImpl(Function):
         self.args[0].accumulate(self.gradient)
 
 
+class ComputationImpl(Computation):
+    def forward(self):
+        return
+
+
 class FunctionTestCase(unittest.TestCase):
     def setUp(self) -> None:
-        self.a = Value(data=np.ones((2,3)), shape=(2,3), requires_grad=True)
+        self.a = ComputationImpl(shape=(2,3), requires_grad=True)
         self.f = FunctionImpl(args=[self.a],
                               shape=(2,3),
                               requires_grad=True)
-        self.parent = Value(shape=(2,3), requires_grad=True)
+        self.parent = ComputationImpl(shape=(2,3), requires_grad=True)
         self.f.register(self.parent)
 
     def test_function_propagates_gradient(self):
