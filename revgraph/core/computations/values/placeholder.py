@@ -8,11 +8,9 @@ from revgraph.core.computations.base.value import Value
 class Placeholder(Value):
     def __init__(self,
                  shape: Tuple[Optional[int], ...],
-                 requires_grad: bool = False,
                  default: Optional[Union[np.ndarray, list]] = None,
                  name: Optional[str] = None):
-        super(Placeholder, self).__init__(shape=shape,
-                                          requires_grad=requires_grad)
+        super(Placeholder, self).__init__(shape=shape)
         self.default = default
         self.name = name
 
@@ -32,4 +30,4 @@ class Placeholder(Value):
             data = np.array(self.default)
         if not self.valid_shape(data):
             raise ValueError(f'Expected shape: {self.shape}, got {data.shape} instead')
-        return Value(data=data, requires_grad=self.requires_grad)
+        return Value(data=data, requires_grad=False)
