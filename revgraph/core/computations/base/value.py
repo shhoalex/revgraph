@@ -2,7 +2,7 @@ from typing import Optional, Tuple, Union
 
 import numpy as np
 
-from .Computation import Computation
+from .computation import Computation
 
 
 class Value(Computation):

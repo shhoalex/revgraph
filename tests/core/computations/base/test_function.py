@@ -2,8 +2,8 @@ import unittest
 
 import numpy as np
 
-from revgraph.core.computations.base.Function import Function
-from revgraph.core.computations.base.Computation import Computation
+from revgraph.core.computations.base.function import Function
+from revgraph.core.computations.base.computation import Computation
 
 
 class FunctionImpl(Function):

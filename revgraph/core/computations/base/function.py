@@ -3,7 +3,7 @@ from typing import List, Optional, Tuple
 
 import numpy as np
 
-from .Computation import Computation
+from .computation import Computation
 
 
 class Function(Computation, ABC):

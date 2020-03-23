@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from revgraph.core.computations.base.Computation import Computation
+from revgraph.core.computations.base.computation import Computation
 
 
 class ComputationImpl(Computation):

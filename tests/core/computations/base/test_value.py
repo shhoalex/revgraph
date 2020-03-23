@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from revgraph.core.computations.base.Value import Value
+from revgraph.core.computations.base.value import Value
 
 
 class ValueTestCase(unittest.TestCase):
