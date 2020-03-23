@@ -30,7 +30,6 @@ class FunctionTestCase(unittest.TestCase):
 
     def test_function_propagates_gradient(self):
         self.f.new_context()
-        self.a.new_context()
         self.assertFalse(self.f.context_completed())
         self.f.accumulate(self.parent, np.ones((2,3)))
         self.assertTrue(self.f.context_completed())
@@ -40,7 +39,6 @@ class FunctionTestCase(unittest.TestCase):
         # Register twice
         self.f.register(self.parent)
         self.f.new_context()
-        self.a.new_context()
 
         # Propagate the first gradient matrix
         self.assertFalse(self.f.context_completed())
