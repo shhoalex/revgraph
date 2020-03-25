@@ -29,6 +29,7 @@ class Computation(ABC):
         else:
             self.ctx[reference] -= 1
             self.ctx_counter -= 1
+        gradient = np.array(gradient)
         if self.shape is None:
             self.shape = gradient.shape
             self.gradient = gradient
