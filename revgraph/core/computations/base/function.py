@@ -1,22 +1,26 @@
 from abc import ABC, abstractmethod
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Union
 
 import numpy as np
 
 from .computation import Computation
+from .value import Value
 
 
 class Function(Computation, ABC):
     def __init__(self,
-                 args: List[Computation],
-                 shape: Tuple[Optional[int], ...],
-                 requires_grad: bool = False):
-        super(Function, self).__init__(shape, requires_grad)
-        self.args = args
-
-        for arg in self.args:
+                 args: Union[List[Computation], list, int, float],
+                 shape: Tuple[Optional[int], ...]):
+        self.args = []
+        requires_grad = False
+        for arg in args:
+            if not isinstance(arg, Computation):
+                arg = Value(np.array(arg), requires_grad=False)
             if arg.requires_grad:
                 arg.register(self)
+                requires_grad = True
+            self.args.append(arg)
+        super(Function, self).__init__(shape, requires_grad)
 
     def accumulate(self, reference: Computation, gradient: np.ndarray):
         super(Function, self).accumulate(reference, gradient)
