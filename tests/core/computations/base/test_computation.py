@@ -69,6 +69,7 @@ class ComputationUnbroadcastingTest(unittest.TestCase):
         self.a = ComputationImpl((1,5), True)
         self.b = ComputationImpl((5,1), True)
         self.c = ComputationImpl((3,2), True)
+        self.d = ComputationImpl((), True)
 
     def tearDown(self) -> None:
         del self.a, self.b, self.c
@@ -131,3 +132,8 @@ class ComputationUnbroadcastingTest(unittest.TestCase):
         m = np.ones((4,2))
         with self.assertRaises(ValueError):
             self.c.unbroadcast(m)
+
+    def test_unbroadcast_with_scalar(self):
+        m = np.ones((3,3,3))
+        result = self.d.unbroadcast(m)
+        self.assertTrue((result == np.int64(27)).all())
