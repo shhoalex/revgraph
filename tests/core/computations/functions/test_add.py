@@ -12,7 +12,7 @@ class AddTestCase(unittest.TestCase):
         self.b = Variable([[1,1,1], [1,1,1]])
         self.c = Variable([[1,1,1]])
         self.d = Variable([[1], [2]])
-        self.e = 2
+        self.e = Variable(2)
 
     def test_adding_same_shape(self):
         # Forward
@@ -70,7 +70,7 @@ class AddTestCase(unittest.TestCase):
         op = Add(self.a, self.e)
         op.register(op)
         op.new_context()
-        expected = np.array([[2,3,8], [5,6,7]])
+        expected = np.array([[3,4,8], [5,6,7]])
         actual = op.forward()
         self.assertTrue((expected == actual).all())
         # Backward
@@ -79,6 +79,6 @@ class AddTestCase(unittest.TestCase):
         expected1 = gradient
         actual1 = self.a.gradient
         expected2 = np.array(6)
-        actual2 = op.b.gradient
-        self.assertEqual((expected1 == actual1).all())
-        self.assertEqual((expected2 == actual2).all())
+        actual2 = self.e.gradient
+        self.assertTrue((expected1 == actual1).all())
+        self.assertTrue((expected2 == actual2).all())
