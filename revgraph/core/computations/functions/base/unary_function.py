@@ -10,13 +10,9 @@ from revgraph.core.computations.base.function import Function
 class UnaryFunction(Function, ABC):
     def __init__(self,
                  a: Computation,
-                 shape: Tuple[int, ...] = None,
-                 requires_grad: bool = None):
-        requires_grad = a.requires_grad if requires_grad is None else requires_grad
-        super(UnaryFunction, self).__init__(args=[a],
-                                            shape=shape,
-                                            requires_grad=requires_grad)
-        self.a = a
+                 shape: Tuple[int, ...] = None):
+        super(UnaryFunction, self).__init__(args=[a], shape=shape)
+        self.a = self.args[0]
         self.a_res = None
 
     def forward(self) -> np.ndarray:

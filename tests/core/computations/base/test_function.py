@@ -23,8 +23,7 @@ class FunctionTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.a = ComputationImpl(shape=(2,3), requires_grad=True)
         self.f = FunctionImpl(args=[self.a],
-                              shape=(2,3),
-                              requires_grad=True)
+                              shape=(2,3))
         self.parent = ComputationImpl(shape=(2,3), requires_grad=True)
         self.f.register(self.parent)
 

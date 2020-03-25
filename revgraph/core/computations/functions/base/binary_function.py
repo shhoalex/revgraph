@@ -11,14 +11,11 @@ class BinaryFunction(Function, ABC):
     def __init__(self,
                  a: Computation,
                  b: Computation,
-                 shape: Tuple[int, ...] = None,
-                 requires_grad: bool = None):
-        requires_grad = (a.requires_grad or b.requires_grad) if requires_grad is None else requires_grad
+                 shape: Tuple[int, ...] = None):
         super(BinaryFunction, self).__init__(args=[a,b],
-                                             shape=shape,
-                                             requires_grad=requires_grad)
-        self.a = a
-        self.b = b
+                                             shape=shape)
+        self.a = self.args[0]
+        self.b = self.args[1]
         self.a_res = None
         self.b_res = None
 
