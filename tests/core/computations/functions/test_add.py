@@ -43,6 +43,42 @@ class AddTestCase(unittest.TestCase):
         op.accumulate(op, gradient)
         actual1 = self.a.gradient
         expected2 = np.full((1,3), 3)
-        actual2 = self.b.gradient
+        actual2 = self.c.gradient
         self.assertTrue((gradient == actual1).all())
         self.assertTrue((expected2 == actual2).all())
+
+    def test_adding_matrix_with_different_number_of_cols(self):
+        # Forward
+        op = Add(self.a, self.d)
+        op.register(op)
+        op.new_context()
+        expected = np.array([[2,3,7], [5,6,7]])
+        actual = op.forward()
+        self.assertTrue((expected == actual).all())
+        # Backward
+        gradient = np.ones((2,3))
+        op.accumulate(op, gradient)
+        expected1 = gradient
+        actual1 = self.a.gradient
+        expected2 = np.full((2,1), 3)
+        actual2 = self.d.gradient
+        self.assertTrue((expected1 == actual1).all())
+        self.assertTrue((expected2 == actual2).all())
+
+    def test_adding_matrix_with_scalar(self):
+        # Forward
+        op = Add(self.a, self.e)
+        op.register(op)
+        op.new_context()
+        expected = np.array([[2,3,8], [5,6,7]])
+        actual = op.forward()
+        self.assertTrue((expected == actual).all())
+        # Backward
+        gradient = np.ones((2,3))
+        op.accumulate(op, gradient)
+        expected1 = gradient
+        actual1 = self.a.gradient
+        expected2 = np.array(6)
+        actual2 = op.b.gradient
+        self.assertEqual((expected1 == actual1).all())
+        self.assertEqual((expected2 == actual2).all())
