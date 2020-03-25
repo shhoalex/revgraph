@@ -42,7 +42,7 @@ class AddTestCase(unittest.TestCase):
         gradient = np.ones((2,3))
         op.accumulate(op, gradient)
         actual1 = self.a.gradient
-        expected2 = np.full((1,3), 3)
+        expected2 = np.full((1,3), 2)
         actual2 = self.c.gradient
         self.assertTrue((gradient == actual1).all())
         self.assertTrue((expected2 == actual2).all())
