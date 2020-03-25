@@ -48,7 +48,7 @@ class BinaryFunctionTestCase(unittest.TestCase):
 
     def test_correct_gradient_propagated_wrt_second_arg(self):
         gradient = np.ones((2,2))
-        expected = np.full((2,2), 4)
+        expected = np.full((2,2), 2)
         self.f.accumulate(self.f, gradient)
         actual = self.b.gradient
         self.assertTrue((expected == actual).all())
