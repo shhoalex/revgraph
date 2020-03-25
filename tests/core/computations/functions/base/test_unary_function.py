@@ -29,7 +29,7 @@ class UnaryFunctionTestCase(unittest.TestCase):
 
     def test_correct_gradient_propagated(self):
         gradient = np.ones((2,2))
-        expected = np.full((2,2), 4)
+        expected = np.full((2,2), 2)
         self.double.accumulate(self.double, gradient)
         actual = self.x.gradient
         self.assertTrue((expected == actual).all())
