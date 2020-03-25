@@ -28,14 +28,13 @@ class ComputationGradientTestCase(unittest.TestCase):
     def test_gradient_successfully_created(self):
         self.c.accumulate(self.a, np.ones((3,4)))
         self.assertEqual(self.c.shape, (3,4))
-        self.assertEqual(self.c.gradient.all(), np.ones((3,4)).all())
+        self.assertTrue((self.c.gradient == np.ones((3,4))).all())
 
     def test_gradient_successfully_accumulated(self):
         self.c.accumulate(self.a, np.ones((3,4)))
         self.c.accumulate(self.b, np.ones((3,4)))
-        result = np.array((3,4))
-        result.fill(2)
-        self.assertEqual(self.c.gradient.all(), result.all())
+        result = np.full((3,4), 2)
+        self.assertTrue((self.c.gradient == result).all())
 
     def test_gradient_rejected_for_repeated_parent_node(self):
         self.c.accumulate(self.a, np.ones((3,4)))
@@ -78,51 +77,51 @@ class ComputationUnbroadcastingTest(unittest.TestCase):
         m = np.ones((1,5))
         result = self.a.unbroadcast(m)
         self.assertEqual(result.shape, (1,5))
-        self.assertEqual(result.all(), np.array([[1,1,1,1,1]]).all())
+        self.assertTrue((result == np.array([[1,1,1,1,1]])).all())
 
         m = np.ones((5,1))
         result = self.b.unbroadcast(m)
         self.assertEqual(result.shape, (5,1))
-        self.assertEqual(result.all(), np.array([[1, 1, 1, 1, 1]]).T.all())
+        self.assertTrue((result == np.array([[1, 1, 1, 1, 1]]).T).all())
 
     def test_unbroadcast_with_different_row(self):
         m = np.ones((2,5))
         result = self.a.unbroadcast(m)
         self.assertEqual(result.shape, (1,5))
-        self.assertEqual(result.all(), np.array([[2,2,2,2,2]]).all())
+        self.assertTrue((result == np.array([[2,2,2,2,2]])).all())
 
         m = np.ones((10,5))
         result = self.a.unbroadcast(m)
         self.assertEqual(result.shape, (1,5))
-        self.assertEqual(result.all(), np.array([[10,10,10,10,10]]).all())
+        self.assertTrue((result == np.array([[10,10,10,10,10]])).all())
 
         m = np.ones((1,1))
         result = self.b.unbroadcast(m)
         self.assertEqual(result.shape, (5,1))
-        self.assertEqual(result.all(), np.array([[1, 1, 1, 1, 1]]).T.all())
+        self.assertTrue((result == np.array([[1, 1, 1, 1, 1]]).T).all())
 
     def test_unbroadcast_with_different_col(self):
         m = np.ones((1,1))
         result = self.a.unbroadcast(m)
         self.assertEqual(result.shape, (1,5))
-        self.assertEqual(result.all(), np.array([[1,1,1,1,1]]).all())
+        self.assertTrue((result == np.array([[1,1,1,1,1]])).all())
 
         m = np.ones((5,5))
         result = self.b.unbroadcast(m)
         self.assertEqual(result.shape, (5,1))
-        self.assertEqual(result.all(), np.array([[5,5,5,5,5]]).T.all())
+        self.assertTrue((result == np.array([[5,5,5,5,5]]).T).all())
 
     def test_unbroadcast_with_extra_dimension(self):
         m = np.ones((5,))
         result = self.a.unbroadcast(m)
         self.assertEqual(result.shape, (1,5))
-        self.assertEqual(result.all(), np.array([[1,1,1,1,1]]).all())
+        self.assertTrue((result == np.array([[1,1,1,1,1]])).all())
 
     def test_unbroadcast_with_different_col_and_row(self):
         m = np.ones((1,))
         result = self.c.unbroadcast(m)
         self.assertEqual(result.shape, (3,2))
-        self.assertEqual(result.all(), np.ones((3,2)).all())
+        self.assertTrue((result == np.ones((3,2))).all())
 
     def test_unbroadcast_with_invalid_shape(self):
         m = np.ones((3,3))

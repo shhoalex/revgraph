@@ -17,14 +17,14 @@ class RunnerTestCase(unittest.TestCase):
     def test_correct_return_value(self):
         runner = Runner(node=self.x)
         actual = runner.run()
-        self.assertEqual(self.expected.all(), actual.all())
+        self.assertTrue((self.expected == actual).all())
 
     def test_substitute_placeholder_by_reference(self):
         runner = Runner(node=self.p)
         actual = runner.run({self.p: self.x})
-        self.assertEqual(self.expected.all(), actual.all())
+        self.assertTrue((self.expected == actual).all())
 
     def test_substitute_placeholder_by_name(self):
         runner = Runner(node=self.p)
         actual = runner.run({'p': self.x})
-        self.assertEqual(self.expected.all(), actual.all())
+        self.assertEqual((self.expected == actual).all())

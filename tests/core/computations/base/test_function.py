@@ -33,7 +33,7 @@ class FunctionTestCase(unittest.TestCase):
         self.assertFalse(self.f.context_completed())
         self.f.accumulate(self.parent, np.ones((2,3)))
         self.assertTrue(self.f.context_completed())
-        self.assertEqual(np.ones((2,3)).all(), self.a.gradient.all())
+        self.assertTrue((np.ones((2,3)) == self.a.gradient).all())
 
     def test_function_propagates_gradient_after_completion(self):
         # Register twice
@@ -52,5 +52,5 @@ class FunctionTestCase(unittest.TestCase):
         self.f.accumulate(self.parent, x)
         self.assertTrue(self.f.context_completed())
         self.assertTrue(self.a.context_completed())
-        self.assertEqual((x+1).all(), self.f.gradient.all())
-        self.assertEqual((x+1).all(), self.a.gradient.all())
+        self.assertTrue(((x+1) == self.f.gradient).all())
+        self.assertTrue(((x+1) == self.a.gradient).all())

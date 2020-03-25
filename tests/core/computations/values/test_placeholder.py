@@ -22,23 +22,23 @@ class PlaceholderTestCase(unittest.TestCase):
     def test_default_is_used(self):
         expected = np.array([[0,1],
                              [1,0],
-                             [1,1]]).all()
+                             [1,1]])
         self.p.feed()
-        self.assertEqual(expected, self.p.data.all())
+        self.assertTrue((expected == self.p.data).all())
 
     def test_value_is_used(self):
         expected = np.array([[1,1],
                              [1,1],
                              [1,1]])
         self.p.feed(expected)
-        self.assertEqual(expected.all(), self.p.data.all())
+        self.assertTrue((expected == self.p.data).all())
 
     def test_placeholder_restored_after_clear_value(self):
         expected = np.array([[1,1],
                              [1,1],
                              [1,1]])
         self.q.feed(expected)
-        self.assertEqual(expected.all(), self.q.data.all())
+        self.assertTrue((expected == self.q.data).all())
         self.assertEqual((3,2), self.q.shape)
         self.assertFalse(self.q.requires_grad)
 

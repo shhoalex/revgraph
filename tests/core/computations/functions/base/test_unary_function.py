@@ -25,11 +25,11 @@ class UnaryFunctionTestCase(unittest.TestCase):
 
     def test_correct_value_forwarded(self):
         expected = np.array([[2,4], [4,6]])
-        self.assertEqual(expected.all(), self.double.forward().all())
+        self.assertTrue((expected == self.double.forward()).all())
 
     def test_correct_gradient_propagated(self):
         gradient = np.ones((2,2))
         expected = np.full((2,2), 4)
         self.double.accumulate(self.double, gradient)
         actual = self.x.gradient
-        self.assertEqual(expected.all(), actual.all())
+        self.assertTrue((expected == actual).all())

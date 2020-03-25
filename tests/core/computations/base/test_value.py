@@ -45,5 +45,5 @@ class ValueTestCase(unittest.TestCase):
         a = Value([[1,2,3],
                    [4,5,6]], shape=(2,3))
         expected = np.array([[1,2,3],
-                             [4,5,6]]).all()
-        self.assertEqual(expected, a.forward().all())
+                             [4,5,6]])
+        self.assertTrue((expected == a.forward()).all())
