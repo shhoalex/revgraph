@@ -27,4 +27,4 @@ class RunnerTestCase(unittest.TestCase):
     def test_substitute_placeholder_by_name(self):
         runner = Runner(node=self.p)
         actual = runner.run({'p': self.x})
-        self.assertEqual((self.expected == actual).all())
+        self.assertTrue((self.expected == actual).all())
