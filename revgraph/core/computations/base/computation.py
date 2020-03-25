@@ -33,11 +33,13 @@ class Computation(ABC):
             self.shape = gradient.shape
             self.gradient = gradient
         elif self.gradient is None:
-            self.shape = gradient.shape
-            self.gradient = gradient
+            assert self.shape is not None
+            self.gradient = self.unbroadcast(gradient)
         else:
-            assert gradient.shape == self.gradient.shape
-            self.gradient += gradient
+            if gradient.shape == self.gradient.shape:
+                self.gradient += gradient
+            else:
+                self.gradient += self.unbroadcast(gradient)
 
     def register(self, reference: 'Computation'):
         # Add a permanent computational node (independent of context)
