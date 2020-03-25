@@ -49,6 +49,8 @@ class Computation(ABC):
                     matrix: np.ndarray,
                     shape: Optional[Tuple[int, ...]] = None) -> np.ndarray:
         shape = shape if shape else self.shape
+        if shape is ():
+            return matrix.sum()
         while matrix.ndim < len(shape):
             matrix = np.expand_dims(matrix,0)
 
