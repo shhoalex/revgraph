@@ -110,7 +110,7 @@ class SubTestCase(unittest.TestCase):
         op = Sub(Sub(self.a, self.a), Sub(self.a, self.a))
         op.register(op)
         op.new_context()
-        expected = np.zeros((0,0))
+        expected = np.zeros((2,3))
         actual = op.forward()
         self.assertTrue((expected == actual).all())
         # Backward
