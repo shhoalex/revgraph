@@ -1,13 +1,13 @@
 import numpy as np
 
-from .base.binary_function import BinaryFunction
+from revgraph.core.computations.functions.base.binary_function import BinaryFunction
 
 
-class FloorDiv(BinaryFunction):
+class TrueDiv(BinaryFunction):
     def apply(self,
               a: np.ndarray,
               b: np.ndarray) -> np.ndarray:
-        return a//b
+        return a/b
 
     def gradient_wrt_a(self,
                        gradient: np.ndarray,

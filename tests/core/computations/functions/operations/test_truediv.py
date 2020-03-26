@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.computations.values.variable import Variable
-from revgraph.core.computations.functions.truediv import TrueDiv
+from revgraph.core.computations.functions.operations.truediv import TrueDiv
 
 
 class TrueDivTestCase(unittest.TestCase):

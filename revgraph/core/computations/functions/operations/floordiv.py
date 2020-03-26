@@ -1,22 +1,22 @@
 import numpy as np
 
-from .base.binary_function import BinaryFunction
+from revgraph.core.computations.functions.base.binary_function import BinaryFunction
 
 
-class Mul(BinaryFunction):
+class FloorDiv(BinaryFunction):
     def apply(self,
               a: np.ndarray,
               b: np.ndarray) -> np.ndarray:
-        return a*b
+        return a//b
 
     def gradient_wrt_a(self,
                        gradient: np.ndarray,
                        a: np.ndarray,
                        b: np.ndarray) -> np.ndarray:
-        return gradient*b
+        return gradient/b
 
     def gradient_wrt_b(self,
                        gradient: np.ndarray,
                        a: np.ndarray,
                        b: np.ndarray) -> np.ndarray:
-        return gradient*a
+        return -gradient*a / b**2

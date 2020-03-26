@@ -1,6 +1,6 @@
 import numpy as np
 
-from .base.unary_function import UnaryFunction
+from revgraph.core.computations.functions.base.unary_function import UnaryFunction
 
 
 class Neg(UnaryFunction):

@@ -1,6 +1,6 @@
 import numpy as np
 
-from .base.binary_function import BinaryFunction
+from revgraph.core.computations.functions.base.binary_function import BinaryFunction
 
 
 class Sub(BinaryFunction):
