@@ -5,7 +5,10 @@ from typing import Tuple, Optional
 import numpy as np
 
 
-class Computation(ABC):
+from .computation_magic import ComputationMagic
+
+
+class Computation(ABC, ComputationMagic):
     def __init__(self,
                  shape: Optional[Tuple[int, ...]] = None,
                  requires_grad: bool = False):
