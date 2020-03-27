@@ -22,7 +22,7 @@ class ComputationImpl(Computation):
 class FunctionTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.a = ComputationImpl(shape=(2,3), requires_grad=True)
-        self.f = FunctionImpl(self.a)
+        self.f = FunctionImpl(args=[self.a])
         self.parent = ComputationImpl(shape=(2,3), requires_grad=True)
         self.f.register(self.parent)
 
@@ -52,3 +52,12 @@ class FunctionTestCase(unittest.TestCase):
         self.assertTrue(self.a.context_completed())
         self.assertTrue(((x+1) == self.f.gradient).all())
         self.assertTrue(((x+1) == self.a.gradient).all())
+
+
+class FunctionKwargTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        self.a = ComputationImpl(shape=(2, 3), requires_grad=True)
+        self.f = FunctionImpl(args=[self.a], kwargs={'sum': 3})
+
+    def test_kwarg_exists(self):
+        self.assertEqual(self.f.kwargs['sum'], 3)
