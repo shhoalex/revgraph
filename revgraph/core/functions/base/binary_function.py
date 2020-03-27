@@ -10,10 +10,8 @@ from revgraph.core.base.function import Function
 class BinaryFunction(Function, ABC):
     def __init__(self,
                  a: Computation,
-                 b: Computation,
-                 shape: Tuple[int, ...] = None):
-        super(BinaryFunction, self).__init__(args=[a,b],
-                                             shape=shape)
+                 b: Computation):
+        super(BinaryFunction, self).__init__(args=[a,b])
         self.a = self.args[0]
         self.b = self.args[1]
         self.a_res = None
