@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Union
+from typing import Union, List, Dict, Any
 
 import numpy as np
 
@@ -9,7 +9,10 @@ from .value import Value
 
 class Function(Computation, ABC):
     def __init__(self,
-                 *args: Union[Computation, list, int, float]):
+                 args: List[Union[Computation, list, int, float]] = None,
+                 kwargs: Dict[str, Any] = None):
+        args = [] if args is None else args
+        kwargs = {} if kwargs is None else kwargs
         self.args = []
         requires_grad = False
         for arg in args:
@@ -19,6 +22,7 @@ class Function(Computation, ABC):
                 arg.register(self)
                 requires_grad = True
             self.args.append(arg)
+        self.kwargs = kwargs
         super(Function, self).__init__(requires_grad=requires_grad)
 
     def accumulate(self, reference: Computation, gradient: np.ndarray):

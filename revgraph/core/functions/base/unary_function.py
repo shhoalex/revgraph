@@ -10,7 +10,7 @@ from revgraph.core.base.function import Function
 class UnaryFunction(Function, ABC):
     def __init__(self,
                  a: Union[Computation, list, int, float]):
-        super(UnaryFunction, self).__init__(a)
+        super(UnaryFunction, self).__init__(args=[a])
         self.a = self.args[0]
         self.a_res = None
 
