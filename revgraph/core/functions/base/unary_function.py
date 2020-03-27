@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Tuple
+from typing import Union
 
 import numpy as np
 
@@ -9,7 +9,7 @@ from revgraph.core.base.function import Function
 
 class UnaryFunction(Function, ABC):
     def __init__(self,
-                 a: Computation):
+                 a: Union[Computation, list, int, float]):
         super(UnaryFunction, self).__init__(a)
         self.a = self.args[0]
         self.a_res = None

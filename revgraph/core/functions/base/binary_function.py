@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Tuple
+from typing import Union
 
 import numpy as np
 
@@ -9,8 +9,8 @@ from revgraph.core.base.function import Function
 
 class BinaryFunction(Function, ABC):
     def __init__(self,
-                 a: Computation,
-                 b: Computation):
+                 a: Union[Computation, list, int, float],
+                 b: Union[Computation, list, int, float]):
         super(BinaryFunction, self).__init__(a,b)
         self.a = self.args[0]
         self.b = self.args[1]
