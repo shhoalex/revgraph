@@ -9,7 +9,7 @@ from .value import Value
 
 class Function(Computation, ABC):
     def __init__(self,
-                 args: Union[List[Computation], list, int, float]):
+                 *args: Union[Computation, list, int, float]):
         self.args = []
         requires_grad = False
         for arg in args:

@@ -22,7 +22,7 @@ class ComputationImpl(Computation):
 class FunctionTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.a = ComputationImpl(shape=(2,3), requires_grad=True)
-        self.f = FunctionImpl(args=[self.a])
+        self.f = FunctionImpl(self.a)
         self.parent = ComputationImpl(shape=(2,3), requires_grad=True)
         self.f.register(self.parent)
 

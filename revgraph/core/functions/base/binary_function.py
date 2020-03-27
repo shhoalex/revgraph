@@ -11,7 +11,7 @@ class BinaryFunction(Function, ABC):
     def __init__(self,
                  a: Computation,
                  b: Computation):
-        super(BinaryFunction, self).__init__(args=[a,b])
+        super(BinaryFunction, self).__init__(a,b)
         self.a = self.args[0]
         self.b = self.args[1]
         self.a_res = None
