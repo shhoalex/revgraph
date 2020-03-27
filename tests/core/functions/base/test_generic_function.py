@@ -24,11 +24,29 @@ class GenericFunctionImpl(GenericFunction):
         return gradient + kwargs.get('d')
 
 
+class GenericFunctionImpl2(GenericFunction):
+    def apply(self,
+              *args: 'np.ndarray',
+              **kwargs: 'Any') -> 'np.ndarray':
+        a,b = args
+        d = kwargs.pop('d')
+        return a+b+d
+
+    @gradient_wrt_arg(0)
+    def da(self, gradient, *args, **kwargs):
+        return gradient + 2
+
+    @gradient_wrt_arg(1)
+    def db(self, gradient, *args, **kwargs):
+        return gradient + 10
+
+
 class GenericFunctionTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.a = Variable(3)
         self.b = Variable(2)
         self.op = GenericFunctionImpl(self.a, self.b, d=1)
+        self.op2 = GenericFunctionImpl2(self.a, self.b, d=1)
 
     def test_forward(self):
         result = self.op.forward()
@@ -49,5 +67,27 @@ class GenericFunctionTestCase(unittest.TestCase):
         self.op.new_context()
         self.op.accumulate(self.op, 1)
         expected = np.array(2)
+        actual = self.b.gradient
+        self.assertTrue((expected == actual).all())
+
+    def test_multiple_generic_function_impl(self):
+        self.op.forward()
+        self.op.register(self.op)
+        self.op2.forward()
+        self.op2.register(self.op2)
+        self.op.new_context()
+        self.op2.new_context()
+        self.op.accumulate(self.op, 1)
+        expected = np.array(3)
+        actual = self.a.gradient
+        self.assertTrue((expected == actual).all())
+        expected = np.array(2)
+        actual = self.b.gradient
+        self.assertTrue((expected == actual).all())
+        self.op2.accumulate(self.op2, 1)
+        expected = np.array(6)
+        actual = self.a.gradient
+        self.assertTrue((expected == actual).all())
+        expected = np.array(13)
         actual = self.b.gradient
         self.assertTrue((expected == actual).all())
