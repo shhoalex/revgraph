@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Union, Any, Dict, Callable
+from typing import Union, Any, Callable
 from inspect import getmembers
 
 import numpy as np
@@ -37,7 +37,6 @@ class GenericFunction(Function, ABC):
         for _,m in getmembers(self):
             if hasattr(m, 'gradient_wrt'):
                 self.gradient_wrt_arg[m.gradient_wrt] = m
-        self.gradient_wrt_arg_initialized = True
 
     def forward(self) -> np.ndarray:
         self.results = [arg.forward() for arg in self.args]
