@@ -1,6 +1,3 @@
-# computation_magic.py
-
-
 class ComputationMagic(object):
     def __add__(self, other):
         from revgraph.core.computations.functions.operations.add import Add
