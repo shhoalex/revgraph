@@ -70,3 +70,7 @@ class ComputationMagic(object):
     def __call__(self, feed_dict=None, *args, **kwargs):
         from revgraph.core.runner import Runner
         return Runner(node=self).run(feed_dict)
+
+    def sum(self, axis=None):
+        from revgraph.core.functions.math.sum import Sum
+        return Sum(self, axis=axis)
