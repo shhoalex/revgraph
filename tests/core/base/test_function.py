@@ -53,6 +53,15 @@ class FunctionTestCase(unittest.TestCase):
         self.assertTrue(((x+1) == self.f.gradient).all())
         self.assertTrue(((x+1) == self.a.gradient).all())
 
+    def test_gradient_cleared(self):
+        self.f.new_context()
+        self.f.accumulate(self.parent, np.ones((2,3)))
+        self.assertTrue((np.ones((2,3)) == self.a.gradient).all())
+        self.assertTrue((np.ones((2,3)) == self.f.gradient).all())
+        self.f.clear_gradient()
+        self.assertIsNone(self.f.gradient)
+        self.assertIsNone(self.a.gradient)
+
 
 class FunctionKwargTestCase(unittest.TestCase):
     def setUp(self) -> None:

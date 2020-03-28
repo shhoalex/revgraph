@@ -78,3 +78,6 @@ class Computation(ABC, ComputationMagic):
     @abstractmethod
     def forward(self):
         pass
+
+    def clear_gradient(self):
+        self.gradient = None

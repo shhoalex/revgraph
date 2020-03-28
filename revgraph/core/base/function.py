@@ -38,3 +38,8 @@ class Function(Computation, ABC):
     @abstractmethod
     def backward(self) -> None:
         pass
+
+    def clear_gradient(self):
+        self.gradient = None
+        for arg in self.args:
+            arg.clear_gradient()
