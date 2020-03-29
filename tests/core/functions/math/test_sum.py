@@ -26,7 +26,7 @@ class SumTestCase(unittest.TestCase):
         self.assertTrue((expected == actual).all())
 
     def test_sum_across_axis_1(self):
-        op = Sum(self.a, axis=1)
+        op = Sum(self.a, 1)
         op.register(op)
         op.new_context()
         expected = np.array([1,1,2,6])
