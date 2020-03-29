@@ -76,7 +76,7 @@ class Computation(ABC, ComputationMagic):
         return matrix
 
     @abstractmethod
-    def forward(self):
+    def forward(self, *args, **kwargs):
         pass
 
     def clear_gradient(self):

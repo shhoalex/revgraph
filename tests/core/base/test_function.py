@@ -7,10 +7,10 @@ from revgraph.core.base.computation import Computation
 
 
 class FunctionImpl(Function):
-    def forward(self):
+    def forward(self, *args, **kwargs):
         return self.args[0]
 
-    def backward(self):
+    def backward(self, *args, **kwargs):
         self.args[0].accumulate(self, self.gradient)
 
 

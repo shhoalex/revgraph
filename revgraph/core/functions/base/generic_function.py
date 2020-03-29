@@ -38,12 +38,12 @@ class GenericFunction(Function, ABC):
             if hasattr(m, 'gradient_wrt'):
                 self.gradient_wrt_arg[m.gradient_wrt] = m
 
-    def forward(self) -> np.ndarray:
+    def forward(self, *args, **kwargs) -> np.ndarray:
         self.results = [arg.forward() for arg in self.args]
         self.output = self.apply(*self.results, **self.kwargs)
         return self.output
 
-    def backward(self) -> None:
+    def backward(self, *args, **kwargs) -> None:
         for i,arg in enumerate(self.args):
             if arg.requires_grad:
                 g_arg = self.gradient_wrt_arg[i](

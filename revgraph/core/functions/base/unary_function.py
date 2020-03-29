@@ -14,12 +14,12 @@ class UnaryFunction(Function, ABC):
         self.a = self.args[0]
         self.a_res = None
 
-    def forward(self) -> np.ndarray:
+    def forward(self, *args, **kwargs) -> np.ndarray:
         self.a_res = self.a.forward()
         self.output = self.apply(a=self.a_res)
         return self.output
 
-    def backward(self) -> None:
+    def backward(self, *args, **kwargs) -> None:
         if self.a.requires_grad:
             ga = self.gradient_wrt_a(gradient=self.gradient,
                                      a=self.a_res)

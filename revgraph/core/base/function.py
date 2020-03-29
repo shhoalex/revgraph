@@ -29,7 +29,7 @@ class Function(Computation, ABC):
     def accumulate(self, reference: Computation, gradient: np.ndarray):
         super(Function, self).accumulate(reference, gradient)
         if self.context_completed():
-            self.backward()
+            self.backward(*self.args, **self.kwargs)
 
     def new_context(self):
         super(Function, self).new_context()
@@ -37,7 +37,7 @@ class Function(Computation, ABC):
             arg.new_context()
 
     @abstractmethod
-    def backward(self) -> None:
+    def backward(self, *args, **kwargs) -> None:
         pass
 
     def clear_gradient(self):
