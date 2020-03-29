@@ -1,5 +1,4 @@
 from typing import Dict, Union, Any
-from collections import deque
 
 import numpy as np
 
