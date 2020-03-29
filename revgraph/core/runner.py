@@ -23,10 +23,10 @@ class Runner:
     @node.setter
     def node(self, node):
         self._node = node
-        stack = deque([self._node])
+        stack = [self._node]
         self.placeholders = {}
         while stack:
-            head = stack.popleft()
+            head = stack.pop()
             if isinstance(head, Placeholder):
                 self.placeholders[head] = head
                 self.placeholders[head.name] = head
