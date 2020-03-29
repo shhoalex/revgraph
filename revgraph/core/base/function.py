@@ -14,6 +14,7 @@ class Function(Computation, ABC):
         args = [] if args is None else args
         kwargs = {} if kwargs is None else kwargs
         self.args = []
+        self.output = None
         requires_grad = False
         for arg in args:
             if not isinstance(arg, Computation):

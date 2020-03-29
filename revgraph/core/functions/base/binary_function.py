@@ -20,8 +20,9 @@ class BinaryFunction(Function, ABC):
     def forward(self) -> np.ndarray:
         self.a_res = self.a.forward()
         self.b_res = self.b.forward()
-        return self.apply(a=self.a_res,
-                          b=self.b_res)
+        self.output = self.apply(a=self.a_res,
+                                 b=self.b_res)
+        return self.output
 
     def backward(self) -> None:
         if self.a.requires_grad:
