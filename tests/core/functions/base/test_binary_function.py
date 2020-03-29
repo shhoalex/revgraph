@@ -52,3 +52,7 @@ class BinaryFunctionTestCase(unittest.TestCase):
         self.f.accumulate(self.f, gradient)
         actual = self.b.gradient
         self.assertTrue((expected == actual).all())
+
+    def test_function_caches_output(self):
+        expected = self.f.forward()
+        self.assertTrue((expected == self.f.output).all())

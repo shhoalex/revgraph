@@ -33,3 +33,7 @@ class UnaryFunctionTestCase(unittest.TestCase):
         self.double.accumulate(self.double, gradient)
         actual = self.x.gradient
         self.assertTrue((expected == actual).all())
+
+    def test_function_caches_output(self):
+        expected = self.double.forward()
+        self.assertTrue((expected == self.double.output).all())

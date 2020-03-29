@@ -91,3 +91,7 @@ class GenericFunctionTestCase(unittest.TestCase):
         expected = np.array(13)
         actual = self.b.gradient
         self.assertTrue((expected == actual).all())
+
+    def test_function_caches_output(self):
+        expected = self.op.forward()
+        self.assertTrue((expected == self.op.output).all())
