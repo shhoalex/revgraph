@@ -74,3 +74,7 @@ class ComputationMagic(object):
     def sum(self, axis=None):
         from revgraph.core.functions.math.sum import Sum
         return Sum(self, axis=axis)
+
+    def __len__(self):
+        from revgraph.core.functions.miscellaneous import len
+        return len(self)
