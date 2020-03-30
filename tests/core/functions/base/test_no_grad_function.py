@@ -27,10 +27,10 @@ class NoGradFunctionTestCase(unittest.TestCase):
         self.assertEqual(x.gradient, 1)
 
     def test_raises_exception_when_invalid_argument_is_propagated(self):
-        with self.assertRaises(ValueError):
-            two()
-        with self.assertRaises(ValueError):
-            two(1,2)
+        with self.assertRaises(TypeError):
+            two()()
+        with self.assertRaises(TypeError):
+            two(1,2)()
 
     def test_output_is_valid_when_using_kwarg(self):
         node = two(x=3)
