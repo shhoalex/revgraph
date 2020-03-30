@@ -42,6 +42,16 @@ from revgraph.core.functions.math.arctan import ArcTan as arctan
 from revgraph.core.functions.math.arctanh import ArcTanh as arctanh
 
 
+# Function decorators
+
+from revgraph.core.functions.decorators import no_grad
+
+
+# No grad functions
+
+from revgraph.core.functions.miscellaneous import *
+
+
 # Export runner
 
 from revgraph.core.runner import Runner as runner
