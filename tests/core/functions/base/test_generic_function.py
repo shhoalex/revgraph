@@ -7,11 +7,7 @@ from revgraph.core.functions.base.generic_function import GenericFunction, gradi
 
 
 class GenericFunctionImpl(GenericFunction):
-    def apply(self,
-              *args: 'np.ndarray',
-              **kwargs: 'Any') -> 'np.ndarray':
-        a,b = args
-        d = kwargs.pop('d')
+    def apply(self, a, b, d) -> 'np.ndarray':
         return a+b+d
 
     @gradient_wrt_arg(0)
@@ -25,11 +21,7 @@ class GenericFunctionImpl(GenericFunction):
 
 
 class GenericFunctionImpl2(GenericFunction):
-    def apply(self,
-              *args: 'np.ndarray',
-              **kwargs: 'Any') -> 'np.ndarray':
-        a,b = args
-        d = kwargs.pop('d')
+    def apply(self, a, b, d) -> 'np.ndarray':
         return a+b+d
 
     @gradient_wrt_arg(0)
