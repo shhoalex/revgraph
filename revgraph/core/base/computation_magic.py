@@ -78,3 +78,38 @@ class ComputationMagic(object):
     def __len__(self):
         from revgraph.core.functions.miscellaneous import len
         return len(self)
+
+    def __gt__(self, other):
+        from revgraph.core.functions.miscellaneous import greater_than
+        return greater_than(self, other)
+
+    def __ge__(self, other):
+        from revgraph.core.functions.miscellaneous import greater_than_or_equal
+        return greater_than_or_equal(self, other)
+
+    def __lt__(self, other):
+        from revgraph.core.functions.miscellaneous import less_than
+        return less_than(self, other)
+
+    def __le__(self, other):
+        from revgraph.core.functions.miscellaneous import less_than_or_equal
+        return less_than_or_equal(self, other)
+
+    def __eq__(self, other):
+        from revgraph.core.functions.miscellaneous import equal
+        return equal(self, other)
+
+    def __hash__(self):
+        return id(self)
+
+    def __ne__(self, other):
+        from revgraph.core.functions.miscellaneous import not_equal
+        return not_equal(self, other)
+
+    def all(self):
+        from revgraph.core.functions.miscellaneous import all
+        return all(self)
+
+    def any(self):
+        from revgraph.core.functions.miscellaneous import any
+        return any(self)
