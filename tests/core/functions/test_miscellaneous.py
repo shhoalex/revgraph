@@ -1,5 +1,7 @@
 import unittest
 
+import numpy as np
+
 from revgraph.core.values.variable import Variable
 from revgraph.core.functions.miscellaneous import *
 
@@ -21,3 +23,60 @@ class LenTestCase(unittest.TestCase):
         self.assertTrue((x.gradient == [[3,3,3],
                                         [3,3,3],
                                         [3,3,3]]).all())
+
+
+class ComparisonTestCase(unittest.TestCase):
+    def test_comparison_returns_boolean_matrix(self):
+        x = Variable([[1,2,3],
+                      [4,5,6],
+                      [7,8,9]])
+        y = x>=5
+        expected = np.array([[False]*3,
+                             [False] + [True]*2,
+                             [True]*3])
+        actual = y()
+        self.assertTrue((expected == actual).all())
+
+    def test_comparison_mix_with_gradient_operator(self):
+        x = Variable([[1,2,3],
+                      [4,5,6],
+                      [7,8,9]])
+        y = (x>5) * 2
+        expected = np.array([[0,0,0],
+                             [0,0,2],
+                             [2,2,2]])
+        actual = y()
+        self.assertTrue((expected == actual).all())
+
+    def test_correct_gradient_propagated(self):
+        x = Variable([[1,2],
+                      [3,4]])
+        y = (x>2) * x
+        expected = np.array([[0,0],
+                             [3,4]])
+        y.register(y)
+        actual = y()
+        self.assertTrue((expected == actual).all())
+        y.accumulate(y, np.ones_like(actual))
+        expected = np.array([[0,0], [1,1]])
+        actual = x.gradient
+        self.assertTrue((expected == actual).all())
+
+    def test_any(self):
+        x = Variable([[1,2,3],
+                      [4,5,6]])
+        y = (x>5).any()
+        self.assertTrue(y())
+
+        x = Variable([[1,2,3], [4,5,6]])
+        y = (x>6).any()
+        self.assertFalse(y())
+
+    def test_all(self):
+        x = Variable([[1,2,3]])
+        y = (x>0).all()
+        self.assertTrue(y())
+
+        x = Variable([[1,2,3]])
+        y = (x>1).all()
+        self.assertFalse(y())
