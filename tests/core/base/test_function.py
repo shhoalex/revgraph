@@ -15,6 +15,8 @@ class FunctionImpl(Function):
 
 
 class ComputationImpl(Computation):
+    dependencies = set()
+
     def forward(self):
         return
 

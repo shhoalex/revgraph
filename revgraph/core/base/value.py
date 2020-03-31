@@ -12,6 +12,7 @@ class Value(Computation):
                  requires_grad: bool = False):
         super(Value, self).__init__(shape, requires_grad)
         self.data = data
+        self.dependencies = {self}
 
     @property
     def data(self):
