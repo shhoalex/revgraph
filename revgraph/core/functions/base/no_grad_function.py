@@ -14,7 +14,7 @@ class NoGradFunction(GenericFunction, ABC):
             if not isinstance(arg, Computation):
                 arg = Value(np.array(arg), requires_grad=False)
             self.args.append(arg)
-        self.dependencies = set().union(*map(lambda n: n.dependencies, self.args))
+        self.dependencies = {self}.union(*map(lambda n: n.dependencies, self.args))
 
     def backward(self, *args, **kwargs):
         pass
