@@ -66,7 +66,7 @@ def clear_placeholders(placeholders: DefaultDict[Union[str, Computation], Comput
         if isinstance(node, Placeholder):
             node.clear_value()
 
-
+"""
 class Runner:
     def __init__(self, node: Computation):
         self.node = node
@@ -117,3 +117,4 @@ class Runner:
             for c in feed_dict.keys():
                 node = c if isinstance(c, Placeholder) else self.placeholders[c]
                 node.clear_value()
+"""

@@ -54,7 +54,6 @@ from revgraph.core.functions.miscellaneous import *
 
 # Export runner
 
-from revgraph.core.runner import Runner as runner
 from revgraph.core.runner import run
 
 
