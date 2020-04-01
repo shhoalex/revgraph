@@ -56,3 +56,17 @@ class BinaryFunctionTestCase(unittest.TestCase):
     def test_function_caches_output(self):
         expected = self.f.forward()
         self.assertTrue((expected == self.f.output).all())
+
+    def test_correct_dependencies(self):
+        a = Variable(0)
+        b = Variable(1)
+        c = a+b
+        d = Variable(2)
+        e = b+d
+        f = c+d
+        self.assertEqual({a}, a.dependencies)
+        self.assertEqual({b}, b.dependencies)
+        self.assertEqual({c,a,b}, c.dependencies)
+        self.assertEqual({d}, d.dependencies)
+        self.assertEqual({e,b,d}, e.dependencies)
+        self.assertEqual({f,c,d,a,b}, f.dependencies)

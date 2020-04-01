@@ -24,7 +24,7 @@ class Function(Computation, ABC):
                 requires_grad = True
             self.args.append(arg)
         self.kwargs = kwargs
-        self.dependencies = set().union(*map(lambda n: n.dependencies, self.args))
+        self.dependencies = {self}.union(*map(lambda n: n.dependencies, self.args))
         super(Function, self).__init__(requires_grad=requires_grad)
 
     def accumulate(self, reference: Computation, gradient: np.ndarray):

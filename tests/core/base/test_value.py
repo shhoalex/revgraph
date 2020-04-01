@@ -32,18 +32,14 @@ class ValueTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             a.data = data
 
-        b = Value(shape=(None,2,2))
-        data = [[1,2],[1,2]]
-        with self.assertRaises(ValueError):
-            a.data = data
-
-        c = Value(shape=(2,2,None))
-        with self.assertRaises(ValueError):
-            a.data = data
-
     def test_forward_correct_data(self):
         a = Value([[1,2,3],
                    [4,5,6]], shape=(2,3))
         expected = np.array([[1,2,3],
                              [4,5,6]])
         self.assertTrue((expected == a.forward()).all())
+
+    def test_dependencies_is_itself(self):
+        a = Value([[1,2,3],
+                   [4,5,6]], shape=(2,3))
+        self.assertEqual({a}, a.dependencies)
