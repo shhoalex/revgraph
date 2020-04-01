@@ -52,7 +52,7 @@ class MaxTestCase(unittest.TestCase):
         self.assertTrue((expected == actual).all())
         op.accumulate(op, np.ones_like(expected))
         expected = np.array([[0,0,1],
-                             [0,1,1],
+                             [0,0.5,0.5],
                              [0,1,0],
                              [0,1,0]])
         actual = self.a.gradient
@@ -100,7 +100,7 @@ class MaxTestCase(unittest.TestCase):
         self.assertTrue((expected == actual).all())
         op.accumulate(op, np.ones_like(expected))
         expected = np.array([[0,0,1],
-                             [0,1,1],
+                             [0,0.5,0.5],
                              [0,1,0],
                              [0,1,0]])
         actual = self.a.gradient
