@@ -9,9 +9,10 @@ from revgraph.core.functions.base.generic_function import GenericFunction, gradi
 class Sum(GenericFunction):
     def apply(self,
               xs: np.ndarray,
-              axis: Any = None) -> np.ndarray:
-        return xs.sum(axis=axis)
+              axis: Any = None,
+              keepdims: bool = False) -> np.ndarray:
+        return xs.sum(axis=axis, keepdims=keepdims)
 
     @gradient_wrt_arg(0)
-    def dx(self, gradient, xs, axis=None):
+    def dx(self, gradient, xs, axis=None, keepdims=False):
         return repeat_to_match_shape(gradient, xs.shape, axis)[0]
