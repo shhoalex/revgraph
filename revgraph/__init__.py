@@ -40,6 +40,8 @@ from revgraph.core.functions.math.tan import Tan as tan
 from revgraph.core.functions.math.tanh import Tanh as tanh
 from revgraph.core.functions.math.arctan import ArcTan as arctan
 from revgraph.core.functions.math.arctanh import ArcTanh as arctanh
+from revgraph.core.functions.math.max import Max as max
+from revgraph.core.functions.math.min import Min as min
 
 
 # Function decorators
