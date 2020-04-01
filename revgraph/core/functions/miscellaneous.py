@@ -44,3 +44,13 @@ def all(a, *args, **kwargs):
 @no_grad
 def any(a, *args, **kwargs):
     return a.any(*args, **kwargs)
+
+
+@no_grad
+def argmax(a, *args, **kwargs):
+    return a.argmax(*args, **kwargs)
+
+
+@no_grad
+def argmin(a, *args, **kwargs):
+    return a.argmin(*args, **kwargs)
