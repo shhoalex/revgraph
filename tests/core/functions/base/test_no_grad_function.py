@@ -35,3 +35,17 @@ class NoGradFunctionTestCase(unittest.TestCase):
     def test_output_is_valid_when_using_kwarg(self):
         node = two(x=3)
         self.assertEqual(node(), 6)
+
+    def test_correct_dependencies(self):
+        a = Variable([1,2,3])
+        b = two(a)
+        x = a+b
+        y = two(x)
+        z = Variable(3)
+        c = z+x
+        self.assertEqual({a}, a.dependencies)
+        self.assertEqual({b,a}, b.dependencies)
+        self.assertEqual({x,a,b}, x.dependencies)
+        self.assertEqual({y,x,a,b}, y.dependencies)
+        self.assertEqual({z}, z.dependencies)
+        self.assertEqual({c,z,x,a,b}, c.dependencies)

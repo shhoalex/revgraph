@@ -24,6 +24,18 @@ class LenTestCase(unittest.TestCase):
                                         [3,3,3],
                                         [3,3,3]]).all())
 
+    def test_correct_dependencies(self):
+        x = Variable([[1,2,3],
+                      [4,5,6],
+                      [7,8,9]])
+        b = len(x)
+        c = x*b
+        d = b+x
+        self.assertEqual({x}, x.dependencies)
+        self.assertEqual({b,x}, b.dependencies)
+        self.assertEqual({c,b,x}, c.dependencies)
+        self.assertEqual({d,b,x}, d.dependencies)
+
 
 class ComparisonTestCase(unittest.TestCase):
     def test_comparison_returns_boolean_matrix(self):
