@@ -35,7 +35,7 @@ def run(node: Computation,
     node.forward()
 
     # call tuple() for strict evaluation
-    result = tuple(map(lambda n: n.output if , results))
+    result = tuple(map(lambda n: n.data, results))
     clear_placeholders(placeholders)
     return result
 
