@@ -1,10 +1,7 @@
 import unittest
 
-import numpy as np
-
 from revgraph.core.values.variable import Variable
-from revgraph.core.values.placeholder import Placeholder
-from revgraph.core.runner import Runner
+from revgraph.core.runner import *
 
 
 class RunnerTestCase(unittest.TestCase):
@@ -28,3 +25,30 @@ class RunnerTestCase(unittest.TestCase):
         runner = Runner(node=self.p)
         actual = runner.run({'p': self.x})
         self.assertTrue((self.expected == actual).all())
+
+
+class RunTestCase(unittest.TestCase):
+    def test_ignore_invalid_nodes(self):
+        a = Variable(1)
+        b = Variable(2)
+        c = Variable(3)
+        d = a+b
+        e = b+c
+        f = d+e
+        expected = 3
+        [actual] = run(d)
+        self.assertTrue(expected, actual)
+
+    def test_substitute_placeholder_by_name(self):
+        x = Variable([[2,2], [2,2]])
+        p = Placeholder(shape=(2,2), name='p')
+        expected = x.data
+        [actual] = run(p, {'p': x})
+        self.assertTrue((expected == actual).all())
+
+    def test_substitute_placeholder_by_reference(self):
+        x = Variable([[2,2], [2,2]])
+        p = Placeholder(shape=(2,2), name='p')
+        expected = x.data
+        [actual] = run(p, {p: x})
+        self.assertTrue((expected == actual).all())
