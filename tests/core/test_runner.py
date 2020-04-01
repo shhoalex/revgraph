@@ -52,3 +52,12 @@ class RunTestCase(unittest.TestCase):
         expected = x.data
         [actual] = run(p, {p: x})
         self.assertTrue((expected == actual).all())
+
+    def test_valid_function_result(self):
+        a = Variable(1)
+        b = Variable(2)
+        c = a+b
+        expected = 3
+        [actual] = run(c)
+        self.assertIsNotNone(actual)
+        self.assertEqual(expected, actual)
