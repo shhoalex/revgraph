@@ -16,8 +16,8 @@ class UnaryFunction(Function, ABC):
 
     def forward(self, *args, **kwargs) -> np.ndarray:
         self.a_res = self.a.forward()
-        self.output = self.apply(a=self.a_res)
-        return self.output
+        self.data = self.apply(a=self.a_res)
+        return self.data
 
     def backward(self, *args, **kwargs) -> None:
         if self.a.requires_grad:

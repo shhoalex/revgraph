@@ -40,8 +40,8 @@ class GenericFunction(Function, ABC):
 
     def forward(self, *args, **kwargs) -> np.ndarray:
         self.results = [arg.forward() for arg in self.args]
-        self.output = self.apply(*self.results, **self.kwargs)
-        return self.output
+        self.data = self.apply(*self.results, **self.kwargs)
+        return self.data
 
     def backward(self, *args, **kwargs) -> None:
         for i,arg in enumerate(self.args):
