@@ -36,4 +36,4 @@ class UnaryFunctionTestCase(unittest.TestCase):
 
     def test_function_caches_output(self):
         expected = self.double.forward()
-        self.assertTrue((expected == self.double.output).all())
+        self.assertTrue((expected == self.double.data).all())

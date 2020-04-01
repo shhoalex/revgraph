@@ -7,10 +7,10 @@ class Gradient(GenericFunction):
     def forward(self):
         super().forward(self.args[0])
         self.backward(self.args[0])
-        return self.output
+        return self.data
 
     def backward(self, node):
-        node.accumulate(self, self.output)
+        node.accumulate(self, self.data)
 
     def apply(self, a):
         return np.ones_like(a)

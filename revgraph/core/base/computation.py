@@ -18,7 +18,6 @@ class Computation(ABC, ComputationMagic):
         self.references = defaultdict(lambda: 0)
         self.ctx = None
         self.ctx_counter = None
-        self.data = None
 
     def context_completed(self):
         return self.ctx_counter == 0

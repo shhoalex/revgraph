@@ -86,4 +86,4 @@ class GenericFunctionTestCase(unittest.TestCase):
 
     def test_function_caches_output(self):
         expected = self.op.forward()
-        self.assertTrue((expected == self.op.output).all())
+        self.assertTrue((expected == self.op.data).all())
