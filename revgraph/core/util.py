@@ -2,7 +2,7 @@ import numpy as np
 
 
 def repeat_to_match_shape(a, shape, axis):
-    if shape == ():
+    if shape == () or a.shape == shape:
         return a, 1
     axis = list(axis) if isinstance(axis, tuple) else axis
     new_shape = np.array(shape)
