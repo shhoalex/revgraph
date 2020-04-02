@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.values.variable import Variable
-from revgraph.core.functions.common.min import Min
+from revgraph.core.functions.operations.min import Min
 
 
 class MinTestCase(unittest.TestCase):

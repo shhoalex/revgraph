@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.values.variable import Variable
-from revgraph.core.functions.common.max import Max
+from revgraph.core.functions.operations.max import Max
 
 
 class MaxTestCase(unittest.TestCase):

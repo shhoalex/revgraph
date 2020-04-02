@@ -19,30 +19,10 @@ from revgraph.core.functions.operations.matmul import MatMul as matmul
 
 # Other important functions
 
-from revgraph.core.functions.common.square import Square as square
-from revgraph.core.functions.common.sqrt import Sqrt as sqrt
-
 
 # Other functions
 
-from revgraph.core.functions.common.sum import Sum as sum
-from revgraph.core.functions.common.exp import Exp as exp
-from revgraph.core.functions.common.log import Log as log
-from revgraph.core.functions.common.cos import Cos as cos
-from revgraph.core.functions.common.cosh import Cosh as cosh
-from revgraph.core.functions.common.arccos import ArcCos as arccos
-from revgraph.core.functions.common.arccosh import ArcCosh as arccosh
-from revgraph.core.functions.common.sin import Sin as sin
-from revgraph.core.functions.common.sinh import Sinh as sinh
-from revgraph.core.functions.common.arcsin import ArcSin as arcsin
-from revgraph.core.functions.common.arcsinh import ArcSinh as arcsinh
-from revgraph.core.functions.common.tan import Tan as tan
-from revgraph.core.functions.common.tanh import Tanh as tanh
-from revgraph.core.functions.common.arctan import ArcTan as arctan
-from revgraph.core.functions.common.arctanh import ArcTanh as arctanh
-from revgraph.core.functions.common.max import Max as max
-from revgraph.core.functions.common.min import Min as min
-
+from revgraph.core.functions.operations.arcsinh import ArcSinh as arcsinh
 
 # Function decorators
 
