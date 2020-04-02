@@ -1,6 +1,6 @@
 import unittest
 
-from revgraph.core.util import *
+from revgraph.core.functions.util import *
 
 
 class RepeatToMatchShapeTestCase(unittest.TestCase):

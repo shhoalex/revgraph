@@ -2,7 +2,7 @@ from typing import Any
 
 import numpy as np
 
-from revgraph.core.util import repeat_to_match_shape
+from revgraph.core.functions.util import repeat_to_match_shape
 from revgraph.core.functions.base.generic_function import GenericFunction, gradient_wrt_arg
 
 
