@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Union, List, Dict, Any
+from typing import Union, Iterable, Dict, Any
 
 import numpy as np
 
@@ -9,11 +9,12 @@ from .value import Value
 
 class Function(Computation, ABC):
     def __init__(self,
-                 args: List[Union[Computation, list, int, float]] = None,
+                 args: Iterable[Union[Computation, list, int, float]] = None,
                  kwargs: Dict[str, Any] = None):
         args = [] if args is None else args
         kwargs = {} if kwargs is None else kwargs
         self.args = []
+        self.data = None
         requires_grad = False
         for arg in args:
             if not isinstance(arg, Computation):
