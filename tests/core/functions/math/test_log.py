@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.values.variable import Variable
-from revgraph.core.functions.math.log import Log
+from revgraph.core.functions.common.log import Log
 
 
 class LogTestCase(unittest.TestCase):
