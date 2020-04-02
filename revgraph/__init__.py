@@ -61,4 +61,4 @@ from revgraph.core.base.function import Function as function_primitive
 from revgraph.core.functions.base.generic_function import GenericFunction as function
 from revgraph.core.functions.base.binary_function import BinaryFunction as binary_function
 from revgraph.core.functions.base.unary_function import UnaryFunction as unary_function
-from revgraph.core.functions.others.gradient import Gradient as gradient
+from revgraph.core.functions.operations.gradient import Gradient as gradient
