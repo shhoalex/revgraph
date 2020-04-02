@@ -25,6 +25,7 @@ from revgraph.core.functions.operations.min import Min as min
 from revgraph.core.functions.operations.mul import Mul as mul
 from revgraph.core.functions.operations.neg import Neg as neg
 from revgraph.core.functions.operations.pow import Pow as pow
+from revgraph.core.functions.operations.reshape import Reshape as reshape
 from revgraph.core.functions.operations.sin import Sin as sin
 from revgraph.core.functions.operations.sinh import Sinh as sinh
 from revgraph.core.functions.operations.sqrt import Sqrt as sqrt
