@@ -8,7 +8,6 @@ from revgraph.core.values.placeholder import Placeholder
 class PlaceholderTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.p = Placeholder(shape=(3,2),
-                             default=[[0,1],[1,0],[1,1]],
                              name='p')
         self.q = Placeholder(shape=(None,2),
                              name='q')
@@ -18,13 +17,6 @@ class PlaceholderTestCase(unittest.TestCase):
 
     def test_name_is_set(self):
         self.assertEqual(self.p.name, 'p')
-
-    def test_default_is_used(self):
-        expected = np.array([[0,1],
-                             [1,0],
-                             [1,1]])
-        self.p.feed()
-        self.assertTrue((expected == self.p.data).all())
 
     def test_value_is_used(self):
         expected = np.array([[1,1],

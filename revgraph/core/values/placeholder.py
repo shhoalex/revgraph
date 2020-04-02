@@ -7,12 +7,10 @@ from revgraph.core.base.value import Value
 
 class Placeholder(Value):
     def __init__(self,
-                 shape: Tuple[Optional[int], ...],
-                 default: Optional[Union[np.ndarray, list]] = None,
-                 name: Optional[str] = None):
+                 name: str,
+                 shape: Tuple[Optional[int], ...]):
         super(Placeholder, self).__init__(shape=shape)
         self.shape_constraint = shape
-        self.default = default
         self.name = name
 
     def valid_shape(self, data: np.ndarray):
@@ -28,14 +26,10 @@ class Placeholder(Value):
         self.data = None
 
     def feed(self,
-             data: Optional[Union[np.ndarray, list]] = None) -> Value:
-        if data is None and self.default is None:
-            raise ValueError('Value not found')
-        elif data is None:
-            data = np.array(self.default)
+             data: Union[np.ndarray, list, int, float]):
+        data = np.array(data)
         if not self.valid_shape(data):
             raise ValueError(f'Expected shape: {self.shape}, got {data.shape} instead')
         super(Placeholder, self).__init__(data=data,
                                           shape=data.shape,
                                           requires_grad=False)
-
