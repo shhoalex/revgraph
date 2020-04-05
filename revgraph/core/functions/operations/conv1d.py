@@ -3,14 +3,22 @@ import numpy as np
 from revgraph.core.functions.base.generic_function import GenericFunction, gradient_wrt_arg
 
 
-def convolve(a, b):
-    n_a, *_ = a.shape
-    n_b, *_ = b.shape
+def conv1d(a, b, stride=1):
+    n_a, in_col, in_channel = a.shape
+    n_b, in_channel_, out_channel = b.shape
+    assert in_channel == in_channel_, f'in_channel must be equal'
+    r = (in_col - n_b + 1) // stride
+    ans = np.zeros((n_a, r, out_channel))
+
+    for i in range(0, r, stride):
+        for f in range(in_channel):
+            ans[:, i, :] += a[:, i:i+n_b, f] @ b[:, f, :]
+    return ans
 
 
 class Conv1D(GenericFunction):
     def apply(self, a, b, stride=1, padding='VALID'):
-        return a
+        return conv1d(a,b,stride)
 
     @gradient_wrt_arg(0)
     def da(self, gradient, a, b, stride=1, padding='VALID'):
