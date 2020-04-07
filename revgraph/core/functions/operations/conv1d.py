@@ -3,7 +3,18 @@ import numpy as np
 from revgraph.core.functions.base.generic_function import GenericFunction, gradient_wrt_arg
 
 
-def conv1d(a, b, stride=1):
+def padded(a, padding='VALID'):
+    if padding is 'VALID':
+        return a
+    elif padding is 'SAME':
+        zero_pad = [[0] * a.shape[2]]
+        return np.array([np.concatenate((zero_pad, a_, zero_pad)) for a_ in a])
+    else:
+        raise ValueError(f'Invalid padding option: {padding}')
+
+
+def conv1d(a, b, stride=1, padding='VALID'):
+    a = padded(a, padding)
     n_a, in_col, in_channel = a.shape
     n_b, in_channel_, out_channel = b.shape
     assert in_channel == in_channel_, f'in_channel must be equal'
@@ -19,7 +30,7 @@ def conv1d(a, b, stride=1):
 
 class Conv1D(GenericFunction):
     def apply(self, a, b, stride=1, padding='VALID'):
-        return conv1d(a,b,stride)
+        return conv1d(a, b, stride, padding)
 
     @gradient_wrt_arg(0)
     def da(self, gradient, a, b, stride=1, padding='VALID'):
