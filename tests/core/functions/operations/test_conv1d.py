@@ -214,3 +214,55 @@ class Conv1DTestCase(unittest.TestCase):
         op.accumulate(op, gradient)
         actual = self.y.gradient
         self.assertTrue((expected == actual).all())
+
+    def test_previous_gradients_wrt_x_are_accounted(self):
+        a = Variable(np.arange(18).reshape(2,3,3))
+        op = a * Conv1D(self.x, self.y, padding='VALID', stride=1)
+        op.register(op)
+        op.new_context()
+        forward_result = op.forward()
+        expected = [[[0, 252, 546],
+                     [999, 1464, 1995],
+                     [2610, 3360, 4200]],
+                    [[6669, 8220, 9933],
+                     [10116, 12168, 14406],
+                     [14175, 16800, 19635]]]
+        self.assertTrue((expected == forward_result).all())
+        gradient = np.ones_like(forward_result.shape)
+        op.accumulate(op, gradient)
+        expected = [[[8, 17],
+                     [52, 97],
+                     [186, 294],
+                     [340, 439],
+                     [296, 359]],
+                    [[62, 152],
+                     [322, 529],
+                     [834, 1185],
+                     [934, 1195],
+                     [674, 818]]]
+        actual = self.x.gradient
+        self.assertTrue((expected == actual).all())
+
+    def test_previous_gradients_wrt_y_are_accounted(self):
+        a = Variable(np.arange(18).reshape(2,3,3))
+        op = a * Conv1D(self.x, self.y, padding='VALID', stride=1)
+        op.register(op)
+        op.new_context()
+        forward_result = op.forward()
+        expected = [[[0, 252, 546],
+                     [999, 1464, 1995],
+                     [2610, 3360, 4200]],
+                    [[6669, 8220, 9933],
+                     [10116, 12168, 14406],
+                     [14175, 16800, 19635]]]
+        self.assertTrue((expected == forward_result).all())
+        gradient = np.ones_like(forward_result.shape)
+        op.accumulate(op, gradient)
+        expected = [[[519, 567, 615],
+                     [564, 618, 672]],
+                    [[609, 669, 729],
+                     [654, 720, 786]],
+                    [[699, 771, 843],
+                     [744, 822, 900]]]
+        actual = self.y.gradient
+        self.assertTrue((expected == actual).all())
