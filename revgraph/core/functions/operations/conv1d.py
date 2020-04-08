@@ -28,14 +28,29 @@ def conv1d(a, b, stride=1, padding='VALID'):
     return ans
 
 
+def da(gradient, a, b, stride=1, padding='VALID'):
+    n_a, in_col, in_channel = a.shape
+    n_b, in_channel_, out_channel = b.shape
+    ans = np.zeros_like(a)
+    s = b.sum(axis=2)
+    d = in_col - n_b
+    for i in range(in_col):
+        ans[:,i,:] = sum(s[max(0,i-d):i+1, :])
+    return ans
+
+
+def db(gradient, a, b, stride=1, padding='VALID'):
+    return np.ones_like(b)
+
+
 class Conv1D(GenericFunction):
     def apply(self, a, b, stride=1, padding='VALID'):
         return conv1d(a, b, stride, padding)
 
     @gradient_wrt_arg(0)
     def da(self, gradient, a, b, stride=1, padding='VALID'):
-        return gradient
+        return da(gradient, a, b, stride, padding)
 
     @gradient_wrt_arg(1)
     def db(self, gradient, a, b, stride=1, padding='VALID'):
-        return gradient
+        return db(gradient, a, b, stride, padding)
