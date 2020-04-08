@@ -32,10 +32,14 @@ def da(gradient, a, b, stride=1, padding='VALID'):
     n_a, in_col, in_channel = a.shape
     n_b, in_channel_, out_channel = b.shape
     ans = np.zeros_like(a)
-    s = b.sum(axis=2)
-    d = in_col - n_b
-    for i in range(in_col):
-        ans[:,i,:] = sum(s[max(0,i-d):i+1, :])
+
+    for n in range(n_a):
+        for i in range(in_col):
+            for j in range(in_channel):
+                d = in_col - n_b
+                x = gradient[n, max(0,i-d):i+1, :]
+                y = b[max(0,i-d):i+1, j, :][::-1]
+                ans[n,i,j] = (x*y).sum()
     return ans
 
 
