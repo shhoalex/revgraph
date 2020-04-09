@@ -8,11 +8,11 @@ from revgraph.core.functions.operations.conv2d import Conv2D
 
 class Conv2DTestCase(unittest.TestCase):
     def setUp(self) -> None:
-        self.x = Variable(np.arange(120).reshape(5, 4, 3, 2))
+        self.x = Variable(np.arange(120).reshape(2, 3, 4, 5))
         self.y = Variable(np.arange(60).reshape(2, 3, 5, 2))
 
     def test_forward_output_with_no_padding_and_stride_equals_1(self):
-        op = Conv2D(self.x, self.y, padding='VALID', stride=1)
+        op = Conv2D(self.x, self.y, padding='VALID', stride=(1,1))
         actual = op.forward()
         self.assertEqual(actual.shape, (2, 2, 2, 2))
         expected = [[[[20410, 20920],
