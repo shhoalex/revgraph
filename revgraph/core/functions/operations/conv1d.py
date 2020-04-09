@@ -14,6 +14,8 @@ def padded(a, padding='VALID'):
 
 
 def conv1d(a, b, stride=1, padding='VALID'):
+    if padding is 'SAME' or stride != 1:
+        raise NotImplementedError('Does not support padding = \'SAME\' or stride > 1 yet')
     a = padded(a, padding)
     n_a, in_col, in_channel = a.shape
     n_b, in_channel_, out_channel = b.shape
