@@ -44,7 +44,16 @@ def da(gradient, a, b, stride=1, padding='VALID'):
 
 
 def db(gradient, a, b, stride=1, padding='VALID'):
-    return np.ones_like(b)
+    ans = np.zeros_like(b)
+    n_a, in_col, in_channel = a.shape
+    n_b, in_channel_, out_channel = b.shape
+    for n in range(n_b):
+        for i in range(in_channel):
+            for j in range(out_channel):
+                x = gradient[:, :, j].flatten()
+                y = a[:, n:n+out_channel, i].flatten()
+                ans[n,i,j] = x@y
+    return ans
 
 
 class Conv1D(GenericFunction):
