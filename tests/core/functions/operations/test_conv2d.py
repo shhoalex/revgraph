@@ -119,7 +119,6 @@ class Conv2DTestCase(unittest.TestCase):
         gradient = np.ones_like(result)
         op.accumulate(op, gradient)
         actual = self.x.gradient
-        print(actual)
         self.assertTrue((da == actual).all())
 
     def test_gradient_wrt_y_with_same_padding_and_stride_equals_1(self):
