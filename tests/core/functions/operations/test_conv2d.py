@@ -103,15 +103,15 @@ class Conv2DTestCase(unittest.TestCase):
               [[[22.0, 30.0, 38.0, 46.0, 54.0],
                 [63.0, 75.0, 87.0, 99.0, 111.0],
                 [63.0, 75.0, 87.0, 99.0, 111.0],
-                   [62.0, 70.0, 78.0, 86.0, 94.0]],
-                  [[164.0, 180.0, 196.0, 212.0, 228.0],
-                   [306.0, 330.0, 354.0, 378.0, 402.0],
-                   [306.0, 330.0, 354.0, 378.0, 402.0],
-                   [244.0, 260.0, 276.0, 292.0, 308.0]],
-                  [[164.0, 180.0, 196.0, 212.0, 228.0],
-                   [306.0, 330.0, 354.0, 378.0, 402.0],
-                   [306.0, 330.0, 354.0, 378.0, 402.0],
-                   [244.0, 260.0, 276.0, 292.0, 308.0]]]]
+                [62.0, 70.0, 78.0, 86.0, 94.0]],
+               [[164.0, 180.0, 196.0, 212.0, 228.0],
+                [306.0, 330.0, 354.0, 378.0, 402.0],
+                [306.0, 330.0, 354.0, 378.0, 402.0],
+                [244.0, 260.0, 276.0, 292.0, 308.0]],
+               [[164.0, 180.0, 196.0, 212.0, 228.0],
+                [306.0, 330.0, 354.0, 378.0, 402.0],
+                [306.0, 330.0, 354.0, 378.0, 402.0],
+                [244.0, 260.0, 276.0, 292.0, 308.0]]]]
         op = Conv2D(self.x, self.y, padding='SAME', stride=1)
         op.register(op)
         op.new_context()
@@ -119,6 +119,7 @@ class Conv2DTestCase(unittest.TestCase):
         gradient = np.ones_like(result)
         op.accumulate(op, gradient)
         actual = self.x.gradient
+        print(actual)
         self.assertTrue((da == actual).all())
 
     def test_gradient_wrt_y_with_same_padding_and_stride_equals_1(self):
@@ -318,7 +319,6 @@ class Conv2DTestCase(unittest.TestCase):
         self.assertEqual(actual.shape, (2, 2, 2, 2))
         expected = [[[[20410, 20920], [15090, 15580]], [[10430, 11135], [5070, 5615]]],
                     [[[72610, 74920], [43890, 45580]], [[23030, 24635], [10470, 11615]]]]
-        print(actual)
         self.assertTrue((expected == actual).all())
 
     def test_gradient_wrt_x_with_same_padding_and_stride_equals_2(self):
