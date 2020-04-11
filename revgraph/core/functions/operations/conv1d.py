@@ -1,71 +1,37 @@
 import numpy as np
 
 from revgraph.core.functions.base.generic_function import GenericFunction, gradient_wrt_arg
+from revgraph.core.functions.operations.conv2d import Conv2D
 
 
-def padded(a, padding='VALID'):
-    if padding is 'VALID':
-        return a
-    elif padding is 'SAME':
-        zero_pad = [[0] * a.shape[2]]
-        return np.array([np.concatenate((zero_pad, a_, zero_pad)) for a_ in a])
-    else:
-        raise ValueError(f'Invalid padding option: {padding}')
-
-
-def conv1d(a, b, stride=1, padding='VALID'):
-    if padding is 'SAME' or stride != 1:
-        raise NotImplementedError('Does not support padding = \'SAME\' or stride > 1 yet')
-    a = padded(a, padding)
-    n_a, in_col, in_channel = a.shape
-    n_b, in_channel_, out_channel = b.shape
-    assert in_channel == in_channel_, f'in_channel must be equal'
-    r = ((in_col - n_b) // stride) + 1
-    ans = np.zeros((n_a, r, out_channel))
-
-    for i in range(0, r):
-        for f in range(in_channel):
-            i_ = i*stride
-            ans[:, i, :] += a[:, i_:i_+n_b, f] @ b[:, f, :]
-    return ans
-
-
-def da(gradient, a, b, stride=1, padding='VALID'):
-    n_a, in_col, in_channel = a.shape
-    n_b, in_channel_, out_channel = b.shape
-    ans = np.zeros_like(a)
-
-    for n in range(n_a):
-        for i in range(in_col):
-            for j in range(in_channel):
-                d = in_col - n_b
-                x = gradient[n, max(0,i-d):i+1, :]
-                y = b[max(0,i-d):i+1, j, :][::-1]
-                ans[n,i,j] = (x*y).sum()
-    return ans
-
-
-def db(gradient, a, b, stride=1, padding='VALID'):
-    ans = np.zeros_like(b)
-    n_a, in_col, in_channel = a.shape
-    n_b, in_channel_, out_channel = b.shape
-    for n in range(n_b):
-        for i in range(in_channel):
-            for j in range(out_channel):
-                x = gradient[:, :, j].flatten()
-                y = a[:, n:n+out_channel, i].flatten()
-                ans[n,i,j] = x@y
-    return ans
-
-
-class Conv1D(GenericFunction):
-    def apply(self, a, b, stride=1, padding='VALID'):
-        return conv1d(a, b, stride, padding)
+class Conv1D(Conv2D):
+    def apply(self, a, b, padding='VALID', stride=1) -> np.ndarray:
+        i, j, k = a.shape
+        a = a.reshape((i, j, 1, k))
+        x, y, z = b.shape
+        b = b.reshape((x, 1, y, z))
+        ans = super().apply(a, b, padding, stride)
+        p, q, _, r = ans.shape
+        return ans.reshape((p, q, r))
 
     @gradient_wrt_arg(0)
-    def da(self, gradient, a, b, stride=1, padding='VALID'):
-        return da(gradient, a, b, stride, padding)
+    def da(self, gradient, a, b, padding='VALID', stride=1) -> np.ndarray:
+        i, j, k = a.shape
+        a = a.reshape((i, j, 1, k))
+        x, y, z = b.shape
+        b = b.reshape((x, 1, y, z))
+        p, q, r = gradient.shape
+        gradient = gradient.reshape((p, q, 1, r))
+        ans = super().da(gradient, a, b, padding, stride)
+        return ans.reshape((i, j, k))
 
     @gradient_wrt_arg(1)
-    def db(self, gradient, a, b, stride=1, padding='VALID'):
-        return db(gradient, a, b, stride, padding)
+    def db(self, gradient, a, b, padding='VALID', stride=1) -> np.ndarray:
+        i, j, k = a.shape
+        a = a.reshape((i, j, 1, k))
+        x, y, z = b.shape
+        b = b.reshape((x, 1, y, z))
+        p, q, r = gradient.shape
+        gradient = gradient.reshape((p, q, 1, r))
+        ans = super().db(gradient, a, b, padding, stride)
+        return ans.reshape((x, y, z))
