@@ -71,7 +71,7 @@ class Conv1DTestCase(unittest.TestCase):
         op.accumulate(op, gradient)
         actual = self.y.gradient
         self.assertTrue((expected == actual).all())
-    """
+
     def test_valid_output_with_zero_padding_and_stride_equals_1(self):
         op = Conv1D(self.x, self.y, padding='SAME', stride=1)
         expected = [[[130,  140,  150],
@@ -214,7 +214,7 @@ class Conv1DTestCase(unittest.TestCase):
         op.accumulate(op, gradient)
         actual = self.y.gradient
         self.assertTrue((expected == actual).all())
-    """
+
     def test_previous_gradients_wrt_x_are_accounted(self):
         a = Variable(np.arange(18).reshape(2,3,3))
         op = a * Conv1D(self.x, self.y, padding='VALID', stride=1)
