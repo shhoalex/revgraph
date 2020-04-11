@@ -12,7 +12,7 @@ class Conv2DTestCase(unittest.TestCase):
         self.y = Variable(np.arange(60).reshape(2, 3, 5, 2))
 
     def test_forward_output_with_no_padding_and_stride_equals_1(self):
-        op = Conv2D(self.x, self.y, padding='VALID', stride=(1,1))
+        op = Conv2D(self.x, self.y, padding='VALID', stride=1)
         actual = op.forward()
         self.assertEqual(actual.shape, (2, 2, 2, 2))
         expected = [[[[20410, 20920],
@@ -129,124 +129,6 @@ class Conv2DTestCase(unittest.TestCase):
                [[1080.0, 1080.0], [1096.0, 1096.0], [1112.0, 1112.0], [1128.0, 1128.0], [1144.0, 1144.0]],
                [[840.0, 840.0], [852.0, 852.0], [864.0, 864.0], [876.0, 876.0], [888.0, 888.0]]]]
         op = Conv2D(self.x, self.y, padding='SAME', stride=1)
-        op.register(op)
-        op.new_context()
-        result = op.forward()
-        gradient = np.ones_like(result)
-        op.accumulate(op, gradient)
-        actual = self.y.gradient
-        self.assertTrue((db == actual).all())
-
-    def test_forward_output_with_no_padding_and_stride_equals_2_1(self):
-        op = Conv2D(self.x, self.y, padding='VALID', stride=(2,1))
-        actual = op.forward()
-        self.assertEqual(actual.shape, (2, 1, 2, 2))
-        expected = [[[[20410, 20920], [24760, 25420]]],
-                    [[[72610, 74920], [76960, 79420]]]]
-        self.assertTrue((expected == actual).all())
-
-    def test_gradient_wrt_x_with_no_padding_and_stride_equals_2_1(self):
-        da = [[[[1.0, 5.0, 9.0, 13.0, 17.0],
-                [22.0, 30.0, 38.0, 46.0, 54.0],
-                [62.0, 70.0, 78.0, 86.0, 94.0],
-                [41.0, 45.0, 49.0, 53.0, 57.0]],
-               [[61.0, 65.0, 69.0, 73.0, 77.0],
-                [142.0, 150.0, 158.0, 166.0, 174.0],
-                [182.0, 190.0, 198.0, 206.0, 214.0],
-                [101.0, 105.0, 109.0, 113.0, 117.0]],
-               [[0.0, 0.0, 0.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0, 0.0, 0.0]]],
-              [[[1.0, 5.0, 9.0, 13.0, 17.0],
-                [22.0, 30.0, 38.0, 46.0, 54.0],
-                [62.0, 70.0, 78.0, 86.0, 94.0],
-                [41.0, 45.0, 49.0, 53.0, 57.0]],
-               [[61.0, 65.0, 69.0, 73.0, 77.0],
-                [142.0, 150.0, 158.0, 166.0, 174.0],
-                [182.0, 190.0, 198.0, 206.0, 214.0],
-                [101.0, 105.0, 109.0, 113.0, 117.0]],
-               [[0.0, 0.0, 0.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0, 0.0, 0.0]]]]
-        op = Conv2D(self.x, self.y, padding='VALID', stride=(2,1))
-        op.register(op)
-        op.new_context()
-        result = op.forward()
-        gradient = np.ones_like(result)
-        op.accumulate(op, gradient)
-        actual = self.x.gradient
-        self.assertTrue((da == actual).all())
-
-    def test_gradient_wrt_y_with_no_padding_and_stride_equals_2_1(self):
-        db = [[[[130.0, 130.0], [134.0, 134.0], [138.0, 138.0], [142.0, 142.0], [146.0, 146.0]],
-               [[150.0, 150.0], [154.0, 154.0], [158.0, 158.0], [162.0, 162.0], [166.0, 166.0]],
-               [[170.0, 170.0], [174.0, 174.0], [178.0, 178.0], [182.0, 182.0], [186.0, 186.0]]],
-              [[[210.0, 210.0], [214.0, 214.0], [218.0, 218.0], [222.0, 222.0], [226.0, 226.0]],
-               [[230.0, 230.0], [234.0, 234.0], [238.0, 238.0], [242.0, 242.0], [246.0, 246.0]],
-               [[250.0, 250.0], [254.0, 254.0], [258.0, 258.0], [262.0, 262.0], [266.0, 266.0]]]]
-        op = Conv2D(self.x, self.y, padding='VALID', stride=(2,1))
-        op.register(op)
-        op.new_context()
-        result = op.forward()
-        gradient = np.ones_like(result)
-        op.accumulate(op, gradient)
-        actual = self.y.gradient
-        self.assertTrue((db == actual).all())
-
-    def test_forward_output_with_same_padding_and_stride_equals_2_1(self):
-        op = Conv2D(self.x, self.y, padding='SAME', stride=(2,1))
-        actual = op.forward()
-        self.assertEqual(actual.shape, (2, 2, 4, 2))
-        expected = [[[[13190, 13480], [20410, 20920], [24760, 25420], [15090, 15580]],
-                     [[8620, 9065], [10430, 11135], [11480, 12260], [5070, 5615]]],
-                    [[[53990, 55480], [72610, 74920], [76960, 79420], [43890, 45580]],
-                     [[20020, 21065], [23030, 24635], [24080, 25760], [10470, 11615]]]]
-        self.assertTrue((expected == actual).all())
-
-    def test_gradient_wrt_x_with_same_padding_and_stride_equals_2_1(self):
-        da = [[[[22.0, 30.0, 38.0, 46.0, 54.0],
-                [63.0, 75.0, 87.0, 99.0, 111.0],
-                [63.0, 75.0, 87.0, 99.0, 111.0],
-                [62.0, 70.0, 78.0, 86.0, 94.0]],
-               [[142.0, 150.0, 158.0, 166.0, 174.0],
-                [243.0, 255.0, 267.0, 279.0, 291.0],
-                [243.0, 255.0, 267.0, 279.0, 291.0],
-                [182.0, 190.0, 198.0, 206.0, 214.0]],
-               [[22.0, 30.0, 38.0, 46.0, 54.0],
-                [63.0, 75.0, 87.0, 99.0, 111.0],
-                [63.0, 75.0, 87.0, 99.0, 111.0],
-                [62.0, 70.0, 78.0, 86.0, 94.0]]],
-              [[[22.0, 30.0, 38.0, 46.0, 54.0],
-                [63.0, 75.0, 87.0, 99.0, 111.0],
-                [63.0, 75.0, 87.0, 99.0, 111.0],
-                [62.0, 70.0, 78.0, 86.0, 94.0]],
-               [[142.0, 150.0, 158.0, 166.0, 174.0],
-                [243.0, 255.0, 267.0, 279.0, 291.0],
-                [243.0, 255.0, 267.0, 279.0, 291.0],
-                [182.0, 190.0, 198.0, 206.0, 214.0]],
-               [[22.0, 30.0, 38.0, 46.0, 54.0],
-                [63.0, 75.0, 87.0, 99.0, 111.0],
-                [63.0, 75.0, 87.0, 99.0, 111.0],
-                [62.0, 70.0, 78.0, 86.0, 94.0]]]]
-        op = Conv2D(self.x, self.y, padding='SAME', stride=(2,1))
-        op.register(op)
-        op.new_context()
-        result = op.forward()
-        gradient = np.ones_like(result)
-        op.accumulate(op, gradient)
-        actual = self.x.gradient
-        self.assertTrue((da == actual).all())
-
-    def test_gradient_wrt_y_with_same_padding_and_stride_equals_2_1(self):
-        db = [[[[660.0, 660.0], [672.0, 672.0], [684.0, 684.0], [696.0, 696.0], [708.0, 708.0]],
-               [[920.0, 920.0], [936.0, 936.0], [952.0, 952.0], [968.0, 968.0], [984.0, 984.0]],
-               [[720.0, 720.0], [732.0, 732.0], [744.0, 744.0], [756.0, 756.0], [768.0, 768.0]]],
-              [[[330.0, 330.0], [336.0, 336.0], [342.0, 342.0], [348.0, 348.0], [354.0, 354.0]],
-               [[460.0, 460.0], [468.0, 468.0], [476.0, 476.0], [484.0, 484.0], [492.0, 492.0]],
-               [[360.0, 360.0], [366.0, 366.0], [372.0, 372.0], [378.0, 378.0], [384.0, 384.0]]]]
-        op = Conv2D(self.x, self.y, padding='SAME', stride=(2,1))
         op.register(op)
         op.new_context()
         result = op.forward()
