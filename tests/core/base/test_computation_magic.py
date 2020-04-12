@@ -41,7 +41,5 @@ class ComputationMagicTestCase(unittest.TestCase):
 
     def test_call(self):
         x = Placeholder(shape=(), name='x')
-        a = x({'x': 3})
-        b = x({x: 3})
+        a = x(x=3)
         self.assertEqual(a, 3)
-        self.assertEqual(b, 3)
