@@ -61,3 +61,19 @@ class RunTestCase(unittest.TestCase):
         [actual] = run(c)
         self.assertIsNotNone(actual)
         self.assertEqual(expected, actual)
+
+    def test_correct_context_assigned(self):
+        a = Variable(1)
+        b = Variable(2)
+        c = a+b
+        d = a+1
+        new_backward_context({a, b, c})
+        self.assertEqual({c}, set(a.ctx))
+        self.assertEqual({c}, set(b.ctx))
+        self.assertEqual(set(), set(c.ctx))
+
+    def test_repeated_value_accounted(self):
+        a = Variable(1)
+        e = a*a
+        new_backward_context({a, e})
+        self.assertEqual(2, a.ctx[e])

@@ -45,7 +45,7 @@ def new_backward_context(dependencies: Set[Computation]):
         node.ctx = defaultdict(lambda: 0)
         for p,n in node.references.items():
             if p in dependencies:
-                node.ctx[p] += 1
+                node.ctx[p] += n
         node.ctx_counter = sum(node.ctx.values())
 
 
