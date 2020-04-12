@@ -7,6 +7,10 @@ from revgraph.core.functions.base.generic_function import GenericFunction, gradi
 
 class Conv2D(GenericFunction):
     def apply(self, a, b, padding='VALID', stride=(1, 1)) -> np.ndarray:
+        if padding is 'SAME':
+            raise NotImplementedError('SAME padding not implemented')
+        elif padding is not 'VALID':
+            raise ValueError(f'Invalid padding option: {padding}')
         stride = self.convert_scalar_stride(stride)
         kernel_size = b.shape[:2]
         a = self.get_patches(a, kernel_size, padding, stride)
