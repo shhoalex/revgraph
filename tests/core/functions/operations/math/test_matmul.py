@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.values.variable import Variable
-from revgraph.core.functions.operations.matmul import MatMul
+from revgraph.core.functions.operations.math.matmul import MatMul
 
 
 class MatMulTestCase(unittest.TestCase):

@@ -3,20 +3,20 @@ import unittest
 import numpy as np
 
 from revgraph.core.values.variable import Variable
-from revgraph.core.functions.operations.truediv import TrueDiv
+from revgraph.core.functions.operations.math.floordiv import FloorDiv
 
 
-class TrueDivTestCase(unittest.TestCase):
+class FloorDivTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.a = Variable([[10,12,14], [2,3,4]])
         self.b = Variable([[2,2,1], [2,2,4]])
 
-    def test_truediv(self):
+    def test_floordiv(self):
         # Forward
-        op = TrueDiv(self.a, self.b)
+        op = FloorDiv(self.a, self.b)
         op.register(op)
         op.new_context()
-        expected = np.array([[5,6,14], [1,1.5,1]])
+        expected = np.array([[5,6,14], [1,1,1]])
         actual = op.forward()
         self.assertTrue((expected == actual).all())
         # Backward

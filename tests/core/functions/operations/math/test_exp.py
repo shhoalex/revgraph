@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.values.variable import Variable
-from revgraph.core.functions.operations.exp import Exp
+from revgraph.core.functions.operations.math.exp import Exp
 
 
 class ExpTestCase(unittest.TestCase):

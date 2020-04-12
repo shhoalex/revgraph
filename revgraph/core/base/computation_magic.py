@@ -1,70 +1,70 @@
 class ComputationMagic(object):
     def __add__(self, other):
-        from revgraph.core.functions.operations.add import Add
+        from revgraph.core.functions.operations.math.add import Add
         return Add(self, other)
 
     def __radd__(self, other):
-        from revgraph.core.functions.operations.add import Add
+        from revgraph.core.functions.operations.math.add import Add
         return Add(other, self)
 
     def __sub__(self, other):
-        from revgraph.core.functions.operations.sub import Sub
+        from revgraph.core.functions.operations.math.sub import Sub
         return Sub(self, other)
 
     def __rsub__(self, other):
-        from revgraph.core.functions.operations.sub import Sub
+        from revgraph.core.functions.operations.math.sub import Sub
         return Sub(other, self)
 
     def __mul__(self, other):
-        from revgraph.core.functions.operations.mul import Mul
+        from revgraph.core.functions.operations.math.mul import Mul
         return Mul(self, other)
 
     def __rmul__(self, other):
-        from revgraph.core.functions.operations.mul import Mul
+        from revgraph.core.functions.operations.math.mul import Mul
         return Mul(other, self)
 
     def __truediv__(self, other):
-        from revgraph.core.functions.operations.truediv import TrueDiv
+        from revgraph.core.functions.operations.math.truediv import TrueDiv
         return TrueDiv(self, other)
 
     def __rtruediv__(self, other):
-        from revgraph.core.functions.operations.truediv import TrueDiv
+        from revgraph.core.functions.operations.math.truediv import TrueDiv
         return TrueDiv(other, self)
 
     def __floordiv__(self, other):
-        from revgraph.core.functions.operations.floordiv import FloorDiv
+        from revgraph.core.functions.operations.math.floordiv import FloorDiv
         return FloorDiv(self, other)
 
     def __rfloordiv__(self, other):
-        from revgraph.core.functions.operations.floordiv import FloorDiv
+        from revgraph.core.functions.operations.math.floordiv import FloorDiv
         return FloorDiv(other, self)
 
     def __pow__(self, other):
-        from revgraph.core.functions.operations.pow import Pow
+        from revgraph.core.functions.operations.math.pow import Pow
         return Pow(self, other)
 
     def __rpow__(self, other):
-        from revgraph.core.functions.operations.pow import Pow
+        from revgraph.core.functions.operations.math.pow import Pow
         return Pow(other, self)
 
     def __matmul__(self, other):
-        from revgraph.core.functions.operations.matmul import MatMul
+        from revgraph.core.functions.operations.math.matmul import MatMul
         return MatMul(self, other)
 
     def __rmatmul__(self, other):
-        from revgraph.core.functions.operations.matmul import MatMul
+        from revgraph.core.functions.operations.math.matmul import MatMul
         return MatMul(other, self)
 
     def matmul(self, other):
-        from revgraph.core.functions.operations.matmul import MatMul
+        from revgraph.core.functions.operations.math.matmul import MatMul
         return MatMul(self, other)
 
     def dot(self, other):
-        from revgraph.core.functions.operations.matmul import MatMul
+        from revgraph.core.functions.operations.math.matmul import MatMul
         return MatMul(self, other)
 
     def __neg__(self):
-        from revgraph.core.functions.operations.neg import Neg
+        from revgraph.core.functions.operations.math.neg import Neg
         return Neg(self)
 
     def __call__(self, feed_dict=None, *args, **kwargs):
@@ -73,7 +73,7 @@ class ComputationMagic(object):
         return result
 
     def sum(self, axis=None, keepdims=False):
-        from revgraph.core.functions.operations.sum import Sum
+        from revgraph.core.functions.operations.math.sum import Sum
         return Sum(self, axis=axis, keepdims=keepdims)
 
     def __len__(self):

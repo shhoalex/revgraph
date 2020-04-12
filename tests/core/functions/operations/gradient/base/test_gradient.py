@@ -1,6 +1,6 @@
 import unittest
 
-from revgraph.core.functions.operations.gradient import Gradient
+from revgraph.core.functions.operations.gradient.base.gradient import Gradient
 from revgraph.core.values.variable import Variable
 
 

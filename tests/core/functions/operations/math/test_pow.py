@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.values.variable import Variable
-from revgraph.core.functions.operations.pow import Pow
+from revgraph.core.functions.operations.math.pow import Pow
 
 
 class PowTestCase(unittest.TestCase):

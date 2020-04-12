@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.values.variable import Variable
-from revgraph.core.functions.operations.reshape import Reshape
+from revgraph.core.functions.operations.array.reshape import Reshape
 
 
 class ReshapeTestCase(unittest.TestCase):

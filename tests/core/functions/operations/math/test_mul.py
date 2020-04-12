@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.values.variable import Variable
-from revgraph.core.functions.operations.mul import Mul
+from revgraph.core.functions.operations.math.mul import Mul
 
 
 class MulTestCase(unittest.TestCase):

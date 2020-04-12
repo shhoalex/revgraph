@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.values.variable import Variable
-from revgraph.core.functions.operations.sum import Sum
+from revgraph.core.functions.operations.math.sum import Sum
 
 
 class SumTestCase(unittest.TestCase):

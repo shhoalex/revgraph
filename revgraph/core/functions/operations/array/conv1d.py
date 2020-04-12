@@ -1,7 +1,7 @@
 import numpy as np
 
-from revgraph.core.functions.base.generic_function import GenericFunction, gradient_wrt_arg
-from revgraph.core.functions.operations.conv2d import Conv2D
+from revgraph.core.functions.base.generic_function import gradient_wrt_arg
+from revgraph.core.functions.operations.array.conv2d import Conv2D
 
 
 class Conv1D(Conv2D):

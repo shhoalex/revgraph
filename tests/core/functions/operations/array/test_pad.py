@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.values.variable import Variable
-from revgraph.core.functions.operations.pad import Pad
+from revgraph.core.functions.operations.array.pad import Pad
 
 
 class PadTestCase(unittest.TestCase):

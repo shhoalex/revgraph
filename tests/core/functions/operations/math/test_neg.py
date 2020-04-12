@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.values.variable import Variable
-from revgraph.core.functions.operations.neg import Neg
+from revgraph.core.functions.operations.math.neg import Neg
 
 
 class NegTestCase(unittest.TestCase):

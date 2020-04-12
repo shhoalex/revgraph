@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.values.variable import Variable
-from revgraph.core.functions.operations.conv2d import Conv2D
+from revgraph.core.functions.operations.array.conv2d import Conv2D
 
 
 class Conv2DTestCase(unittest.TestCase):
