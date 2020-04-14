@@ -23,10 +23,8 @@ def get_placeholders(node: Computation) -> DefaultDict[Union[str, Computation], 
 
 
 def run(node: Computation,
-        feed_dict: Dict[Union[str, Placeholder], Union[Any]] = None,
-        results: Iterable[Computation] = None) -> Iterable[np.ndarray]:
+        feed_dict: Dict[Union[str, Placeholder], Union[Any]] = None) -> np.ndarray:
     feed_dict = feed_dict if feed_dict else {}
-    results = results if results else [node]
     dependencies = node.dependencies
     placeholders = get_placeholders(node)
     instantiate_placeholders(feed_dict, placeholders)
@@ -35,7 +33,7 @@ def run(node: Computation,
     node.forward()
 
     # call tuple() for strict evaluation
-    result = tuple(map(lambda n: n.data, results))
+    result = node.data
     clear_placeholders(placeholders)
     return result
 

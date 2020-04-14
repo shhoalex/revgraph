@@ -69,8 +69,7 @@ class ComputationMagic(object):
 
     def __call__(self, **kwargs):
         from revgraph.core.runner import run
-        [result] = run(self, kwargs, [self])
-        return result
+        return run(self, kwargs)
 
     def sum(self, axis=None, keepdims=False):
         from revgraph.core.functions.operations.math.sum import Sum
