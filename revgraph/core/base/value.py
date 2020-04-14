@@ -20,7 +20,7 @@ class Value(Computation):
 
     @data.setter
     def data(self, data):
-        data = data if isinstance(data, np.ndarray) else np.array(data)
+        data = data if isinstance(data, np.ndarray) else np.array(data, dtype='float64')
         if self.shape is None:
             self.shape = data.shape
         else:
