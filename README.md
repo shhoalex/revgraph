@@ -1,24 +1,21 @@
 # revgraph
 
-> A simple deep learning framework powered by numpy.
+> A minimal deep learning library built using numpy as its only dependency.
 
 ![](https://travis-ci.org/shhoalex/revgraph.svg?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+The project is divided into 2 main parts:
 
-## What is this
+1. `revgraph.core`: A simple computational graph library.
+2. `revgraph.dl`: A high-level keras-like deep learning library built entirely on top of revgraph.core.
 
-This project was created with the sole purpose of strengthening my own understanding of how deep learning algorithms work under the hood. It's a "deep learning from scratch" type of project that's not meant to be taken seriously. However, feel free to check out all the codes and use/re-use it :)
-
-## Structure
-
-Project is divided into 2 main parts:
-
-| # | Package | What it does | 
-| - | ------ | ------------ |
-| 1 | `revgraph.core` | A low-level computational graph library that supports reverse mode AD. |
-| 2 | `revgraph.dl`| A high-level keras-like deep learning framework built entirely on top of `revgraph.core` (not implemented yet) |
+Both packages can be used separately.
 
 ## Key Features
+* Computational Graph
+* Automatic Differentiation
+* Linear / Logistic Regression
+* Deep Learning
 
 ## Credits
