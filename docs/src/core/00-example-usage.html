@@ -1,0 +1,331 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Example Usage · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    Core Library
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.2.1" data-path="00-example-usage.html">
+            
+                <a href="00-example-usage.html">
+            
+                    
+                    Example Usage
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Example Usage</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="core-library">Core Library</h1>
+<p>The package <code>revgraph.core</code> is a toy computational graph library that supports
+reverse-mode AD and provides various differentiable operations. It is a 
+low-level computational graph builder that wraps up the class <code>numpy.ndarray</code>.</p>
+<p>Before we dive into all the technical details, here are 2 examples of this 
+package&apos;s usage.</p>
+<h2 id="example-1-defining-a-computational-graph">Example 1: Defining a computational graph</h2>
+<p>The following code snippet shows how to define a basic computational graph that
+adds 2 variables, then uses the runner to execute and return the result as a 
+numpy array.</p>
+<h3 id="code">Code</h3>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.core <span class="hljs-keyword">as</span> rc
+
+a = rc.variable(<span class="hljs-number">1</span>)
+b = rc.variable(<span class="hljs-number">2</span>)
+c = a+b
+
+ans = rc.run(c)
+print(ans)
+</code></pre>
+<h3 id="output">Output</h3>
+<pre><code class="lang-text">3.0
+</code></pre>
+<h2 id="example-2-function-optimization">Example 2: Function Optimization</h2>
+<p>A key usage of <code>revgraph.core</code> is to find the minimum value of a function by
+&quot;tuning&quot; the values of <code>variable</code> object.</p>
+<p>Optimize 
+<em>f(x,y) = (x<sup>2</sup> + y - 11)<sup>2</sup> + (x + y<sup>2</sup> - 7)
+<sup>2</sup></em> 
+(Himmelblau&apos;s Function).</p>
+<p>According to Wikipedia, this function has 4 local minima:</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Himmelblau_function.svg/1280px-Himmelblau_function.svg.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">x</th>
+<th style="text-align:center">y</th>
+<th style="text-align:center">f(x,y)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">3.0</td>
+<td style="text-align:center">2.0</td>
+<td style="text-align:center">0.0</td>
+</tr>
+<tr>
+<td style="text-align:center">-2.805118</td>
+<td style="text-align:center">3.131312</td>
+<td style="text-align:center">0.0</td>
+</tr>
+<tr>
+<td style="text-align:center">-3.779310</td>
+<td style="text-align:center">-3.283186</td>
+<td style="text-align:center">0.0</td>
+</tr>
+<tr>
+<td style="text-align:center">3.584428</td>
+<td style="text-align:center">-1.848126</td>
+<td style="text-align:center">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>Instead of solving it analytically, the library computes a precise estimation
+using gradient descent (in this case).</p>
+<h4 id="code">Code</h4>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.core <span class="hljs-keyword">as</span> rc
+
+x = rc.variable(<span class="hljs-number">0</span>)
+y = rc.variable(<span class="hljs-number">0</span>)
+f = (x**<span class="hljs-number">2</span> + y - <span class="hljs-number">11</span>) ** <span class="hljs-number">2</span> + (x + y**<span class="hljs-number">2</span> - <span class="hljs-number">7</span>) ** <span class="hljs-number">2</span>
+
+step = rc.sgd().minimize(f)  <span class="hljs-comment"># Define the objective</span>
+optimize = rc.simple_loop(<span class="hljs-number">10000</span>, step)
+optimize() 
+print(<span class="hljs-string">&apos;x = {:.9f}, y = {:.9f}&apos;</span>.format(x(), y())) <span class="hljs-comment"># Output the result (9 s.f.)</span>
+</code></pre>
+<h4 id="output">Output</h4>
+<pre><code class="lang-text">x = 3.000000000, y = 2.000000000
+</code></pre>
+<p>Using the simplest model, the program solves it in less than 10 lines of code
+with error &lt; 10<sup>-14</sup>!</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Example Usage","level":"1.2.1","depth":2,"previous":{"title":"Core Library","level":"1.2","depth":1,"ref":"","articles":[{"title":"Example Usage","level":"1.2.1","depth":2,"path":"src/core/00-example-usage.md","ref":"./src/core/00-example-usage.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"src/core/00-example-usage.md","mtime":"2020-04-18T01:13:54.468Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-18T01:28:17.606Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
