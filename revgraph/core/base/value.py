@@ -2,10 +2,10 @@ from typing import Optional, Tuple, Union
 
 import numpy as np
 
-from .computation import Computation
+from .tensor import Tensor
 
 
-class Value(Computation):
+class Value(Tensor):
     def __init__(self,
                  data: Optional[Union[np.ndarray, list]] = None,
                  shape: Optional[Tuple[Optional[int], ...]] = None,

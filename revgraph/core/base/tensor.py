@@ -5,10 +5,10 @@ from typing import Tuple, Optional
 import numpy as np
 
 
-from .computation_magic import ComputationMagic
+from .tensor_magic import TensorMagic
 
 
-class Computation(ABC, ComputationMagic):
+class Tensor(ABC, TensorMagic):
     def __init__(self,
                  shape: Optional[Tuple[int, ...]] = None,
                  requires_grad: bool = False):
@@ -26,7 +26,7 @@ class Computation(ABC, ComputationMagic):
         self.ctx = self.references.copy()
         self.ctx_counter = sum(self.ctx.values())
 
-    def accumulate(self, reference: 'Computation', gradient: np.array):
+    def accumulate(self, reference: 'Tensor', gradient: np.array):
         if self.ctx[reference] <= 0:
             raise ValueError('Invalid node for gradient propagation')
         else:
@@ -45,7 +45,7 @@ class Computation(ABC, ComputationMagic):
             else:
                 self.gradient += self.unbroadcast(gradient)
 
-    def register(self, reference: 'Computation'):
+    def register(self, reference: 'Tensor'):
         # Add a permanent computational node (independent of context)
         self.references[reference] += 1
 

@@ -4,7 +4,7 @@ from revgraph.core.values.variable import Variable
 from revgraph.core.values.placeholder import Placeholder
 
 
-class ComputationMagicTestCase(unittest.TestCase):
+class TensorMagicTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.a = Variable(1)
         self.b = Variable(2)

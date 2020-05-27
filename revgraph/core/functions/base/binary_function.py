@@ -3,14 +3,14 @@ from typing import Union
 
 import numpy as np
 
-from revgraph.core.base.computation import Computation
+from revgraph.core.base.tensor import Tensor
 from revgraph.core.base.function import Function
 
 
 class BinaryFunction(Function, ABC):
     def __init__(self,
-                 a: Union[Computation, list, int, float],
-                 b: Union[Computation, list, int, float]):
+                 a: Union[Tensor, list, int, float],
+                 b: Union[Tensor, list, int, float]):
         super(BinaryFunction, self).__init__(args=[a,b])
         self.a = self.args[0]
         self.b = self.args[1]

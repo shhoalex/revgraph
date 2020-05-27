@@ -2,22 +2,22 @@ import unittest
 
 import numpy as np
 
-from revgraph.core.base.computation import Computation
+from revgraph.core.base.tensor import Tensor
 
 
-class ComputationImpl(Computation):
+class TensorImpl(Tensor):
     def forward(self):
         return
 
 
-class ComputationGradientTestCase(unittest.TestCase):
+class TensorGradientTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.a = ComputationImpl((3,4), True)
-        cls.b = ComputationImpl((3,4), True)
+        cls.a = TensorImpl((3, 4), True)
+        cls.b = TensorImpl((3, 4), True)
 
     def setUp(self) -> None:
-        self.c = ComputationImpl(None, True)
+        self.c = TensorImpl(None, True)
         self.c.register(self.a)
         self.c.register(self.b)
         self.c.new_context()
@@ -64,12 +64,12 @@ class ComputationGradientTestCase(unittest.TestCase):
         self.assertTrue(self.c.context_completed())
 
 
-class ComputationUnbroadcastingTest(unittest.TestCase):
+class TensorUnbroadcastingTest(unittest.TestCase):
     def setUp(self) -> None:
-        self.a = ComputationImpl((1,5), True)
-        self.b = ComputationImpl((5,1), True)
-        self.c = ComputationImpl((3,2), True)
-        self.d = ComputationImpl((), True)
+        self.a = TensorImpl((1, 5), True)
+        self.b = TensorImpl((5, 1), True)
+        self.c = TensorImpl((3, 2), True)
+        self.d = TensorImpl((), True)
 
     def tearDown(self) -> None:
         del self.a, self.b, self.c

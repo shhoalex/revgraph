@@ -1,4 +1,4 @@
-class ComputationMagic(object):
+class TensorMagic(object):
     def __add__(self, other):
         from revgraph.core.functions.operations.math.add import Add
         return Add(self, other)

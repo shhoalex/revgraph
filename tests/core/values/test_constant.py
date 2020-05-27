@@ -1,10 +1,10 @@
 import unittest
 
-from revgraph.core.base.computation import Computation
+from revgraph.core.base.tensor import Tensor
 from revgraph.core.values.constant import Constant
 
 
-class ComputationImpl(Computation):
+class TensorImpl(Tensor):
     def forward(self):
         pass
 
@@ -22,7 +22,7 @@ class ConstantTestCase(unittest.TestCase):
             self.a.data += 1
 
     def test_register_parent_node_causes_error(self):
-        b = ComputationImpl((2,3), True)
+        b = TensorImpl((2, 3), True)
         with self.assertRaises(ValueError):
             self.a.register(b)
 

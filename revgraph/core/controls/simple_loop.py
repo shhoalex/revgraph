@@ -1,7 +1,7 @@
-from revgraph.core.base.computation import Computation
+from revgraph.core.base.tensor import Tensor
 
 
-class SimpleLoop(Computation):
+class SimpleLoop(Tensor):
     def __init__(self, n, action, feed_dict=None):
         super().__init__()
         self.iterations = n

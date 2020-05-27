@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from revgraph.core.base.function import Function
-from revgraph.core.base.computation import Computation
+from revgraph.core.base.tensor import Tensor
 
 
 class FunctionImpl(Function):
@@ -14,7 +14,7 @@ class FunctionImpl(Function):
         self.args[0].accumulate(self, self.gradient)
 
 
-class ComputationImpl(Computation):
+class TensorImpl(Tensor):
     dependencies = set()
 
     def forward(self):
@@ -23,9 +23,9 @@ class ComputationImpl(Computation):
 
 class FunctionTestCase(unittest.TestCase):
     def setUp(self) -> None:
-        self.a = ComputationImpl(shape=(2,3), requires_grad=True)
+        self.a = TensorImpl(shape=(2, 3), requires_grad=True)
         self.f = FunctionImpl(args=[self.a])
-        self.parent = ComputationImpl(shape=(2,3), requires_grad=True)
+        self.parent = TensorImpl(shape=(2, 3), requires_grad=True)
         self.f.register(self.parent)
 
     def test_function_propagates_gradient(self):
@@ -67,7 +67,7 @@ class FunctionTestCase(unittest.TestCase):
 
 class FunctionKwargTestCase(unittest.TestCase):
     def setUp(self) -> None:
-        self.a = ComputationImpl(shape=(2, 3), requires_grad=True)
+        self.a = TensorImpl(shape=(2, 3), requires_grad=True)
         self.f = FunctionImpl(args=[self.a], kwargs={'sum': 3})
 
     def test_kwarg_exists(self):

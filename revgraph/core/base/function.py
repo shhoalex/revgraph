@@ -3,13 +3,13 @@ from typing import Union, Iterable, Dict, Any
 
 import numpy as np
 
-from .computation import Computation
+from .tensor import Tensor
 from .value import Value
 
 
-class Function(Computation, ABC):
+class Function(Tensor, ABC):
     def __init__(self,
-                 args: Iterable[Union[Computation, list, int, float]] = None,
+                 args: Iterable[Union[Tensor, list, int, float]] = None,
                  kwargs: Dict[str, Any] = None):
         args = [] if args is None else args
         kwargs = {} if kwargs is None else kwargs
@@ -17,7 +17,7 @@ class Function(Computation, ABC):
         self.data = None
         requires_grad = False
         for arg in args:
-            if not isinstance(arg, Computation):
+            if not isinstance(arg, Tensor):
                 arg = Value(np.array(arg), requires_grad=False)
             if arg.requires_grad:
                 arg.register(self)
@@ -27,7 +27,7 @@ class Function(Computation, ABC):
         self.dependencies = {self}.union(*map(lambda n: n.dependencies, self.args))
         super(Function, self).__init__(requires_grad=requires_grad)
 
-    def accumulate(self, reference: Computation, gradient: np.ndarray):
+    def accumulate(self, reference: Tensor, gradient: np.ndarray):
         super(Function, self).accumulate(reference, gradient)
         if self.context_completed():
             self.backward(*self.args, **self.kwargs)

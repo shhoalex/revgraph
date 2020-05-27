@@ -3,13 +3,13 @@ from typing import Union
 
 import numpy as np
 
-from revgraph.core.base.computation import Computation
+from revgraph.core.base.tensor import Tensor
 from revgraph.core.base.function import Function
 
 
 class UnaryFunction(Function, ABC):
     def __init__(self,
-                 a: Union[Computation, list, int, float]):
+                 a: Union[Tensor, list, int, float]):
         super(UnaryFunction, self).__init__(args=[a])
         self.a = self.args[0]
         self.a_res = None

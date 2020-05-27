@@ -5,7 +5,7 @@ from inspect import getmembers
 import numpy as np
 
 
-from revgraph.core.base.computation import Computation
+from revgraph.core.base.tensor import Tensor
 from revgraph.core.base.function import Function
 
 
@@ -24,7 +24,7 @@ def gradient_wrt_arg(key: Any) -> GradientFunction:
 
 class GenericFunction(Function, ABC):
     def __init__(self,
-                 *args: Union[Computation, list, int, float],
+                 *args: Union[Tensor, list, int, float],
                  **kwargs: Any):
         super(GenericFunction, self).__init__(args=args,
                                               kwargs=kwargs)
