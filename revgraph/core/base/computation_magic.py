@@ -80,20 +80,20 @@ class ComputationMagic(object):
         return len(self)
 
     def __gt__(self, other):
-        from revgraph.core.functions.miscellaneous import greater_than
-        return greater_than(self, other)
+        from revgraph.core.functions.miscellaneous import greater
+        return greater(self, other)
 
     def __ge__(self, other):
-        from revgraph.core.functions.miscellaneous import greater_than_or_equal
-        return greater_than_or_equal(self, other)
+        from revgraph.core.functions.miscellaneous import greater_equal
+        return greater_equal(self, other)
 
     def __lt__(self, other):
-        from revgraph.core.functions.miscellaneous import less_than
-        return less_than(self, other)
+        from revgraph.core.functions.miscellaneous import less
+        return less(self, other)
 
     def __le__(self, other):
-        from revgraph.core.functions.miscellaneous import less_than_or_equal
-        return less_than_or_equal(self, other)
+        from revgraph.core.functions.miscellaneous import less_equal
+        return less_equal(self, other)
 
     def __eq__(self, other):
         from revgraph.core.functions.miscellaneous import equal

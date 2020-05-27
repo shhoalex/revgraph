@@ -7,22 +7,22 @@ def len(obj):
 
 
 @no_grad
-def greater_than(a,b):
+def greater(a,b):
     return a>b
 
 
 @no_grad
-def less_than(a,b):
+def less(a, b):
     return a<b
 
 
 @no_grad
-def greater_than_or_equal(a,b):
+def greater_equal(a, b):
     return a>=b
 
 
 @no_grad
-def less_than_or_equal(a,b):
+def less_equal(a, b):
     return a<=b
 
 
