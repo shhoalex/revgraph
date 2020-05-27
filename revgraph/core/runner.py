@@ -1,4 +1,4 @@
-from typing import Dict, Union, Any, Iterable, Set, DefaultDict
+from typing import Dict, Union, Any, Set, DefaultDict
 from collections import defaultdict
 
 import numpy as np
@@ -32,7 +32,7 @@ def run(node: Computation,
 
     node.forward()
 
-    # call tuple() for strict evaluation
+    # reference note.data before cleanup
     result = node.data
     clear_placeholders(placeholders)
     return result
