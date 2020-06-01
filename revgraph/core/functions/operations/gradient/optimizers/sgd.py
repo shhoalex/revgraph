@@ -13,4 +13,3 @@ class SGD(Optimizer):
             if self.decay > 0 else self.lr
         param.data -= param.gradient * lr
         self.iteration += 1
-        print(lr)
