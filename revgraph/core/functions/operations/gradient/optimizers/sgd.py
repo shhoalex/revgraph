@@ -15,11 +15,14 @@ class SGD(Optimizer):
     def init_param_memory(self, param, memory, global_memory):
         memory['velocity'] = np.zeros_like(param.data)
 
-    def update(self, param, memory, global_memory):
+    def before_update(self, global_memory):
         if self.decay > 0:
-            lr = self.lr * (1.0 / (1.0 + self.decay * self.iteration))
+            global_memory['lr'] = self.lr * (1.0 / (1.0 + self.decay * self.iteration))
         else:
-            lr = self.lr
+            global_memory['lr'] = self.lr
+        self.iteration += 1
+
+    def update(self, param, memory, global_memory):
+        lr = global_memory['lr']
         v = memory['velocity'] = self.momentum * memory['velocity'] - lr * param.gradient
         param.data += self.momentum * v - lr * param.gradient if self.nesterov else v
-        self.iteration += 1
