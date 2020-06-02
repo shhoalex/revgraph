@@ -43,9 +43,10 @@ class Optimizer(Gradient):
                 self.init_param_memory(param, self.memory[param], self.global_memory)
             self.initialized = True
 
+        self.before_update(self.global_memory)
         for param in self.params:
             self.update(param, self.memory[param], self.global_memory)
-
+        self.after_update(self.global_memory)
         self.clear_gradient()
 
     @abstractmethod
@@ -56,4 +57,10 @@ class Optimizer(Gradient):
         pass
 
     def init_param_memory(self, param, memory, global_memory):
+        pass
+
+    def before_update(self, global_memory):
+        pass
+
+    def after_update(self, global_memory):
         pass
