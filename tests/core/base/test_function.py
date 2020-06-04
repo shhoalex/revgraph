@@ -72,3 +72,13 @@ class FunctionKwargTestCase(unittest.TestCase):
 
     def test_kwarg_exists(self):
         self.assertEqual(self.f.kwargs['sum'], 3)
+
+
+class FunctionMatchShapeTestCase(unittest.TestCase):
+    def test(self):
+        a = np.array([[0,1],
+                      [1,2],
+                      [2,3]])
+        b = a.sum()
+        expected = np.full((3,2), 9)
+        self.assertTrue((expected == FunctionImpl.match_shape(b, (3,2), None)).all())

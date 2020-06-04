@@ -37,6 +37,15 @@ class Function(Tensor, ABC):
         for arg in self.args:
             arg.new_context()
 
+    @staticmethod
+    def match_shape(a, shape, axis):
+        if shape == () or a.shape == shape:
+            return a
+        axis = list(axis) if isinstance(axis, tuple) else axis
+        new_shape = np.array(shape)
+        new_shape[axis] = 1
+        return np.broadcast_to(np.reshape(a, new_shape), shape)
+
     @abstractmethod
     def backward(self, *args, **kwargs) -> None:
         pass
