@@ -1,3 +1,4 @@
+from .abs import Abs as abs
 from .add import Add as add
 from .arccos import ArcCos as arccos
 from .arccosh import ArcCosh as arccosh
