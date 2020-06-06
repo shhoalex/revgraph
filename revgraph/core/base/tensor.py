@@ -81,3 +81,9 @@ class Tensor(ABC, TensorMagic):
 
     def clear_gradient(self):
         self.gradient = None
+
+    def __repr__(self):
+        return '<tensor object at {tid}>'.format(tid=hex(id(self)))
+
+    def __str__(self):
+        return 'tensor(addr={tid}})'.format(tid=hex(id(self)))
