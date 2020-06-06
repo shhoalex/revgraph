@@ -1,8 +1,8 @@
-from typing import Union, Tuple
-
 import numpy as np
 
 from revgraph.core.functions.base.generic_function import GenericFunction, gradient_wrt_arg
+
+# Reference: This implementation is based on the repository www.github.com/renmengye/np-conv2d
 
 
 class Conv2D(GenericFunction):
