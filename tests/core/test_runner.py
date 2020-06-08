@@ -54,3 +54,12 @@ class RunTestCase(unittest.TestCase):
         e = a*a
         new_backward_context({a, e})
         self.assertEqual(2, a.ctx[e])
+
+    def test_running_multiple_tensors(self):
+        a = Variable(3)
+        b = Variable(2)
+        c = a*b
+        ans_a, ans_b, ans_c = run([a, b, c])
+        self.assertEqual(ans_a, 3)
+        self.assertEqual(ans_b, 2)
+        self.assertEqual(ans_c, 6)

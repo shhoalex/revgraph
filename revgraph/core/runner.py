@@ -1,4 +1,4 @@
-from typing import Dict, Union, Any, Set, DefaultDict
+from typing import Dict, Union, Any, Iterable, List, Set, DefaultDict
 from collections import defaultdict
 
 import numpy as np
@@ -22,8 +22,10 @@ def get_placeholders(node: Tensor) -> DefaultDict[Union[str, Tensor], Tensor]:
     return namespace
 
 
-def run(node: Tensor,
-        feed_dict: Dict[Union[str, Placeholder], Union[Any]] = None) -> np.ndarray:
+def run(node: Union[Tensor, Iterable[Tensor]],
+        feed_dict: Dict[Union[str, Placeholder], Union[Any]] = None) -> Union[np.ndarray, List[np.array]]:
+    if not isinstance(node, Tensor):
+        return run_many(node, feed_dict)
     feed_dict = feed_dict if feed_dict else {}
     dependencies = node.dependencies
     placeholders = get_placeholders(node)
@@ -36,6 +38,11 @@ def run(node: Tensor,
     result = node.data
     clear_placeholders(placeholders)
     return result
+
+
+def run_many(nodes: Iterable[Tensor],
+             feed_dict: Dict[Union[str, Placeholder], Union[Any]] = None) -> List[np.ndarray]:
+    return [run(node, feed_dict) for node in nodes]
 
 
 def new_backward_context(dependencies: Set[Tensor]):
