@@ -86,4 +86,4 @@ class Tensor(ABC, TensorMagic):
         return '<tensor object at {tid}>'.format(tid=hex(id(self)))
 
     def __str__(self):
-        return 'tensor(addr={tid}})'.format(tid=hex(id(self)))
+        return 'tensor(addr={tid})'.format(tid=hex(id(self)))
