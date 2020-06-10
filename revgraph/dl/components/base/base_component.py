@@ -1,12 +1,14 @@
 from abc import abstractmethod, ABC
-from typing import Any, Dict, List, Tuple
+from typing import Any, List, Tuple
+
+import revgraph.core as rc
 
 
 class BaseComponent(ABC):
     def __init__(self,
                  *args: Any,
                  **kwargs: Any):
-        self.verify(*args, **kwargs)
+        self.verify(self.specs(*args, **kwargs))
 
     @staticmethod
     def verify(predicates: List[Tuple[bool, str]]) -> None:
@@ -15,9 +17,17 @@ class BaseComponent(ABC):
                 raise ValueError(err_msg)
 
     @abstractmethod
-    def specs(self, *args, **kwargs) -> List[Tuple[bool, str]]:
+    def specs(self,
+              *args: Any,
+              **kwargs: Any) -> List[Tuple[bool, str]]:
         pass
 
     @abstractmethod
-    def build(self) -> Dict[str, Any]:
+    def instantiate(self,
+                    *args: Any,
+                    **kwargs: Any) -> None:
+        pass
+
+    @abstractmethod
+    def build_graph(self) -> rc.tensor:
         pass
