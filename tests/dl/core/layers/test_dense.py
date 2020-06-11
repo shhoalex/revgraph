@@ -15,6 +15,7 @@ class DenseTestCase(unittest.TestCase):
         self.placeholder_metadata = dict(units=10, graph=self.placeholder)
         self.builder_basic = dense(units=20, use_bias=False)
         self.builder_with_bias = dense(units=30)
+        self.builder_with_act = dense(units=40, activation=lambda x: 2*x+3-x)
 
     def tearDown(self) -> None:
         del self.placeholder
@@ -81,6 +82,42 @@ class DenseTestCase(unittest.TestCase):
         # Units
         units = metadata['units']
         self.assertEqual(30, units)
+
+        # Use bias
+        use_bias = metadata['use_bias']
+        self.assertTrue(use_bias)
+
+    def test_builder_with_activation_generates_valid_graph(self):
+        metadata = self.builder_with_act(self.placeholder_metadata)
+
+        # Expected keys
+        expected = {'bias',
+                    'graph',
+                    'kernel',
+                    'units',
+                    'use_bias'}
+        actual = set(metadata.keys())
+        self.assertSetEqual(expected, actual)
+
+        # Graph
+        x = (self.placeholder.dot(rc.variable([])) + rc.variable([]))
+        expected = 2 * x + 3 - x
+        actual = metadata['graph']
+        self.assertTrue(match_structure(expected, actual))
+
+        # Kernel
+        kernel = metadata['kernel']
+        self.assertTrue(isinstance(kernel.data, np.ndarray))
+        self.assertEqual((10, 40), kernel.shape)
+
+        # Bias
+        bias = metadata['bias']
+        self.assertTrue(isinstance(bias.data, np.ndarray))
+        self.assertEqual((1, 40), bias.shape)
+
+        # Units
+        units = metadata['units']
+        self.assertEqual(40, units)
 
         # Use bias
         use_bias = metadata['use_bias']
