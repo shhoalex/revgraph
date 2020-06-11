@@ -29,22 +29,23 @@ def match_structure(a: rc.tensor, b: rc.tensor) -> bool:
     True
     """
     if type(a) != type(b):
+        print(f'{type(a)} != {type(b)}')
         return False
     if isinstance(a, rc.function_primitive):
         a: rc.function_primitive
         b: rc.function_primitive
         if len(a.args) != len(b.args):
+            print(f'len({type(a)}) != len({type(b)})')
             return False
         for arg_a, arg_b in zip(a.args, b.args):
             if not match_structure(arg_a, arg_b):
+                print('match_structure on args failed')
                 return False
         return True
     elif isinstance(a, rc.placeholder) and isinstance(b, rc.placeholder):
         a: rc.placeholder
         b: rc.placeholder
+        if a.name != b.name:
+            print(f'{type(a)}{a.name} != {type(b)}{b.name}')
         return a.name == b.name
-    elif isinstance(a, rc.variable) and isinstance(b, rc.variable):
-        a: rc.variable
-        b: rc.variable
-        return a.shape == b.shape
     return True
