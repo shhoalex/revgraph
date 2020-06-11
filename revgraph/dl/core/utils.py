@@ -8,6 +8,10 @@ def get_graph(graph_instance: Metadata) -> rc.tensor:
     return graph_instance['graph']
 
 
+def use(key: str) -> Any:
+    return global_registry[key]
+
+
 def use_default(a: Any, b: Any) -> Any:
     return a if a is not None else b
 
