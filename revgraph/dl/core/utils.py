@@ -12,6 +12,12 @@ def use_default(a: Any, b: Any) -> Any:
     return a if a is not None else b
 
 
+def use_registry(key: Union[str, Any]) -> Any:
+    if isinstance(key, str) and key in global_registry.keys():
+        return global_registry[key]
+    return key
+
+
 def default_initializer(shape):
     return np.random.randn(*shape)
 

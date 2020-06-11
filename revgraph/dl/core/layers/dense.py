@@ -14,12 +14,12 @@ def dense(units: int,
           ) -> GraphBuilder:
     validate((units > 0,
               f'\'units\' must be a positive integer, instead of {units}'),
-             (callable(activation) or activation is None,
+             (callable(activation) or activation is None or isinstance(activation, str),
               f'\'activation\' must be callable, instead of type {type(activation)}'))
 
-    activation = use_default(activation, lambda x: x)
-    kernel_initializer = use_default_initializer(kernel_initializer)
-    bias_initializer = use_default_initializer(bias_initializer)
+    activation = use_default(use_registry(activation), lambda x: x)
+    kernel_initializer = use_default_initializer(use_registry(kernel_initializer))
+    bias_initializer = use_default_initializer(use_registry(bias_initializer))
 
     def graph_builder(prev_layer: Metadata) -> Metadata:
         metadata = {
