@@ -9,6 +9,13 @@ def relu() -> ActivationFunction:
 
 
 @register
+def linear() -> ActivationFunction:
+    def function(x: rc.tensor) -> rc.tensor:
+        return x
+    return function
+
+
+@register
 def tanh() -> ActivationFunction:
     return rc.tanh
 
