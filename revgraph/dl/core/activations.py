@@ -4,7 +4,7 @@ from .utils import *
 @register
 def relu() -> ActivationFunction:
     def function(x: rc.tensor) -> rc.tensor:
-        return rc.max(x, 0)
+        return (x>0) * x
     return function
 
 
