@@ -14,9 +14,10 @@ def dense(units: int,
           ) -> GraphBuilder:
     validate((units > 0,
               f'\'units\' must be a positive integer, instead of {units}'),
-             (callable(activation),
+             (callable(activation) or activation is None,
               f'\'activation\' must be callable, instead of type {type(activation)}'))
 
+    activation = use_default(activation, lambda x: x)
     kernel_initializer = use_default_initializer(kernel_initializer)
     bias_initializer = use_default_initializer(bias_initializer)
 
@@ -38,9 +39,8 @@ def dense(units: int,
             if bias_regularizer is not None:
                 metadata['regularized_bias'] = bias_regularizer(v_bias)
 
-        if activation is not None:
-            # Apply activation function
-            graph = activation(graph)
+        # Apply activation function
+        graph = activation(graph)
 
         if kernel_regularizer is not None:
             # Apply kernel regularization
