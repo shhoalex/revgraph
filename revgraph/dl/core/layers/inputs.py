@@ -2,7 +2,7 @@ from ..utils import *
 
 
 def inputs(shape: Tuple[int],
-           input_placeholder_label: str = 'x') -> GraphBuilder:
+           input_placeholder_label: str = 'x') -> GraphBuilderNoParam:
     if isinstance(shape, int):
         shape = (shape,)
     validate((all(map(lambda n: n is not None, shape)),
