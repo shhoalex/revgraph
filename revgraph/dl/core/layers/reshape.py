@@ -6,8 +6,8 @@ def reshape(new_shape: TensorShape) -> GraphBuilder:
         nonlocal new_shape
         graph = prev_layer['graph']
         old_shape = prev_layer['units']
-        #validate((np.prod(old_shape) == np.prod(new_shape),
-        #          f'{old_shape} cannot be reshaped to {new_shape}'))
+        validate((np.prod(old_shape) == np.prod(new_shape),
+                  f'{old_shape} cannot be reshaped to {new_shape}'))
         if isinstance(new_shape, int):
             new_shape = (new_shape,)
         return {
