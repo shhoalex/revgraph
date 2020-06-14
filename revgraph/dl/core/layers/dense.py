@@ -27,7 +27,7 @@ def dense(units: int,
             'use_bias': use_bias
         }
         # Create kernel
-        init_weights = kernel_initializer((prev_layer['units'], units))
+        init_weights = kernel_initializer((np.prod(prev_layer['units']), units))
         metadata['kernel'] = v_kernel = rc.variable(init_weights)
 
         graph = prev_layer['graph'].dot(v_kernel)
