@@ -3,9 +3,9 @@ from ..utils import *
 
 def dense(units: int,
           use_bias: bool = True,
-          activation: ActivationFunction = None,
-          kernel_initializer: Initializer = None,
-          bias_initializer: Initializer = None,
+          activation: ActivationFunction = 'linear',
+          kernel_initializer: Initializer = 'glorot_normal',
+          bias_initializer: Initializer = 'glorot_normal',
           kernel_regularizer: Regularizer = None,
           bias_regularizer: Regularizer = None,
           activity_regularizer: Regularizer = None,
