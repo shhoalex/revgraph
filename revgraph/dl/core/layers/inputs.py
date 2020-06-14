@@ -1,7 +1,7 @@
 from ..utils import *
 
 
-def inputs(shape: Tuple[int],
+def inputs(shape: Tuple[int, ...],
            input_placeholder_label: str = 'x') -> GraphBuilderNoParam:
     if isinstance(shape, int):
         shape = (shape,)
@@ -10,7 +10,7 @@ def inputs(shape: Tuple[int],
 
     def graph_builder() -> Metadata:
         return {
-            'units': np.prod(shape),
+            'units': shape,
             'graph': rc.placeholder(shape=(None,) + shape,
                                     name=input_placeholder_label)
         }
