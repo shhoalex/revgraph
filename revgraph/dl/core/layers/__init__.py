@@ -1,3 +1,4 @@
+from .conv2d import conv2d
 from .dense import dense
 from .inputs import inputs
 from .reshape import reshape
