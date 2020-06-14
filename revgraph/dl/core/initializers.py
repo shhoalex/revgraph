@@ -41,8 +41,8 @@ def random_uniform(minval=-0.05, maxval=0.05):
 @register
 def glorot_normal() -> Initializer:
     def builder(shape: TensorShape) -> np.ndarray:
-        n_in, n_out = shape
-        stddev = np.sqrt(2 / (n_in + n_out))
+        *n_in, n_out = shape
+        stddev = np.sqrt(2 / (np.prod(n_in) + n_out))
         return stddev * np.random.randn(*shape)
     return builder
 
@@ -50,7 +50,7 @@ def glorot_normal() -> Initializer:
 @register
 def glorot_uniform() -> Initializer:
     def builder(shape: TensorShape) -> np.ndarray:
-        n_in, n_out = shape
-        limit = np.sqrt(6 / (n_in + n_out))
+        *n_in, n_out = shape
+        limit = np.sqrt(6 / (np.prod(n_in) + n_out))
         return np.random.uniform(low=-limit, high=limit, size=shape)
     return builder
