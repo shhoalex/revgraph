@@ -53,9 +53,15 @@ def conv2d(filters: int,
             if bias_regularizer is not None:
                 metadata['regularized_bias'] = bias_regularizer(v_bias)
 
-        metadata['graph'] = activation(graph)
+        metadata['graph'] = graph = activation(graph)
         if kernel_regularizer is not None:
+            # Apply kernel regularization
             metadata['regularized_kernel'] = kernel_regularizer(v_kernel)
+
+        if activity_regularizer is not None:
+            # Apply regularization to output
+            metadata['regularized_output'] = activity_regularizer(graph)
+
         h_out = int(rc.conv2d.output_size(h, k0, padding, s0))
         w_out = int(rc.conv2d.output_size(w, k1, padding, s1))
         metadata['units'] = (filters, c, h_out, w_out)
