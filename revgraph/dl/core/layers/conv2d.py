@@ -17,7 +17,9 @@ def conv2d(filters: int,
     validate((filters > 0,
               f'\'filters\' must be a positive integer, instead of {filters}'),
              (callable(activation) or activation is None or isinstance(activation, str),
-              f'\'activation\' must be callable, instead of type {type(activation)}'))
+              f'\'activation\' must be callable, instead of type {type(activation)}'),
+             (padding.lower() in ('valid', 'same'),
+              f'\'padding\' must be either \'valid\' or \'same\', instead of {padding}'))
 
     activation = use_default(use_registry(activation), lambda x: x)
     kernel_initializer = use_default_initializer(use_registry(kernel_initializer))
@@ -40,9 +42,11 @@ def conv2d(filters: int,
         metadata['v_kernel'] = v_kernel
 
         # Convolve the previous computational graph with the kernels
+        # Buggy: do not use keyword arguments for params 'graph' and 'v_kernel'
+        #        otherwise gradients would not be properly propagated
         graph = rc.conv2d(graph,
                           v_kernel,
-                          padding=padding,
+                          padding=padding.lower(),
                           stride=stride)
 
         if use_bias:
@@ -51,6 +55,7 @@ def conv2d(filters: int,
             graph += v_bias
 
             if bias_regularizer is not None:
+                # Bias regularization
                 metadata['regularized_bias'] = bias_regularizer(v_bias)
 
         metadata['graph'] = graph = activation(graph)
@@ -62,6 +67,7 @@ def conv2d(filters: int,
             # Apply regularization to output
             metadata['regularized_output'] = activity_regularizer(graph)
 
+        # Infer the output shape using a utility function in conv2d
         h_out = int(rc.conv2d.output_size(h, k0, padding, s0))
         w_out = int(rc.conv2d.output_size(w, k1, padding, s1))
         metadata['units'] = (filters, c, h_out, w_out)
