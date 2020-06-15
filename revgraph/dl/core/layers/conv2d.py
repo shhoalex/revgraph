@@ -81,6 +81,6 @@ def conv2d(filters: int,
         # Infer the output shape using a utility function in conv2d
         h_out = int(rc.conv2d.output_size(h, k0, padding, s0))
         w_out = int(rc.conv2d.output_size(w, k1, padding, s1))
-        metadata['units'] = (filters, c, h_out, w_out)
+        metadata['units'] = (h_out, w_out, filters)
         return metadata
     return graph_builder
