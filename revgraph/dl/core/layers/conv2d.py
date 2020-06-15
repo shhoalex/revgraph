@@ -25,6 +25,9 @@ def conv2d(filters: int,
     padding = padding.upper()
     kernel_initializer = use_default_initializer(use_registry(kernel_initializer))
     bias_initializer = use_default_initializer(use_registry(bias_initializer))
+    kernel_regularizer = use_registry(kernel_regularizer)
+    bias_regularizer = use_registry(bias_regularizer)
+    activity_regularizer = use_registry(activity_regularizer)
 
     s0, s1 = (stride
               if isinstance(stride, tuple)

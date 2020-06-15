@@ -20,6 +20,9 @@ def dense(units: int,
     activation = use_default(use_registry(activation), lambda x: x)
     kernel_initializer = use_default_initializer(use_registry(kernel_initializer))
     bias_initializer = use_default_initializer(use_registry(bias_initializer))
+    kernel_regularizer = use_registry(kernel_regularizer)
+    bias_regularizer = use_registry(bias_regularizer)
+    activity_regularizer = use_registry(activity_regularizer)
 
     def graph_builder(prev_layer: Metadata) -> Metadata:
         metadata = {
