@@ -4,7 +4,7 @@ from ..utils import *
 def conv2d(filters: int,
            kernel_size: Tuple[int, int],
            stride: Tuple[int, int] = (1, 1),
-           padding: str = 'VALID',
+           padding: str = 'valid',
            activation: ActivationFunction = 'linear',
            use_bias: bool = False,
            kernel_initializer: Initializer = 'glorot_normal',
@@ -22,6 +22,7 @@ def conv2d(filters: int,
               f'\'padding\' must be either \'valid\' or \'same\', instead of {padding}'))
 
     activation = use_default(use_registry(activation), lambda x: x)
+    padding = padding.upper()
     kernel_initializer = use_default_initializer(use_registry(kernel_initializer))
     bias_initializer = use_default_initializer(use_registry(bias_initializer))
 
@@ -34,19 +35,23 @@ def conv2d(filters: int,
 
     def graph_builder(prev_layer: Metadata) -> Metadata:
         metadata = {}
+
+        # Inherit previous layer's regularized nodes
+        init_regularized_nodes(metadata, prev_layer)
+
         graph = prev_layer['graph']
         h, w, c = prev_layer['units']
 
         # Initialize kernel as a tensor of shape (k0, k1, c, filters)
         v_kernel = rc.variable(kernel_initializer((k0, k1, c, filters)))
-        metadata['v_kernel'] = v_kernel
+        metadata['kernel'] = v_kernel
 
         # Convolve the previous computational graph with the kernels
         # Buggy: do not use keyword arguments for params 'graph' and 'v_kernel'
         #        otherwise gradients would not be properly propagated
         graph = rc.conv2d(graph,
                           v_kernel,
-                          padding=padding.lower(),
+                          padding=padding,
                           stride=stride)
 
         if use_bias:
@@ -56,16 +61,19 @@ def conv2d(filters: int,
 
             if bias_regularizer is not None:
                 # Bias regularization
-                metadata['regularized_bias'] = bias_regularizer(v_bias)
+                r_bias = bias_regularizer(v_bias)
+                append_regularized_nodes(metadata, r_bias)
 
         metadata['graph'] = graph = activation(graph)
         if kernel_regularizer is not None:
             # Apply kernel regularization
-            metadata['regularized_kernel'] = kernel_regularizer(v_kernel)
+            r_kernel = kernel_regularizer(v_kernel)
+            append_regularized_nodes(metadata, r_kernel)
 
         if activity_regularizer is not None:
             # Apply regularization to output
-            metadata['regularized_output'] = activity_regularizer(graph)
+            r_output = activity_regularizer(graph)
+            append_regularized_nodes(metadata, r_output)
 
         # Infer the output shape using a utility function in conv2d
         h_out = int(rc.conv2d.output_size(h, k0, padding, s0))

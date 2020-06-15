@@ -12,6 +12,7 @@ def inputs(shape: Tuple[int, ...],
         return {
             'units': shape,
             'graph': rc.placeholder(shape=(None,) + shape,
-                                    name=input_placeholder_label)
+                                    name=input_placeholder_label),
+            'regularized_nodes': None
         }
     return graph_builder

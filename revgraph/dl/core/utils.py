@@ -8,6 +8,18 @@ def get_graph(graph_instance: Metadata) -> rc.tensor:
     return graph_instance['graph']
 
 
+def append_regularized_nodes(metadata: Metadata, node: rc.tensor):
+    metadata['regularized_nodes'] = (metadata['regularized_nodes'] + node
+                                     if isinstance(metadata['regularized_nodes'], rc.tensor)
+                                     else node)
+
+
+def init_regularized_nodes(metadata: Metadata, prev_layer: Metadata):
+    metadata['regularized_nodes'] = (prev_layer['regularized_nodes']
+                                     if 'regularized_nodes' in prev_layer.keys()
+                                     else None)
+
+
 def use(key: str) -> Any:
     return global_registry[key]
 

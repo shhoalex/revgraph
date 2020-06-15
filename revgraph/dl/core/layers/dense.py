@@ -26,6 +26,8 @@ def dense(units: int,
             'units': units,
             'use_bias': use_bias
         }
+        init_regularized_nodes(metadata, prev_layer)
+
         # Create kernel
         init_weights = kernel_initializer((np.prod(prev_layer['units']), units))
         metadata['kernel'] = v_kernel = rc.variable(init_weights)
@@ -37,18 +39,21 @@ def dense(units: int,
             metadata['bias'] = v_bias = rc.variable(init_bias)
             graph += v_bias
             if bias_regularizer is not None:
-                metadata['regularized_bias'] = bias_regularizer(v_bias)
+                r_bias = bias_regularizer(v_bias)
+                append_regularized_nodes(metadata, r_bias)
 
         # Apply activation function
         graph = activation(graph)
 
         if kernel_regularizer is not None:
             # Apply kernel regularization
-            metadata['regularized_kernel'] = kernel_regularizer(v_kernel)
+            r_kernel = kernel_regularizer(v_kernel)
+            append_regularized_nodes(metadata, r_kernel)
 
         if activity_regularizer is not None:
             # Apply regularization to graph
-            metadata['regularized_output'] = activity_regularizer(graph)
+            r_output = activity_regularizer(graph)
+            append_regularized_nodes(metadata, r_output)
         metadata['graph'] = graph
         return metadata
     return graph_builder

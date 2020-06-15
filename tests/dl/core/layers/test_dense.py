@@ -30,7 +30,8 @@ class DenseTestCase(unittest.TestCase):
         expected = {'graph',
                     'kernel',
                     'units',
-                    'use_bias'}
+                    'use_bias',
+                    'regularized_nodes'}
         actual = set(metadata.keys())
         self.assertSetEqual(expected, actual)
 
@@ -52,6 +53,10 @@ class DenseTestCase(unittest.TestCase):
         use_bias = metadata['use_bias']
         self.assertFalse(use_bias)
 
+        # Regularized Nodes
+        regularized_nodes = metadata['regularized_nodes']
+        self.assertIsNone(regularized_nodes)
+
     def test_builder_with_bias_generates_valid_graph(self):
         metadata = self.builder_with_bias(self.placeholder_metadata)
 
@@ -60,7 +65,8 @@ class DenseTestCase(unittest.TestCase):
                     'graph',
                     'kernel',
                     'units',
-                    'use_bias'}
+                    'use_bias',
+                    'regularized_nodes'}
         actual = set(metadata.keys())
         self.assertSetEqual(expected, actual)
 
@@ -87,6 +93,10 @@ class DenseTestCase(unittest.TestCase):
         use_bias = metadata['use_bias']
         self.assertTrue(use_bias)
 
+        # Regularized Nodes
+        regularized_nodes = metadata['regularized_nodes']
+        self.assertIsNone(regularized_nodes)
+
     def test_builder_with_activation_generates_valid_graph(self):
         metadata = self.builder_with_act(self.placeholder_metadata)
 
@@ -95,7 +105,8 @@ class DenseTestCase(unittest.TestCase):
                     'graph',
                     'kernel',
                     'units',
-                    'use_bias'}
+                    'use_bias',
+                    'regularized_nodes'}
         actual = set(metadata.keys())
         self.assertSetEqual(expected, actual)
 
@@ -122,3 +133,7 @@ class DenseTestCase(unittest.TestCase):
         # Use bias
         use_bias = metadata['use_bias']
         self.assertTrue(use_bias)
+
+        # Regularized Nodes
+        regularized_nodes = metadata['regularized_nodes']
+        self.assertIsNone(regularized_nodes)
