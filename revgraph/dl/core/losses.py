@@ -2,10 +2,10 @@ from .utils import *
 
 
 @register
-def categorical_cross_entropy(eps=1e-20, axis=1):
+def categorical_cross_entropy(fold=rc.sum, eps=1e-20, axis=1):
     def function(y_true, y_pred):
-        return -rc.sum(y_true * rc.log(y_pred+eps) +
-                       (1-y_true) * rc.log(1-y_pred+eps), axis=axis)
+        return fold(-rc.sum(y_true * rc.log(y_pred+eps) +
+                    (1-y_true) * rc.log(1-y_pred+eps), axis=axis))
     return function
 
 
