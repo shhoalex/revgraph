@@ -4,22 +4,22 @@ from .utils import *
 @register
 def zeros() -> Initializer:
     def builder(shape: TensorShape) -> np.ndarray:
-        return np.zeros_like(*shape)
+        return np.zeros(shape=shape, dtype='float64')
     return builder
 
 
 @register
 def ones() -> Initializer:
     def builder(shape: TensorShape) -> np.ndarray:
-        return np.ones_like(*shape)
+        return np.ones(shape=shape, dtype='float64')
     return builder
 
 
 @register
 def const(n: float = 1.0) -> Initializer:
     def builder(shape: TensorShape) -> np.ndarray:
-        a = np.zeros_like(*shape)
-        a.fill(n)
+        a = np.zeros(shape=shape, dtype='float64')
+        a.fill(np.cast['float64'](n))
         return a
     return builder
 
