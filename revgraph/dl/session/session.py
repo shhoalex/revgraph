@@ -26,10 +26,13 @@ class Session(object):
                         if isinstance(metadata['units'], int)
                         else metadata['units'])
         self.prediction = get_graph(metadata)
+        regularized_nodes = metadata['regularized_nodes']
         self.loss = self.loss_builder(
             rc.placeholder(name='y', shape=(None, *output_shape)),
             self.prediction
         )
+        if regularized_nodes is not None:
+            self.loss += regularized_nodes
         self.optimization = self.optimizer_builder(self.loss)
 
     def predict(self, x):
