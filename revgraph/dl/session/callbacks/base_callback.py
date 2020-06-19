@@ -1,13 +1,10 @@
-from abc import ABC
 from inspect import getmembers
 from typing import Any, Callable, IO
 
 import numpy as np
 
-from ..session import Session
 
-
-class BaseCallback(ABC):
+class BaseCallback(object):
     def __init__(self):
         self.callbacks = []
 
@@ -38,7 +35,7 @@ class BaseCallback(ABC):
                       batch: int,
                       n_batches: int,
                       before_execution: bool,
-                      session: Session,
+                      session: 'Session',
                       output: Callable[[Any], IO[None]],
                       x_train: np.array = None,
                       y_train: np.array = None,
@@ -67,7 +64,7 @@ class BaseCallback(ABC):
     def invoke(self):
         for should_invoke, invokable in self.callbacks:
             if should_invoke(self):
-                invokable(self)
+                invokable()
 
 
 def invoked_when(cond: Callable[[BaseCallback], Any]):

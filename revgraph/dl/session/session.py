@@ -44,6 +44,11 @@ class Session(object):
     def evaluate(self, x, y):
         return self.loss(x=x, y=y)
 
+    def invoke_callbacks(self, callbacks, metadata):
+        for callback in callbacks:
+            callback.send_metadata(**metadata)
+            callback.invoke()
+
     def fit(self,
             x: np.array,
             y: np.array,
@@ -51,7 +56,9 @@ class Session(object):
             batch_size: Optional[int] = None,
             shuffle: bool = True,
             train_test_validation: Tuple[float, float, float] = (1.0, 0.0, 0.0),
-            verbose: bool = True):
+            verbose: bool = True,
+            callbacks: List['base_callback'] = None):
+        callbacks = callbacks if callbacks is not None else []
         output = print if verbose else (lambda *args, **kwargs: None)
 
         validate((
@@ -62,8 +69,27 @@ class Session(object):
         (x_train, y_train), (x_test, y_test), (x_validation, y_validation) = (
             train_test_validation_split(x, y, train, test, validation)
         )
+        metadata = {
+            'n_epochs': epochs,
+            'n_batches': len(x_train) // batch_size,
+            'session': self,
+            'x_train': x_train,
+            'y_train': y_train,
+            'x_test': x_test,
+            'y_test': y_test,
+            'x_validation': x_validation,
+            'y_validation': y_validation,
+            'output': output
+        }
 
         for n in range(epochs):
-            output(f'Epoch {n}')
-            for x_batch, y_batch in batch_generator(x_train, y_train, batch_size, shuffle):
+            metadata['epoch'] = n
+            for i, (x_batch, y_batch) in enumerate(batch_generator(x_train, y_train, batch_size, shuffle)):
+                metadata['batch'] = i
+                metadata['x_batch'] = x_batch
+                metadata['y_batch'] = y_batch
+                metadata['before_execution'] = True
+                self.invoke_callbacks(callbacks, metadata)
                 self.optimization(x=x_batch, y=y_batch)
+                metadata['before_execution'] = False
+                self.invoke_callbacks(callbacks, metadata)
