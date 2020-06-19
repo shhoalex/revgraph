@@ -50,7 +50,10 @@ class Session(object):
             epochs: int = 1,
             batch_size: Optional[int] = None,
             shuffle: bool = True,
-            train_test_validation: Tuple[float, float, float] = (1.0, 0.0, 0.0)):
+            train_test_validation: Tuple[float, float, float] = (1.0, 0.0, 0.0),
+            verbose: bool = True):
+        output = print if verbose else (lambda *args, **kwargs: None)
+
         validate((
             self.compiled,
             'session is not compiled, try calling .compile'
@@ -61,6 +64,6 @@ class Session(object):
         )
 
         for n in range(epochs):
-            print(f'Epoch {n}')
+            output(f'Epoch {n}')
             for x_batch, y_batch in batch_generator(x_train, y_train, batch_size, shuffle):
                 self.optimization(x=x_batch, y=y_batch)
