@@ -1,3 +1,5 @@
+from contextlib import contextmanager
+
 from revgraph.dl.core.utils import *
 
 from .batch_generator import batch_generator
@@ -44,10 +46,20 @@ class Session(object):
     def evaluate(self, x, y):
         return self.loss(x=x, y=y)
 
-    def invoke_callbacks(self, callbacks, metadata):
+    @staticmethod
+    def invoke_callbacks(callbacks, metadata):
         for callback in callbacks:
             callback.send_metadata(**metadata)
             callback.invoke()
+
+    @staticmethod
+    @contextmanager
+    def temporary(metadata, field, before=True, after=False):
+        try:
+            metadata[field] = before
+            yield metadata
+        finally:
+            metadata[field] = after
 
     def fit(self,
             x: np.array,
@@ -77,19 +89,37 @@ class Session(object):
             'y_train': y_train,
             'x_test': x_test,
             'y_test': y_test,
+            'before_batch': False,
+            'after_batch': False,
+            'before_all': True,
+            'after_all': False,
+            'before_epoch': False,
+            'after_epoch': False,
+            'epoch': None,
+            'batch': None,
             'x_validation': x_validation,
             'y_validation': y_validation,
             'output': output
         }
 
+        with self.temporary(metadata, 'before_all') as m:
+            self.invoke_callbacks(callbacks, m)
+
         for n in range(epochs):
             metadata['epoch'] = n
+            with self.temporary(metadata, 'before_epoch') as m:
+                self.invoke_callbacks(callbacks, m)
             for i, (x_batch, y_batch) in enumerate(batch_generator(x_train, y_train, batch_size, shuffle)):
                 metadata['batch'] = i
                 metadata['x_batch'] = x_batch
                 metadata['y_batch'] = y_batch
-                metadata['before_execution'] = True
-                self.invoke_callbacks(callbacks, metadata)
-                self.optimization(x=x_batch, y=y_batch)
-                metadata['before_execution'] = False
-                self.invoke_callbacks(callbacks, metadata)
+                with self.temporary(metadata, 'before_batch') as m:
+                    self.invoke_callbacks(callbacks, m)
+                    self.optimization(x=x_batch, y=y_batch)
+                with self.temporary(metadata, 'after_batch') as m:
+                    self.invoke_callbacks(callbacks, m)
+            with self.temporary(metadata, 'after_epoch') as m:
+                self.invoke_callbacks(callbacks, m)
+
+        with self.temporary(metadata, 'after_all') as m:
+            self.invoke_callbacks(callbacks, m)

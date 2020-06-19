@@ -17,9 +17,14 @@ class BaseCallback(object):
         self.n_epochs = None
         self.batch = None
         self.n_batches = None
-        self.before_execution = None
+        self.before_batch = None
+        self.after_batch = None
         self.session = None
         self.output = None
+        self.before_all = None
+        self.after_all = None
+        self.before_epoch = None
+        self.after_epoch = None
         self.x_train = None
         self.y_train = None
         self.x_test = None
@@ -34,7 +39,12 @@ class BaseCallback(object):
                       n_epochs: int,
                       batch: int,
                       n_batches: int,
-                      before_execution: bool,
+                      before_batch: bool,
+                      after_batch: bool,
+                      before_all: bool,
+                      after_all: bool,
+                      before_epoch: bool,
+                      after_epoch: bool,
                       session: 'Session',
                       output: Callable[[Any], IO[None]],
                       x_train: np.array = None,
@@ -49,7 +59,12 @@ class BaseCallback(object):
         self.n_epochs = n_epochs
         self.batch = batch
         self.n_batches = n_batches
-        self.before_execution = before_execution
+        self.before_batch = before_batch
+        self.after_batch = after_batch
+        self.before_all = before_all
+        self.after_all = after_all
+        self.before_epoch = before_epoch
+        self.after_epoch = after_epoch
         self.session = session
         self.output = output
         self.x_train = x_train
