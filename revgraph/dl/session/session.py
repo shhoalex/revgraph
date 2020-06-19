@@ -1,5 +1,6 @@
 from revgraph.dl.core.utils import *
 
+from .batch_generator import batch_generator
 from .train_test_validation_split import train_test_validation_split
 
 
@@ -56,6 +57,7 @@ class Session(object):
             train_test_validation_split(x, y, train, test, validation)
         )
 
-        for n_epoch in range(epochs):
-            pass
-
+        for n in range(epochs):
+            print(f'Epoch {n}')
+            for x_batch, y_batch in batch_generator(x_train, y_train, batch_size, shuffle):
+                self.optimization(x=x_batch, y=y_batch)
