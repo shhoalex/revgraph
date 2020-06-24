@@ -104,6 +104,7 @@ class Session(object):
         (x_train, y_train), (x_test, y_test), (x_validation, y_validation) = (
             train_test_validation_split(x, y, train, test, validation)
         )
+        batch_size = len(x_train) if batch_size is None else batch_size
         metadata = {
             'n_epochs': epochs,
             'n_batches': len(x_train) // batch_size,
