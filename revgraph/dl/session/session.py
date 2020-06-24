@@ -31,17 +31,18 @@ class Session(object):
     @staticmethod
     def load_from(path: str) -> 'Session':
         with open(path, 'rb') as handler:
-            session_metadata = pkl.load(handler)
+            nodes = pkl.load(handler)
             new_session = Session(
                 model=Session.builder_not_found,
                 loss=Session.builder_not_found,
-                optimizer=Session.builder_not_found
+                optimizer=Session.builder_not_found,
+                metrics=Session.builder_not_found
             )
-            nodes = session_metadata['compiled_nodes']
             new_session.prediction = nodes['prediction']
             new_session.loss = nodes['loss']
             new_session.optimization = nodes['optimization']
-            new_session.compiled = session_metadata['metadata']['compiled']
+            new_session.metrics = nodes['metrics']
+            new_session.compiled = True
             return new_session
 
     def compile(self):

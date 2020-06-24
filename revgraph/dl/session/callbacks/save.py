@@ -18,14 +18,10 @@ class Save(BaseCallback):
             raise RuntimeError('Model is not compiled')
         with open(self.path, 'wb') as handler:
             pkl.dump({
-                'compiled_nodes': {
-                    'prediction': self.session.prediction,
-                    'loss': self.session.loss,
-                    'optimization': self.session.optimization,
-                },
-                'metadata': {
-                    'compiled': self.session.compiled
-                }
+                'prediction': self.session.prediction,
+                'loss': self.session.loss,
+                'optimization': self.session.optimization,
+                'metrics': self.session.metrics
             }, handler)
 
     @invoked_when(lambda self: (
