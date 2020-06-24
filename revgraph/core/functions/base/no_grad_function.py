@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
 import numpy as np
 
@@ -10,6 +10,7 @@ from .generic_function import GenericFunction
 class NoGradFunction(GenericFunction, ABC):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
+        self.target_function = None
         for arg in args:
             if not isinstance(arg, Tensor):
                 arg = Value(np.array(arg), requires_grad=False)
@@ -20,9 +21,4 @@ class NoGradFunction(GenericFunction, ABC):
         pass
 
     def apply(self, *args, **kwargs):
-        return self.__class__.call(*args, **kwargs)
-
-    @staticmethod
-    @abstractmethod
-    def call(*args, **kwargs):
-        pass
+        return self.target_function(*args, **kwargs)

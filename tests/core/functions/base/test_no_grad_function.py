@@ -4,12 +4,10 @@ from revgraph.core.values.variable import Variable
 from revgraph.core.functions.base.no_grad_function import NoGradFunction
 
 
-class NoGradFunctionImpl(NoGradFunction):
-    def call(x):
-        return 2*x
-
-
-two = NoGradFunctionImpl
+def two(x):
+    f = NoGradFunction(x)
+    f.target_function = lambda x: 2*x
+    return f
 
 
 class NoGradFunctionTestCase(unittest.TestCase):
