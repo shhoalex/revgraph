@@ -63,6 +63,9 @@ class Session(object):
     def predict(self, x):
         return self.prediction(x=x)
 
+    def predict_one(self, x):
+        return self.prediction(x=[x])[0]
+
     def get_model(self):
         return self.predict
 
@@ -102,6 +105,9 @@ class Session(object):
         validate((
             self.compiled,
             'session is not compiled, try calling .compile'
+        ), (
+            len(x) == len(y),
+            f'len(x) {len(x)} != len(y) {len(y)}'
         ))
         train, test, validation = train_test_validation
         (x_train, y_train), (x_test, y_test), (x_validation, y_validation) = (
