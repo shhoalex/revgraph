@@ -22,6 +22,5 @@ class Validation(BaseCallback):
         if not self.warned and len(self.x_validation) == 0:
             self.output('WARNING: length of validation set is 0.')
             self.warned = True
-        validation_loss = self.session.evaluate(self.x_validation,
-                                                self.y_validation) / len(self.x_validation)
-        self.output(f'    Validation Loss: {validation_loss}')
+        metrics = self.session.evaluate_metrics(self.x_validation, self.y_validation)
+        self.output('\n'.join([f'    Validation {k}: {v}' for k, v in metrics.items()]))

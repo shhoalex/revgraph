@@ -20,6 +20,5 @@ class Test(BaseCallback):
         if not self.warned and len(self.x_test) == 0:
             self.output('WARNING: length of test set is 0.')
             self.warned = True
-        test_loss = self.session.evaluate(self.x_test,
-                                          self.y_test) / len(self.x_test)
-        self.output(f'Test Loss: {test_loss}')
+        metrics = self.session.evaluate_metrics(self.x_test, self.y_test)
+        self.output('\n'.join([f'Test {k}: {v}' for k, v in metrics.items()]))

@@ -12,13 +12,16 @@ class Session(object):
     def __init__(self,
                  model: GraphBuilderNoParam,
                  loss: GraphBuilder,
-                 optimizer: GraphBuilder):
+                 optimizer: GraphBuilder,
+                 metrics: Dict[str, GraphBuilder] = None):
         self.model_builder = model
         self.loss_builder = loss
         self.optimizer_builder = optimizer
+        self.metrics_builder = metrics if metrics is not None else {}
         self.compiled = False
         self.prediction = None
         self.loss = None
+        self.metrics = None
         self.optimization = None
 
     @staticmethod
@@ -47,12 +50,11 @@ class Session(object):
         output_shape = ((metadata['units'],)
                         if isinstance(metadata['units'], int)
                         else metadata['units'])
-        self.prediction = get_graph(metadata)
+        y_pred = self.prediction = get_graph(metadata)
+        y_true = rc.placeholder(name='y', shape=(None, *output_shape))
         regularized_nodes = metadata['regularized_nodes']
-        self.loss = self.loss_builder(
-            rc.placeholder(name='y', shape=(None, *output_shape)),
-            self.prediction
-        )
+        self.loss = self.loss_builder(y_true, y_pred)
+        self.metrics = {k: f(y_true, y_pred) for k, f in self.metrics_builder.items()}
         if regularized_nodes is not None:
             self.loss += regularized_nodes
         self.optimization = self.optimizer_builder(self.loss)
@@ -69,6 +71,9 @@ class Session(object):
 
     def evaluate(self, x, y):
         return self.loss(x=x, y=y)
+
+    def evaluate_metrics(self, x, y):
+        return {k: f(x=x, y=y) for k, f in self.metrics.items()}
 
     @staticmethod
     def invoke_callbacks(callbacks, metadata):
