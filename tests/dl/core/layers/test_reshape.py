@@ -25,7 +25,8 @@ class ReshapeTestCase(unittest.TestCase):
     def test_generate_valid_graph(self):
         metadata = self.builder(self.metadata_x)
         expected = {'graph',
-                    'units'}
+                    'units',
+                    'regularized_nodes'}
         actual = set(metadata.keys())
         self.assertSetEqual(expected, actual)
 
