@@ -8,7 +8,7 @@ from .batch_generator import batch_generator
 from .train_test_validation_split import train_test_validation_split
 
 
-class Session(object):
+class Model(object):
     def __init__(self,
                  model: GraphBuilderNoParam,
                  loss: GraphBuilder,
@@ -29,14 +29,14 @@ class Session(object):
         raise RuntimeError('Unable to compile a loaded model')
 
     @staticmethod
-    def load_from(path: str) -> 'Session':
+    def load_from(path: str) -> 'Model':
         with open(path, 'rb') as handler:
             nodes = pkl.load(handler)
-            new_session = Session(
-                model=Session.builder_not_found,
-                loss=Session.builder_not_found,
-                optimizer=Session.builder_not_found,
-                metrics=Session.builder_not_found
+            new_session = Model(
+                model=Model.builder_not_found,
+                loss=Model.builder_not_found,
+                optimizer=Model.builder_not_found,
+                metrics=Model.builder_not_found
             )
             new_session.prediction = nodes['prediction']
             new_session.loss = nodes['loss']

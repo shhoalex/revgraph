@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from revgraph.dl.session.train_test_validation_split import train_test_validation_split
+from revgraph.dl.model.train_test_validation_split import train_test_validation_split
 
 
 class TrainTestValidationSplitTestCase(unittest.TestCase):
