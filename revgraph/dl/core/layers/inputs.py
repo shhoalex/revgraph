@@ -1,7 +1,7 @@
 from ..utils import *
 
 
-def inputs(shape: Tuple[int, ...],
+def inputs(shape: Union[Tuple[int, ...], int],
            input_placeholder_label: str = 'x') -> GraphBuilderNoParam:
     if isinstance(shape, int):
         shape = (shape,)

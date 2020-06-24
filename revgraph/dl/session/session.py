@@ -88,8 +88,8 @@ class Session(object):
             metadata[field] = after
 
     def fit(self,
-            x: np.ndarray,
-            y: np.ndarray,
+            x: Union[np.ndarray, Iterator[Any]],
+            y: Union[np.ndarray, Iterator[Any]],
             epochs: int = 1,
             batch_size: Optional[int] = None,
             shuffle: bool = True,
