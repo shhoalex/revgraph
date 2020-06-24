@@ -11,9 +11,7 @@ def conv2d(filters: int,
            bias_initializer: Initializer = 'random_uniform',
            kernel_regularizer: Regularizer = None,
            bias_regularizer: Regularizer = None,
-           activity_regularizer: Regularizer = None,
-           kernel_constraint: Constraint = None,
-           bias_constraint: Constraint = None) -> GraphBuilder:
+           activity_regularizer: Regularizer = None) -> GraphBuilder:
     validate((filters > 0,
               f'\'filters\' must be a positive integer, instead of {filters}'),
              (callable(activation) or activation is None or isinstance(activation, str),

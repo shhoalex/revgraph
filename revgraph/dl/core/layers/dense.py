@@ -8,10 +8,7 @@ def dense(units: int,
           bias_initializer: Initializer = 'glorot_normal',
           kernel_regularizer: Regularizer = None,
           bias_regularizer: Regularizer = None,
-          activity_regularizer: Regularizer = None,
-          kernel_constraint: Constraint = None,
-          bias_constraint: Constraint = None
-          ) -> GraphBuilder:
+          activity_regularizer: Regularizer = None) -> GraphBuilder:
     validate((units > 0,
               f'\'units\' must be a positive integer, instead of {units}'),
              (callable(activation) or activation is None or isinstance(activation, str),
