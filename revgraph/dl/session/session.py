@@ -1,5 +1,7 @@
 from contextlib import contextmanager
 
+import dill as pkl
+
 from revgraph.dl.core.utils import *
 
 from .batch_generator import batch_generator
@@ -20,6 +22,27 @@ class Session(object):
         self.verbose = verbose
         self.loss = None
         self.optimization = None
+
+    @staticmethod
+    def builder_not_found(*args, **kwargs):
+        raise RuntimeError('Unable to compile a loaded model')
+
+    @staticmethod
+    def load_from(path: str) -> 'Session':
+        with open(path, 'rb') as handler:
+            session_metadata = pkl.load(handler)
+            new_session = Session(
+                model=Session.builder_not_found,
+                loss=Session.builder_not_found,
+                optimizer=Session.builder_not_found,
+                verbose=session_metadata['metadata']['verbose']
+            )
+            nodes = session_metadata['compiled_nodes']
+            new_session.prediction = nodes['prediction']
+            new_session.loss = nodes['loss']
+            new_session.optimization = nodes['optimization']
+            new_session.compiled = session_metadata['metadata']['compiled']
+            return new_session
 
     def compile(self):
         self.compiled = True
