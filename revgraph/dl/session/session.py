@@ -12,14 +12,12 @@ class Session(object):
     def __init__(self,
                  model: GraphBuilderNoParam,
                  loss: GraphBuilder,
-                 optimizer: GraphBuilder,
-                 verbose: bool = False):
+                 optimizer: GraphBuilder):
         self.model_builder = model
         self.loss_builder = loss
         self.optimizer_builder = optimizer
         self.compiled = False
         self.prediction = None
-        self.verbose = verbose
         self.loss = None
         self.optimization = None
 
@@ -34,8 +32,7 @@ class Session(object):
             new_session = Session(
                 model=Session.builder_not_found,
                 loss=Session.builder_not_found,
-                optimizer=Session.builder_not_found,
-                verbose=session_metadata['metadata']['verbose']
+                optimizer=Session.builder_not_found
             )
             nodes = session_metadata['compiled_nodes']
             new_session.prediction = nodes['prediction']
@@ -59,6 +56,7 @@ class Session(object):
         if regularized_nodes is not None:
             self.loss += regularized_nodes
         self.optimization = self.optimizer_builder(self.loss)
+        return self
 
     def predict(self, x):
         return self.prediction(x=x)

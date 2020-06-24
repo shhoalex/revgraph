@@ -24,8 +24,7 @@ class Save(BaseCallback):
                     'optimization': self.session.optimization,
                 },
                 'metadata': {
-                    'compiled': self.session.compiled,
-                    'verbose': self.session.verbose,
+                    'compiled': self.session.compiled
                 }
             }, handler)
 
@@ -35,10 +34,10 @@ class Save(BaseCallback):
          (self.epoch+1) % self.save_after_every == 0)
     ))
     def save_method_during_training(self):
-        print(f'    Saving session {self.session} to \'{self.path}\'')
+        self.output(f'    Saving session {self.session} to \'{self.path}\'')
         self.save_session()
 
     @invoked_when(lambda self: self.after_all and self.save_after_all)
     def save_method_after_training(self):
-        print(f'Saving session {self.session} to \'{self.path}\'')
+        self.output(f'Saving session {self.session} to \'{self.path}\'')
         self.save_session()
