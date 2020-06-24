@@ -85,8 +85,8 @@ class Session(object):
             metadata[field] = after
 
     def fit(self,
-            x: np.array,
-            y: np.array,
+            x: np.ndarray,
+            y: np.ndarray,
             epochs: int = 1,
             batch_size: Optional[int] = None,
             shuffle: bool = True,
@@ -95,7 +95,10 @@ class Session(object):
             callbacks: List['base_callback'] = None):
         callbacks = callbacks if callbacks is not None else []
         output = print if verbose else (lambda *args, **kwargs: None)
-
+        if not isinstance(x, np.ndarray):
+            x = np.array(x)
+        if not isinstance(y, np.ndarray):
+            y = np.array(y)
         validate((
             self.compiled,
             'session is not compiled, try calling .compile'
