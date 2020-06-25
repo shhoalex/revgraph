@@ -16,3 +16,4 @@
 
 * [Example Usage](dl/00-example-usage.md)
 * [Layers](dl/01-layers.md)
+* [Activation Function](dl/02-activation-functions.md)
