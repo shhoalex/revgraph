@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Function · GitBook</title>
+        <title>Non-Differentiable Functions · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="03-differentiable-functions.html" />
     
-    
-    <link rel="prev" href="01-value.html" />
+    <link rel="prev" href="03-differentiable-functions.html" />
     
 
     </head>
@@ -137,7 +135,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.3" data-path="02-function.html">
+        <li class="chapter " data-level="2.3" data-path="02-function.html">
             
                 <a href="02-function.html">
             
@@ -163,7 +161,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.5" data-path="04-non-differentiable-functions.html">
+        <li class="chapter active" data-level="2.5" data-path="04-non-differentiable-functions.html">
             
                 <a href="04-non-differentiable-functions.html">
             
@@ -206,7 +204,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Function</a>
+        <a href=".." >Non-Differentiable Functions</a>
     </h1>
 </div>
 
@@ -221,31 +219,103 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="function">Function</h1>
-<p>A <code>function_primitive</code> is another fundamental component of a computational
-graph. It binds zero or more value(s) together and transforms it into another
-<code>np.ndarray</code>.</p>
-<p>Calling the function wraps the arguments (values) into another class that 
-derives from <code>function</code>. The function itself won&apos;t be executed until it&apos;s 
-applied to <code>rc.run</code>.</p>
-<h2 id="binary-operators">Binary Operators</h2>
-<p>We&apos;ve actually encountered functions before, the operators <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>
-are all <code>function</code>s called using python&apos;s magic methods.</p>
-<p>The library provides functions that are generally useful, such as some of the 
-trigonometric functions that are present in the standard library <code>math</code>.</p>
-<h2 id="example">Example</h2>
-<p>In this example, the graph <code>add(sin(placeholder(name=&apos;x&apos;), constant(2.0))</code> is 
-created.</p>
+                                <h1 id="non-differentiable-functions">Non-Differentiable Functions</h1>
+<p><code>NoGradFunction</code> is a class that generates functions that won&apos;t propagate its gradient to its child nodes. Most of the comparison functions are non-differentiable.</p>
+<p>Here&apos;s a list of non-differentiable functions.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Arguments</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rc.len</code></td>
+<td><code>xs: tensor</code></td>
+<td>Dynamically evaluates the length (dim0) of a tensor at runtime</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td><code>a: tensor</code>, <code>b: tensor</code></td>
+<td>a&gt;b</td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td><code>a: tensor</code>, <code>b: tensor</code></td>
+<td>a&lt;b</td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td><code>a: tensor</code>, <code>b: tensor</code></td>
+<td>a&gt;=b</td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td><code>a: tensor</code>, <code>b: tensor</code></td>
+<td>a&lt;=b</td>
+</tr>
+<tr>
+<td><code>==</code></td>
+<td><code>a: tensor</code>, <code>b: tensor</code></td>
+<td>a==b</td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td><code>a: tensor</code>, <code>b: tensor</code></td>
+<td>a!=b</td>
+</tr>
+<tr>
+<td><code>rc.all</code></td>
+<td><code>a: tensor</code></td>
+<td>Same as <code>np.all</code></td>
+</tr>
+<tr>
+<td><code>rc.any</code></td>
+<td><code>a: tensor</code></td>
+<td>Same as <code>np.any</code></td>
+</tr>
+<tr>
+<td><code>rc.argmax</code></td>
+<td><code>a: tensor</code>, <code>axis = -1</code></td>
+<td>Same as <code>np.argmax</code></td>
+</tr>
+<tr>
+<td><code>rc.argmin</code></td>
+<td><code>a: tensor</code>, <code>axis = -1</code></td>
+<td>Same as <code>np.argmin</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="custom-differentiable-function">Custom Differentiable Function</h1>
+<p>The <code>@rc.no_grad</code> decorator allows the creation of custom 
+non-differentiable functions.</p>
+<h3 id="nograd-example"><code>no_grad</code> example</h3>
+<h4 id="code">Code</h4>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.core <span class="hljs-keyword">as</span> rc
-<span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> pi
 
-x = rc.placeholder(shape=(), name=<span class="hljs-string">&apos;x&apos;</span>)
-f = rc.sin(x) + <span class="hljs-number">2.0</span>
+<span class="hljs-meta">@rc.no_grad</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">f</span><span class="hljs-params">(x)</span>:</span>
+    print(<span class="hljs-string">&apos;Running&apos;</span>)
+    <span class="hljs-keyword">return</span> x*<span class="hljs-number">2</span>
 
-print(f(x=pi/<span class="hljs-number">2</span>))
+<span class="hljs-comment"># Defining the graph</span>
+a = rc.constant(<span class="hljs-number">3</span>)
+b = rc.constant(<span class="hljs-number">4</span>)
+c = a + f(b)
+
+<span class="hljs-comment"># Run the node c</span>
+print(<span class="hljs-string">&apos;Before Evaluation&apos;</span>)
+d = rc.run(c)  <span class="hljs-comment"># Dynamically evaluates the function f</span>
+print(<span class="hljs-string">&apos;After Evaluation&apos;</span>)
+print(<span class="hljs-string">&apos;result is&apos;</span>, d)
 </code></pre>
-<h3 id="output">Output</h3>
-<pre><code class="lang-text">3.0
+<h4 id="result">Result</h4>
+<pre><code class="lang-text">Before Evaluation
+Running
+After Evaluation
+result is 11.0
 </code></pre>
 
                                 
@@ -274,14 +344,10 @@ print(f(x=pi/<span class="hljs-number">2</span>))
 
             
                 
-                <a href="01-value.html" class="navigation navigation-prev " aria-label="Previous page: Value">
+                <a href="03-differentiable-functions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Differentiable Functions">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="03-differentiable-functions.html" class="navigation navigation-next " aria-label="Next page: Differentiable Functions">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -290,7 +356,7 @@ print(f(x=pi/<span class="hljs-number">2</span>))
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Function","level":"2.3","depth":1,"next":{"title":"Differentiable Functions","level":"2.4","depth":1,"path":"core/03-differentiable-functions.md","ref":"core/03-differentiable-functions.md","articles":[]},"previous":{"title":"Value","level":"2.2","depth":1,"path":"core/01-value.md","ref":"core/01-value.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"core/02-function.md","mtime":"2020-06-01T22:11:34.815Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-25T05:17:31.600Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Non-Differentiable Functions","level":"2.5","depth":1,"previous":{"title":"Differentiable Functions","level":"2.4","depth":1,"path":"core/03-differentiable-functions.md","ref":"core/03-differentiable-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"core/04-non-differentiable-functions.md","mtime":"2020-06-25T05:09:43.989Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-25T05:17:31.600Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
