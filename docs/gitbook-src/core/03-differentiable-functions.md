@@ -58,3 +58,30 @@ Here is a list of all the implemented differentiable functions:
 | `rc.adagrad` | `lr=0.001`, `epsilon=1e-9`, `decay=0.0` |
 | `rc.adadelta` | `lr=1.0`, `rho=0.95`, `epsilon=1e-6`, `decay=0.0` | 
 | `rc.adam` | `lr=0.001`, `beta1=0.9`, `beta2=0.999`, `amsgrad=False`, `epsilon=1e-6`, `decay=0.0` |
+
+To use the optimizer, simply call `rc.[Optimizer's Name]([Optimizer's Configs]).minimize(Target Tensor)`.
+
+### Optimizer Example
+
+#### Code
+
+```python
+import revgraph.core as rc
+
+x = rc.variable(0.0)
+y = x*x + 2*x + 3
+
+step = rc.rmsprop(lr=0.1).minimize(y)
+
+for _ in range(10000):
+    # Perform the optimization repeatedly
+    rc.run(step)
+   
+# See the mutated value of x
+print(f'y={y()} when x={x()}')
+```
+
+#### Result
+```text
+y=2.0 when x=-1.0
+```
