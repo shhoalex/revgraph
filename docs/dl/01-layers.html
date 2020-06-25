@@ -1,0 +1,470 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Layers · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="00-example-usage.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Revgraph Documentation</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Core Library</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../core/00-example-usage.html">
+            
+                <a href="../core/00-example-usage.html">
+            
+                    
+                    Example Usage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../core/01-value.html">
+            
+                <a href="../core/01-value.html">
+            
+                    
+                    Value
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../core/02-function.html">
+            
+                <a href="../core/02-function.html">
+            
+                    
+                    Function
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../core/03-differentiable-functions.html">
+            
+                <a href="../core/03-differentiable-functions.html">
+            
+                    
+                    Differentiable Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../core/04-non-differentiable-functions.html">
+            
+                <a href="../core/04-non-differentiable-functions.html">
+            
+                    
+                    Non-Differentiable Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../core/05-a-simple-multilayer-perceptron.html">
+            
+                <a href="../core/05-a-simple-multilayer-perceptron.html">
+            
+                    
+                    A Simple Multilayer Perceptron
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Deep Learning Library</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="00-example-usage.html">
+            
+                <a href="00-example-usage.html">
+            
+                    
+                    Example Usage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.2" data-path="01-layers.html">
+            
+                <a href="01-layers.html">
+            
+                    
+                    Layers
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Layers</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="layers">Layers</h1>
+<p><code>layer</code> is the heart of the entire library. It specifies how to construct 
+low level tensors based on the parameters (or specifications) given.</p>
+<h2 id="dense-layer">Dense Layer</h2>
+<p>The <code>dense</code> layer represents a fully connected network. It basically
+creates the tensor with structure similar to 
+<code>activation(previous_layer.dot(weights) + bias)</code>.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>units: int</code>: Number of units in this layer.</li>
+<li><code>use_bias: bool = True</code>: Create bias units or not</li>
+<li><code>activation: ActivationFunction = &apos;linear&apos;</code>: Activation Function used</li>
+<li>Initializers<ul>
+<li><code>kernel_initializer: Initializer = &apos;glorot_normal&apos;</code></li>
+<li><code>bias_initializer: Initializer = &apos;glorot_normal</code></li>
+</ul>
+</li>
+<li>Regularizers<ul>
+<li><code>kernel_regularizer: Regularizer = None</code>: Method used to regularize weights.</li>
+<li><code>bias_regularizer: Regularizer = None</code>: Method used to regularize bias.</li>
+<li><code>activity_regularizer: Regularizer = None</code>: Method used to regularize output (after applying activation function).</li>
+</ul>
+</li>
+</ul>
+<h2 id="input-layer">Input Layer</h2>
+<p>The <code>inputs</code> layer represents the first layer of any architecture. 
+Hence, every definition should start with this layer (unlike keras
+where you can use the <code>input_shape</code> argument).</p>
+<p>Upon the creation of this layer, the placeholder with name=<code>x</code> is 
+created and its shape equals to <code>(None,) + shape</code>.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>shape: Union[Tuple[int, ...], int]</code>: Specifies the input shape, adding <code>None</code> to the first dimension is unnecessary.</li>
+</ul>
+<h2 id="transform-layer">Transform Layer</h2>
+<p>The <code>transform</code> layer accepts a function with type <code>tensor -&gt; tensor</code>
+and applies it to the output of the previous layer.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>f: TensorFunction</code>: A function (can be a <code>revgraph.core</code> primitive) or simply a function that produces another graph from the
+previous layer.</li>
+</ul>
+<p><strong>For example:</strong></p>
+<pre><code class="lang-python">dl.sequential(
+    ...,
+    dl.dense(<span class="hljs-number">10</span>),
+    dl.transform(<span class="hljs-keyword">lambda</span> x: x*<span class="hljs-number">2</span>),
+    ...
+)
+</code></pre>
+<p>The output of this layer will be the transformed (doubled in this case) version of the previous layer.</p>
+<h2 id="reshape-layer">Reshape Layer</h2>
+<p>The <code>reshape</code> layer reshapes the output to <code>new_shape</code>.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>new_shape: Union[Tuple[int, ...], int]</code>: The new shape of the previous layer.</li>
+</ul>
+<p>It is basically the same as applying <code>dl.transform(lambda xs: rc.reshape(xs, newshape))</code>.</p>
+<h2 id="flatten-layer">Flatten Layer</h2>
+<p>The <code>flatten</code> layer flattens the previous layer.</p>
+<p><strong>Parameters</strong></p>
+<p>None</p>
+<h2 id="conv2d-layer">Conv2D Layer</h2>
+<p>The <code>conv2d</code> layer applies 2D convolution on the previous layer and 
+the <code>filters</code>.</p>
+<p>The output of previous layer must be a 4D tensor of shape (batch_size, h, w, in_channel).</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>filters: int</code>: Number of filters.</li>
+<li><code>kernel_size: Tuple[int, int]</code>: Size of each filter.</li>
+<li><code>stride: Tuple[int, int] = (1,1)</code>: The step of each operation.</li>
+<li><code>padding: str = &apos;valid&apos; or &apos;same&apos;</code>: Whether the output keeps the same height and width.</li>
+<li><code>activation: ActivationFunction = &apos;linear&apos;</code>: Activation Function used.</li>
+<li><code>use_bias: bool = False</code>: Create bias units or not.</li>
+<li>Initializers<ul>
+<li><code>kernel_initializer: Initializer = &apos;glorot_normal&apos;</code>: Kernel means the filters</li>
+<li><code>bias_initializer: Initializer = &apos;glorot_normal&apos;</code></li>
+</ul>
+</li>
+<li>Regularizers<ul>
+<li><code>kernel_regularizer: Regularizer = None</code>: Method used to regularize the filters.</li>
+<li><code>bias_regularizer: Regularizer = None</code>: Method used to regularize bias.</li>
+<li><code>activity_regularizer: Regularizer = None</code>: Method used to regularize output (after applying activation function).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="lang-python">dl.sequential(
+    ...,
+    dl.conv2d(
+        filters=<span class="hljs-number">6</span>,  <span class="hljs-comment"># Initialize 6 filters</span>
+        kernel_size=(<span class="hljs-number">3</span>,<span class="hljs-number">3</span>),  <span class="hljs-comment"># 3x3 filter</span>
+        padding=<span class="hljs-string">&apos;same&apos;</span>,  <span class="hljs-comment"># Output has the same height and width</span>
+    )
+    ...,
+)
+</code></pre>
+<p>The output is a 4D tensor of shape <code>(batch_size, new_height, new_width, filters)</code>.</p>
+<h2 id="sequential-layer">Sequential Layer</h2>
+<p>The <code>sequential</code> layer composes different layers into 1 big layer.</p>
+<p><strong>Parameter</strong></p>
+<ul>
+<li><code>*layers: GraphBuilder</code>: Different layers in sequence.</li>
+</ul>
+<p><strong>Alternative</strong></p>
+<p>Instead of using sequential layer, previous layer can be prepend to 
+current layer by calling the current layer with the previous one
+as its argument. For example:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.dl <span class="hljs-keyword">as</span> dl
+
+l0 = dl.inputs(<span class="hljs-number">2</span>)()
+l1 = dl.dense(<span class="hljs-number">10</span>)(l0)
+l2 = dl.transform(<span class="hljs-keyword">lambda</span> x: (x&gt;<span class="hljs-number">0</span>) * x)(l1)
+l3 = <span class="hljs-keyword">lambda</span>: dl.dense(<span class="hljs-number">2</span>)(l2)
+
+<span class="hljs-comment"># l4 and l3 are basically equivalent.</span>
+
+l4 = dl.sequential(
+    dl.inputs(<span class="hljs-number">2</span>),
+    dl.dense(<span class="hljs-number">10</span>),
+    dl.transform(<span class="hljs-keyword">lambda</span> x: (x&gt;<span class="hljs-number">0</span>) * x),
+    dl.dense(<span class="hljs-number">2</span>)
+)
+</code></pre>
+<p>This is similar to kera&apos;s functional API. However, having multiple 
+layers as input is current unsupported since the Add (or Merge)
+layer hasn&apos;t been implemented yet.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="00-example-usage.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Example Usage">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Layers","level":"3.2","depth":1,"previous":{"title":"Example Usage","level":"3.1","depth":1,"path":"dl/00-example-usage.md","ref":"dl/00-example-usage.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/01-layers.md","mtime":"2020-06-25T10:33:18.820Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-25T10:34:35.216Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

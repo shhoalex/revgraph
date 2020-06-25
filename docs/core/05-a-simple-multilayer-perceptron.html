@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Value · GitBook</title>
+        <title>A Simple Multilayer Perceptron · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="02-function.html" />
+    <link rel="next" href="../dl/00-example-usage.html" />
     
     
-    <link rel="prev" href="00-example-usage.html" />
+    <link rel="prev" href="04-non-differentiable-functions.html" />
     
 
     </head>
@@ -124,7 +124,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.2" data-path="01-value.html">
+        <li class="chapter " data-level="2.2" data-path="01-value.html">
             
                 <a href="01-value.html">
             
@@ -176,7 +176,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.6" data-path="05-a-simple-multilayer-perceptron.html">
+        <li class="chapter active" data-level="2.6" data-path="05-a-simple-multilayer-perceptron.html">
             
                 <a href="05-a-simple-multilayer-perceptron.html">
             
@@ -252,7 +252,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Value</a>
+        <a href=".." >A Simple Multilayer Perceptron</a>
     </h1>
 </div>
 
@@ -267,94 +267,74 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="value">Value</h1>
-<p>A <code>value</code> is a fundamental component of a computational graph. It has an 
-internal property <code>data</code> that represents the actual <code>numpy</code> array. All 
-<code>value</code>s act as a wrapper class that form computational graphs with other 
-<code>value</code> or <code>function_primitive</code>.</p>
-<p>User can build computational graphs using the 3 subclasses of <code>value</code>:
-<code>constant</code>, <code>placeholder</code> and <code>value</code>.</p>
-<h2 id="constant">Constant</h2>
-<p>A <code>constant</code> is a value that isn&apos;t suppose to change during graph execution.
-Manipulation with the <code>data</code> property would raise a <code>ValueError</code> exception.</p>
-<pre><code>rc.constant(data)
-</code></pre><h3 id="arguments">Arguments</h3>
-<ul>
-<li><code>data</code>: Either a <code>numpy.ndarray</code>, <code>int</code>, <code>float</code> or list of numbers.</li>
-</ul>
-<h3 id="example">Example</h3>
-<pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.core <span class="hljs-keyword">as</span> rc
-
-x = rc.constant([[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>],
-                 [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]])
-y = rc.constant(<span class="hljs-number">3</span>)
-z = x*y
-
-result = rc.run(z)
-print(result)
+                                <h1 id="a-simple-multilayer-perceptron">A Simple Multilayer Perceptron</h1>
+<p>Using the library, it is fairly easy to build a simple MLP.</p>
+<p>First we import the libraries:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> revgraph.core <span class="hljs-keyword">as</span> rc
 </code></pre>
-<h4 id="output">Output</h4>
-<pre><code class="lang-text">[[3. 0.]
- [0. 3.]]
-</code></pre>
-<h2 id="placeholder">Placeholder</h2>
-<p>A placeholder is a value whose actual content (the numpy array) is not 
-specified until graph execution in <code>feed_dict</code>.</p>
-<pre><code class="lang-python">rc.placeholder(name, shape)
-</code></pre>
-<h3 id="arguments">Arguments</h3>
-<ul>
-<li><code>name</code>: A string as an ID for the node.</li>
-<li><code>shape</code>: The expected shape of the actual content. (same as numpy shape)<pre><code>     A dimension can be specified as `None` if the actual size isn&apos;t
-     yet determined.
-</code></pre></li>
-</ul>
-<h3 id="example">Example</h3>
-<h4 id="passing-in-scalar">Passing in scalar</h4>
-<pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.core <span class="hljs-keyword">as</span> rc
+<p>The mappings that the perceptron classifying (one-hot encoded xor function):</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Training Data</span>
+x = [[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>],
+     [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>],
+     [<span class="hljs-number">1</span>,<span class="hljs-number">0</span>],
+     [<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]]
 
-x = rc.placeholder(name=<span class="hljs-string">&apos;my_placeholder&apos;</span>, shape=())  <span class="hljs-comment"># Use () to specify scalar</span>
-f = x+<span class="hljs-number">1</span>
-
-print(f(my_placeholdler=<span class="hljs-number">3</span>))
-<span class="hljs-comment"># OR</span>
-print(rc.run(f, feed_dict={ <span class="hljs-string">&apos;my_placeholder&apos;</span>: <span class="hljs-number">3</span> }))
+y = [[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>],
+     [<span class="hljs-number">1</span>,<span class="hljs-number">0</span>],
+     [<span class="hljs-number">1</span>,<span class="hljs-number">0</span>],
+     [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]]
 </code></pre>
-<h4 id="passing-variable-sized-tensor-as-argument">Passing variable-sized tensor as argument</h4>
-<pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.core <span class="hljs-keyword">as</span> rc
-
-<span class="hljs-comment"># would work as long as the value is a 2D tensor with the final </span>
-<span class="hljs-comment"># dimension&apos;s size=2.</span>
-x = rc.placeholder(name=<span class="hljs-string">&apos;x&apos;</span>, shape=(<span class="hljs-keyword">None</span>, <span class="hljs-number">2</span>))
-f = x+<span class="hljs-number">1</span> 
-
-a = f(x=[[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]])  <span class="hljs-comment"># Valid</span>
-b = f(x=[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])  <span class="hljs-comment"># Valid</span>
-c = f(x=[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]) <span class="hljs-comment"># Error</span>
+<p>Then we specify the architecture of our perceptron:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Multilayer Perceptron consists of:</span>
+<span class="hljs-comment">#     2 input units (input x)</span>
+<span class="hljs-comment">#     2 hidden units</span>
+<span class="hljs-comment">#     2 output units (output y)</span>
+in_units, hidden_units, out_units = <span class="hljs-number">2</span>, <span class="hljs-number">8</span>, <span class="hljs-number">2</span>
 </code></pre>
-<h2 id="variable">Variable</h2>
-<p>A <code>variable</code> is a value that the <code>data</code> property changes during graph execution
-(usually by an <code>optimizer</code>). The core functionalities of the library revolve 
-around it. It has a hidden property called <code>gradient</code> that the reverse mode AD
-algorithm manipulates.</p>
-<pre><code class="lang-python">rc.variable(data)
+<p>Define the custom placeholders for feeding in training data.</p>
+<pre><code class="lang-python">x_ph = rc.placeholder(name=<span class="hljs-string">&apos;x&apos;</span>, shape=(<span class="hljs-keyword">None</span>, in_units))
+y_ph = rc.placeholder(name=<span class="hljs-string">&apos;y&apos;</span>, shape=(<span class="hljs-keyword">None</span>, out_units))
 </code></pre>
-<h3 id="arguments">Arguments</h3>
-<ul>
-<li><code>data</code>: Either a <code>numpy.ndarray</code>, <code>int</code>, <code>float</code> or list of numbers. Whenever
- a tensor is passed in, a copy is created such that all the 
- manipulations will only affect the copy.</li>
-</ul>
-<h3 id="example">Example</h3>
-<pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.core <span class="hljs-keyword">as</span> rc
-
-x = rc.variable(<span class="hljs-number">2.0</span>)
-f = x+<span class="hljs-number">1</span>
-
-print(f())   <span class="hljs-comment"># outputs 3.0</span>
-x.data *= <span class="hljs-number">2</span>  <span class="hljs-comment"># direct manipulation of np array (not recommended)</span>
-print(f())   <span class="hljs-comment"># outputs 5.0</span>
+<p>Then we define the weights and bias in the network:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Define the weights and bias</span>
+w0 = rc.variable(np.random.randn(in_units, hidden_units))
+b0 = rc.variable(np.random.randn(<span class="hljs-number">1</span>, hidden_units))
+w1 = rc.variable(np.random.randn(hidden_units, out_units))
+b1 = rc.variable(np.random.randn(<span class="hljs-number">1</span>, out_units))
 </code></pre>
+<p>Let&apos;s use the sigmoid function as our activation function:</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sigmoid</span><span class="hljs-params">(z: rc.tensor)</span> -&gt; rc.tensor:</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> / (<span class="hljs-number">1</span> + rc.exp(-z))
+</code></pre>
+<p>We use MSE as a metric for how good the perceptron is performing:</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mse</span><span class="hljs-params">(y_true: rc.tensor, y_pred: rc.tensor)</span> -&gt; rc.tensor:</span>
+    <span class="hljs-keyword">return</span> ((y_true - y_pred) ** <span class="hljs-number">2</span>) / rc.len(y_true)
+</code></pre>
+<p>And then the main classifier itself: the objective is to minimize the 
+mean sqaured error:</p>
+<pre><code class="lang-python">l0 = x_ph
+l1 = rc.tanh(l0.dot(w0) + b0)
+predict = l2 = sigmoid(l1.dot(w1) + b1)
+loss = mse(y_ph, predict)
+fit = rc.sgd(lr=<span class="hljs-number">0.1</span>, momentum=<span class="hljs-number">0.9</span>).minimize(loss)
+</code></pre>
+<p>Now we train the classifier for 100 epochs:</p>
+<p>Note that we feed the training data in 1 by 1 (which makes batch_size=1)</p>
+<pre><code class="lang-python"><span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(<span class="hljs-number">100</span>):
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(x)):
+        fit(x=x[i:i+<span class="hljs-number">1</span>], y=y[i:i+<span class="hljs-number">1</span>])
+</code></pre>
+<p>Let&apos;s see the result:</p>
+<pre><code class="lang-python">print(predict(x=x, y=y))
+</code></pre>
+<h4 id="result">Result</h4>
+<pre><code class="lang-text">[[0.04694319 0.96412079]
+ [0.93683906 0.05355168]
+ [0.92493098 0.06433411]
+ [0.07738456 0.93602463]]
+</code></pre>
+<p>It&apos;s learning!</p>
 
                                 
                                 </section>
@@ -382,12 +362,12 @@ print(f())   <span class="hljs-comment"># outputs 5.0</span>
 
             
                 
-                <a href="00-example-usage.html" class="navigation navigation-prev " aria-label="Previous page: Example Usage">
+                <a href="04-non-differentiable-functions.html" class="navigation navigation-prev " aria-label="Previous page: Non-Differentiable Functions">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="02-function.html" class="navigation navigation-next " aria-label="Next page: Function">
+                <a href="../dl/00-example-usage.html" class="navigation navigation-next " aria-label="Next page: Example Usage">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -398,7 +378,7 @@ print(f())   <span class="hljs-comment"># outputs 5.0</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Value","level":"2.2","depth":1,"next":{"title":"Function","level":"2.3","depth":1,"path":"core/02-function.md","ref":"core/02-function.md","articles":[]},"previous":{"title":"Example Usage","level":"2.1","depth":1,"path":"core/00-example-usage.md","ref":"core/00-example-usage.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"core/01-value.md","mtime":"2020-06-01T22:11:34.815Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-25T10:34:35.216Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"A Simple Multilayer Perceptron","level":"2.6","depth":1,"next":{"title":"Example Usage","level":"3.1","depth":1,"path":"dl/00-example-usage.md","ref":"dl/00-example-usage.md","articles":[]},"previous":{"title":"Non-Differentiable Functions","level":"2.5","depth":1,"path":"core/04-non-differentiable-functions.md","ref":"core/04-non-differentiable-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"core/05-a-simple-multilayer-perceptron.md","mtime":"2020-06-25T08:29:08.203Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-25T10:34:35.216Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
