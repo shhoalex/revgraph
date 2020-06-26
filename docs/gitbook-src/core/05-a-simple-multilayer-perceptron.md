@@ -89,7 +89,7 @@ for _ in range(100):
 Let's see the result:
 
 ```python
-print(predict(x=x, y=y))
+print(predict(x=x))
 ```
 
 #### Result

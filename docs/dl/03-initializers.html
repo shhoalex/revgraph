@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="04-loss-function.html" />
+    <link rel="next" href="04-loss-functions.html" />
     
     
     <link rel="prev" href="02-activation-functions.html" />
@@ -248,9 +248,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.5" data-path="04-loss-function.html">
+        <li class="chapter " data-level="3.5" data-path="04-loss-functions.html">
             
-                <a href="04-loss-function.html">
+                <a href="04-loss-functions.html">
             
                     
                     Loss Functions
@@ -261,12 +261,38 @@
             
         </li>
     
-        <li class="chapter " data-level="3.6" data-path="05-optimizers.html">
+        <li class="chapter " data-level="3.6" data-path="05-regularizers.html">
             
-                <a href="05-optimizers.html">
+                <a href="05-regularizers.html">
+            
+                    
+                    Regularizers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7" data-path="06-optimizers.html">
+            
+                <a href="06-optimizers.html">
             
                     
                     Optimizers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.8" data-path="07-model.html">
+            
+                <a href="07-model.html">
+            
+                    
+                    Model
             
                 </a>
             
@@ -319,7 +345,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="initializer">Initializer</h1>
+                                <h1 id="initializers">Initializers</h1>
 <p>An <code>Initializer</code> takes the shape of a tensor and returns a <code>float64</code>
 numpy array of that shape. For example, 
 <code>kernel_initialilzer=lambda s: np.ones(shape=s)</code> is a valid initializer.</p>
@@ -328,7 +354,7 @@ numpy array of that shape. For example,
 <li><strong>Kernel Initializer</strong>: Specifies how to initialize the weights.</li>
 <li><strong>Bias Initializer</strong>: Specifies how to initialize the bias.</li>
 </ul>
-<h3 id="predefined-initializer">Predefined Initializer</h3>
+<h3 id="predefined-initializers">Predefined Initializers</h3>
 <p>Here is a list of predefined initializers:</p>
 <table>
 <thead>
@@ -408,7 +434,7 @@ numpy array of that shape. For example,
                 </a>
                 
                 
-                <a href="04-loss-function.html" class="navigation navigation-next " aria-label="Next page: Loss Functions">
+                <a href="04-loss-functions.html" class="navigation navigation-next " aria-label="Next page: Loss Functions">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -419,7 +445,7 @@ numpy array of that shape. For example,
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Initializers","level":"3.4","depth":1,"next":{"title":"Loss Functions","level":"3.5","depth":1,"path":"dl/04-loss-function.md","ref":"dl/04-loss-function.md","articles":[]},"previous":{"title":"Activation Functions","level":"3.3","depth":1,"path":"dl/02-activation-functions.md","ref":"dl/02-activation-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/03-initializers.md","mtime":"2020-06-26T00:25:17.181Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T01:29:09.386Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Initializers","level":"3.4","depth":1,"next":{"title":"Loss Functions","level":"3.5","depth":1,"path":"dl/04-loss-functions.md","ref":"dl/04-loss-functions.md","articles":[]},"previous":{"title":"Activation Functions","level":"3.3","depth":1,"path":"dl/02-activation-functions.md","ref":"dl/02-activation-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/03-initializers.md","mtime":"2020-06-26T02:58:47.491Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T03:01:25.939Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -1,4 +1,4 @@
-# Loss Function
+# Loss Functions
 
 A `Loss` function is a function of type `(tensor, tensor) -> tensor`
 with the first argument representing `y_true` (expected placeholder 

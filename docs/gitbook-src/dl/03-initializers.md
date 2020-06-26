@@ -1,4 +1,4 @@
-# Initializer
+# Initializers
 
 An `Initializer` takes the shape of a tensor and returns a `float64`
 numpy array of that shape. For example, 
@@ -9,7 +9,7 @@ numpy array of that shape. For example,
 + **Kernel Initializer**: Specifies how to initialize the weights.
 + **Bias Initializer**: Specifies how to initialize the bias.
 
-### Predefined Initializer
+### Predefined Initializers
 
 Here is a list of predefined initializers:
 

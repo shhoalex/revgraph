@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Example Usage · GitBook</title>
+        <title>Model · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="01-layers.html" />
     
-    
-    <link rel="prev" href="../core/05-a-simple-multilayer-perceptron.html" />
+    <link rel="prev" href="06-optimizers.html" />
     
 
     </head>
@@ -196,7 +194,7 @@
         
         
     
-        <li class="chapter active" data-level="3.1" data-path="00-example-usage.html">
+        <li class="chapter " data-level="3.1" data-path="00-example-usage.html">
             
                 <a href="00-example-usage.html">
             
@@ -287,7 +285,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.8" data-path="07-model.html">
+        <li class="chapter active" data-level="3.8" data-path="07-model.html">
             
                 <a href="07-model.html">
             
@@ -330,7 +328,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Example Usage</a>
+        <a href=".." >Model</a>
     </h1>
 </div>
 
@@ -345,45 +343,44 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="deep-learning-library">Deep Learning Library</h1>
-<p>The package <code>revgraph.dl</code> is a toy deep learning library that provides a
-keras-like interface for defining deep learning models. It is built 
-entirely on top of <code>revgraph.core</code> such that the interfaces are merely
-graph builders and wrappers of <code>rc.tensor</code>.</p>
-<h3 id="quick-example-xor-mlp">Quick Example: XOR MLP</h3>
-<p>Here is a simple MLP (almost identical with the one in the <a href="../core/05-a-simple-multilayer-perceptron.html">previous post</a>) but defined using 
-<code>revgraph.dl</code> instead of <code>revgraph.core</code>.</p>
+                                <h1 id="model">Model</h1>
+<p>A <code>Model</code> is a class that binds everything (the layers, loss function and optimizer) together
+and provides a unified interface for training it.</p>
+<h3 id="initializing-a-model">Initializing a Model</h3>
+<p>To create a model, simply pass the layers, loss function and the optimizer as parameters.</p>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.dl <span class="hljs-keyword">as</span> dl
 
-<span class="hljs-comment"># Training Data</span>
-x = [[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>],
-     [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>], 
-     [<span class="hljs-number">1</span>,<span class="hljs-number">0</span>], 
-     [<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]]
-
-y = [[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>], 
-     [<span class="hljs-number">1</span>,<span class="hljs-number">0</span>], 
-     [<span class="hljs-number">1</span>,<span class="hljs-number">0</span>], 
-     [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]]
-
-architecture = dl.sequential(
-    dl.inputs(<span class="hljs-number">2</span>),
-    dl.dense(<span class="hljs-number">8</span>, activation=<span class="hljs-string">&apos;tanh&apos;</span>),
-    dl.dense(<span class="hljs-number">2</span>, activation=<span class="hljs-string">&apos;sigmoid&apos;</span>)
+layers = dl.sequential(
+    dl.inputs(<span class="hljs-number">784</span>),
+    dl.dense(<span class="hljs-number">9</span>, use_bias=<span class="hljs-keyword">True</span>)
 )
 
-model = dl.Model(
-    model=architecture,
+my_model = dl.Model(
+    model=layers,
     loss=dl.mean_squared_error(),
-    optimizer=dl.sgd(lr=<span class="hljs-number">0.1</span>, momentum=<span class="hljs-number">0.9</span>)
+    optimizer=dl.sgd(lr=<span class="hljs-number">0.01</span>)
 )
-
-model.compile()  <span class="hljs-comment"># Compile specifications to a graph</span>
-model.fit(x, y, epochs=<span class="hljs-number">100</span>, batch_size=<span class="hljs-number">1</span>)
-print(model.predict(x))
 </code></pre>
-<p>As you can see, the library abstracts away the creation of low level 
-tensors and focuses on the architecture of the neural network itself.</p>
+<p>At this point, the model is merely specifications of how to build the computational graph,
+no tensor has been created at this point. To actually build the graph, 
+call the <code>.compile</code> method.</p>
+<pre><code class="lang-python">my_model.compile()
+</code></pre>
+<h3 id="fitting-the-model">Fitting the model</h3>
+<p>To actually start training the model, use the <code>.fit</code> method.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>x: np.ndarray</code>: the training data (inputs).</li>
+<li><code>y: np.ndarray</code>: the training data (outputs).</li>
+<li><code>epochs: int = 1</code>: number of rounds to train.</li>
+<li><code>batch_size: Optional[int] = None</code>: batch size.</li>
+<li><code>shuffle: bool = True</code>: whether to shuffle <code>x</code> and <code>y</code> before every epoch.</li>
+<li><p><code>train_test_validation = (1.0, 0.0, 0.0)</code>: dividing <code>(x,y)</code> into <code>(x_train, y_train), (x_test, y_test), (x_validation, y_validation)</code> (<code>sum(train_test_validation)</code> must be <code>1.0</code>).</p>
+</li>
+<li><p><code>verbose: bool = True</code>: whether to print out <a href="">callbacks</a>.</p>
+</li>
+<li><code>callbacks: List[base_callback]</code>: list of <a href="">callbacks</a>.</li>
+</ul>
 
                                 
                                 </section>
@@ -411,14 +408,10 @@ tensors and focuses on the architecture of the neural network itself.</p>
 
             
                 
-                <a href="../core/05-a-simple-multilayer-perceptron.html" class="navigation navigation-prev " aria-label="Previous page: A Simple Multilayer Perceptron">
+                <a href="06-optimizers.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Optimizers">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="01-layers.html" class="navigation navigation-next " aria-label="Next page: Layers">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -427,7 +420,7 @@ tensors and focuses on the architecture of the neural network itself.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Example Usage","level":"3.1","depth":1,"next":{"title":"Layers","level":"3.2","depth":1,"path":"dl/01-layers.md","ref":"dl/01-layers.md","articles":[]},"previous":{"title":"A Simple Multilayer Perceptron","level":"2.6","depth":1,"path":"core/05-a-simple-multilayer-perceptron.md","ref":"core/05-a-simple-multilayer-perceptron.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/00-example-usage.md","mtime":"2020-06-25T12:04:39.538Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T03:01:25.939Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Model","level":"3.8","depth":1,"previous":{"title":"Optimizers","level":"3.7","depth":1,"path":"dl/06-optimizers.md","ref":"dl/06-optimizers.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/07-model.md","mtime":"2020-06-26T02:05:52.252Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T03:01:25.939Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
