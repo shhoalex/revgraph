@@ -383,8 +383,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="putting-it-all-together---mnist-cnn">Putting it all together - MNIST CNN</h1>
-<p>To summarize, we are going to build a convolutional neural network and train 
-it on the MNIST dataset for handwritten digit classification.</p>
+<p>To summarize, we are going to build a convolutional neural network and train it on the MNIST dataset for handwritten digit classification.</p>
 <h2 id="part-1---training-the-model">Part 1 - Training the Model</h2>
 <h3 id="import-dl">Import DL</h3>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.dl <span class="hljs-keyword">as</span> dl
@@ -442,7 +441,7 @@ with it.</p>
 <h3 id="compiling-the-model">Compiling the model</h3>
 <ul>
 <li>Note that the validation set used is the remaining 15% of <code>(x_train, y_train)</code>,
-while the test set is stored in a completely different variable <code>(x_test, y_test)</code>.</li>
+while the test set is stored in completely different variables <code>(x_test, y_test)</code>.</li>
 </ul>
 <pre><code class="lang-python">model.compile()
 
@@ -460,8 +459,7 @@ model.fit(
 </code></pre>
 <h3 id="result">Result</h3>
 <ul>
-<li>After 3 epochs (crazy slow I know :( ), the model achieved 98.13% accuracy
-on test set, not too bad!</li>
+<li>After 3 epochs (crazy slow I know :( ), the model achieved 98.13% accuracy on the test set, fairly decent!</li>
 </ul>
 <pre><code class="lang-text">Training Model tensor(addr=0x10dfdf650) with 51000 records
   + Epoch 1/3
@@ -490,7 +488,7 @@ _, (images, _) = load_data()
 </code></pre>
 <h3 id="visualization-function">Visualization function</h3>
 <p>We define a small helper function for &quot;displaying&quot; the images 
-(it&apos;s just me being too lazy to add <code>matplotlib</code> as dependency :P).</p>
+(it&apos;s just me being lazy and not wanting to add <code>matplotlib</code> as dev dependency :P).</p>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_img</span><span class="hljs-params">(img)</span>:</span>
     img = img.reshape(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)
     print(<span class="hljs-string">&apos;--&apos;</span> * <span class="hljs-number">30</span>)
@@ -502,7 +500,7 @@ _, (images, _) = load_data()
     print(<span class="hljs-string">&apos;--&apos;</span> * <span class="hljs-number">30</span>)
 </code></pre>
 <h3 id="prediction-function">Prediction Function</h3>
-<p>We use numpy&apos;s argmax function to see which digit is the 
+<p>We use numpy&apos;s <code>argmax</code> function to see which digit is the 
 model predicting (since the higher the value the more 
 probable that the image belongs to that class).</p>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
@@ -514,7 +512,7 @@ probable that the image belongs to that class).</p>
     print(f<span class="hljs-string">&quot;It&apos;s a &apos;{digit}&apos;!&quot;</span>)
 </code></pre>
 <h3 id="sampling">Sampling</h3>
-<p>Now we sample 3 image as our target and predict them.</p>
+<p>Now we randomly sample 3 images as our targets:</p>
 <pre><code class="lang-python">indices = np.random.choice([i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10000</span>)], <span class="hljs-number">5</span>)
 
 <span class="hljs-keyword">for</span> index <span class="hljs-keyword">in</span> indices:
@@ -654,7 +652,7 @@ It&apos;s a &apos;5&apos;!
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Putting it all together - MNIST CNN","level":"3.11","depth":1,"previous":{"title":"Callbacks","level":"3.10","depth":1,"path":"dl/09-callbacks.md","ref":"dl/09-callbacks.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/10-mnist-cnn.md","mtime":"2020-06-26T07:55:53.943Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T07:57:54.904Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Putting it all together - MNIST CNN","level":"3.11","depth":1,"previous":{"title":"Callbacks","level":"3.10","depth":1,"path":"dl/09-callbacks.md","ref":"dl/09-callbacks.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/10-mnist-cnn.md","mtime":"2020-06-26T13:21:49.680Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T13:22:46.396Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

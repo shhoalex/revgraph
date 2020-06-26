@@ -383,21 +383,44 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="revgraph">revgraph</h1>
-<p>A minimal deep learning library built using <code>numpy</code> as its only dependency.</p>
-<p>The project is divided into 2 main parts:</p>
-<ol>
-<li><code>revgraph.core</code>: A simple computational graph library.</li>
-<li><code>revgraph.dl</code>: A high-level keras-like deep learning library built entirely
-on top of <code>revgraph.core</code>.</li>
-</ol>
-<p>Both packages can be used separately.</p>
-<h2 id="key-features">Key Features</h2>
+<p>A toy deep learning library built using <code>numpy</code> as its only dependency (and 
+<code>dill</code> for pickling the computational graph).</p>
+<h3 id="motivation">Motivation</h3>
+<p>I hacked together this project just to deepen my own understanding of how deep
+learning frameworks work under the hood. <strong>It is probably the most inefficient 
+implementation you could have ever found (lol), so please don&apos;t use it for 
+anything real.</strong> It&apos;s simply a hackable toy computational graph / deep 
+learning library that tries to replicate some of tensorflow and kera&apos;s 
+interfaces.</p>
+<h3 id="key-features">Key Features</h3>
 <ul>
-<li>Computational Graph</li>
-<li>Automatic Differentiation</li>
-<li>Linear / Logistic Regression</li>
+<li>Gradient Descent Based Optimization Methods</li>
+<li>Regressions</li>
 <li>Deep Learning</li>
 </ul>
+<h3 id="packages">Packages</h3>
+<p>The project is divided into 2 main parts:</p>
+<ol>
+<li><code>revgraph.core</code>: A simple computational graph library that supports reverse 
+mode AD.</li>
+<li><code>revgraph.dl</code>: A high-level deep learning library built entirely on top of 
+<code>revgraph.core</code>.</li>
+</ol>
+<h3 id="credits">Credits</h3>
+<p>The structure / implementation of this library draws heavily on the following 
+projects, please don&apos;t forget to check them out!</p>
+<ul>
+<li><code>tensorflow</code>: The computational graph&apos;s API is modelled after this.</li>
+<li><code>keras</code>: The high level API is modelled after kera&apos;s API and the 
+implementation of the optimizers is more or less copied from keras.</li>
+<li><a href="https://github.com/HIPS/autograd" target="_blank"><code>autograd</code></a>: The computational graph 
+library&apos;s <code>unbroadcast</code> function is basically how the tensor&apos;s able to 
+broadcast its gradient to different shapes.</li>
+<li><a href="https://github.com/renmengye/np-conv2d/tree/master" target="_blank"><code>conv2d</code></a>: the implementation
+of the operation Conv2D is based on this implementation.</li>
+</ul>
+<h3 id="full-documentation">Full Documentation</h3>
+<p>Read the full documentation <a href="">here</a>.</p>
 
                                 
                                 </section>
@@ -437,7 +460,7 @@ on top of <code>revgraph.core</code>.</li>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Example Usage","level":"2.1","depth":1,"path":"core/00-example-usage.md","ref":"core/00-example-usage.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2020-06-01T22:11:34.813Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T07:57:54.904Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Example Usage","level":"2.1","depth":1,"path":"core/00-example-usage.md","ref":"core/00-example-usage.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2020-06-26T13:21:49.674Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T13:22:46.396Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

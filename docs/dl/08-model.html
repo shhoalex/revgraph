@@ -385,7 +385,8 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="model">Model</h1>
-<p>A <code>Model</code> is a class that binds everything (the layers, loss function and optimizer) together
+<p>A <code>Model</code> is a class that binds everything (the layers, loss function, 
+ the metrics and optimizer) together
 and provides a unified interface for training it.</p>
 <h3 id="initializing-a-model">Initializing a Model</h3>
 <p>To create a model, simply pass the layers, loss function, metrics and the optimizer as parameters.</p>
@@ -411,7 +412,7 @@ my_model = dl.Model(
     }
 )
 </code></pre>
-<p>Note that for metrics you have to provide a dictionary with <code>(name_of_metric, metric)</code> pair.</p>
+<p>Note that for metrics you have to provide a dictionary with <code>(name_of_metric, metric)</code> pairs.</p>
 <h3 id="compiling-the-model">Compiling the model</h3>
 <p>At this point, the model is merely specifications of how to build the computational graph,
 no tensor has been created at this point. To actually build the graph, 
@@ -513,7 +514,7 @@ print(model.predict_one([<span class="hljs-number">0</span>, <span class="hljs-n
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Model","level":"3.9","depth":1,"next":{"title":"Callbacks","level":"3.10","depth":1,"path":"dl/09-callbacks.md","ref":"dl/09-callbacks.md","articles":[]},"previous":{"title":"Optimizers","level":"3.8","depth":1,"path":"dl/07-optimizers.md","ref":"dl/07-optimizers.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/08-model.md","mtime":"2020-06-26T04:22:18.666Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T07:57:54.904Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Model","level":"3.9","depth":1,"next":{"title":"Callbacks","level":"3.10","depth":1,"path":"dl/09-callbacks.md","ref":"dl/09-callbacks.md","articles":[]},"previous":{"title":"Optimizers","level":"3.8","depth":1,"path":"dl/07-optimizers.md","ref":"dl/07-optimizers.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/08-model.md","mtime":"2020-06-26T13:21:49.679Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T13:22:46.396Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -452,20 +452,21 @@ using gradient descent (in this case).</p>
 <h4 id="code">Code</h4>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.core <span class="hljs-keyword">as</span> rc
 
-x = rc.variable(<span class="hljs-number">0</span>)
-y = rc.variable(<span class="hljs-number">0</span>)
+x = rc.variable(<span class="hljs-number">0.0</span>)
+y = rc.variable(<span class="hljs-number">0.0</span>)
 f = (x**<span class="hljs-number">2</span> + y - <span class="hljs-number">11</span>) ** <span class="hljs-number">2</span> + (x + y**<span class="hljs-number">2</span> - <span class="hljs-number">7</span>) ** <span class="hljs-number">2</span>
 
 step = rc.sgd().minimize(f)  <span class="hljs-comment"># Define the objective</span>
-optimize = rc.simple_loop(<span class="hljs-number">10000</span>, step)
-optimize() 
-print(<span class="hljs-string">&apos;x = {:.9f}, y = {:.9f}&apos;</span>.format(x(), y())) <span class="hljs-comment"># Output the result (9 s.f.)</span>
+
+<span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(<span class="hljs-number">1000</span>): step()
+
+print(<span class="hljs-string">&apos;x = {:.9f}, y = {:.9f}&apos;</span>.format(x(), y()))
 </code></pre>
 <h4 id="output">Output</h4>
 <pre><code class="lang-text">x = 3.000000000, y = 2.000000000
 </code></pre>
-<p>Using the simplest model, the program solves it in less than 10 lines of code
-with error &lt; 10<sup>-14</sup>!</p>
+<p>Using a simple construct, the program finds the local minima it in less than 10
+lines of code!</p>
 
                                 
                                 </section>
@@ -509,7 +510,7 @@ with error &lt; 10<sup>-14</sup>!</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Example Usage","level":"2.1","depth":1,"next":{"title":"Value","level":"2.2","depth":1,"path":"core/01-value.md","ref":"core/01-value.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"core/00-example-usage.md","mtime":"2020-06-01T22:11:34.814Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T07:57:54.904Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Example Usage","level":"2.1","depth":1,"next":{"title":"Value","level":"2.2","depth":1,"path":"core/01-value.md","ref":"core/01-value.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"core/00-example-usage.md","mtime":"2020-06-26T13:21:49.674Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T13:22:46.396Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
