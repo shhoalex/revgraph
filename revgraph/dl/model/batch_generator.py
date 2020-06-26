@@ -18,5 +18,5 @@ def batch_generator(x: np.array,
     else:
         for i in range(0, len(x), batch_size):
             batch = slice(i, i+batch_size)
-            if i+batch_size < len(x):
+            if i+batch_size <= len(x):
                 yield (x[batch], y[batch])
