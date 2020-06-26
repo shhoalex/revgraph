@@ -44,7 +44,3 @@ projects, please don't forget to check them out!
   broadcast its gradient to different shapes.
 + [`conv2d`](https://github.com/renmengye/np-conv2d/tree/master): the implementation
   of the operation Conv2D is based on this implementation.
-
-### Full Documentation
-
-Read the full documentation [here]().

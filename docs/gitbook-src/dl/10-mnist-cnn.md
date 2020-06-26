@@ -4,8 +4,6 @@ To summarize, we are going to build a convolutional neural network and train it 
 
 ## Part 1 - Training the Model
 
-### Import DL
-
 ```python
 import revgraph.dl as dl
 ```

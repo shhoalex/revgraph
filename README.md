@@ -13,7 +13,7 @@ I hacked together this project just to deepen my own understanding of how deep
 learning frameworks work under the hood. **It is probably the most inefficient 
 implementation you could have ever found (lol), so please don't use it for 
 anything real.** It's simply a hackable toy computational graph / deep 
-learning library that tries to replicate some of tensorflow and keras' 
+learning library that tries to replicate some of tensorflow and kera's 
 interfaces.
 
 
@@ -67,28 +67,24 @@ import revgraph.dl as dl
 
 layers = dl.sequential(
     dl.inputs(784),
-    dl.conv2d(
-        filters=6,
-        kernel_size=(3,3),
-        stride=(1,1),
-        activation='relu',
-        kernel_regularizer='l1'
+    dl.dense(
+        units=100,
+        activation='tanh',
+        kernel_initializer='glorot_normal',
+        kernel_regularizer=dl.l1(0.01)
     ),
-    dl.dense(100),
-    dl.dense(10)
+    dl.dense(10, activation='softmax')
 )
 
 model = dl.Model(
     model=layers,
     loss=dl.categorical_cross_entropy(),
-    optimizer=dl.adam()
+    optimizer=dl.adam(lr=0.005)
 )
 
 ...
 ```
 
-As you may have noticed, the API is similar to the ones in tensorflow/keras.
-This is more or less intentional.
 
 ### Credits
 
