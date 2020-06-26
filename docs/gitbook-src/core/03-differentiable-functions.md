@@ -85,3 +85,37 @@ print(f'y={y()} when x={x()}')
 ```text
 y=2.0 when x=-1.0
 ```
+
+### Customizing Optimizer
+
+A custom optimizer can be created by implementing the `rc.optimizer` interface.
+For example, a simple gradient descent optimizer can be defined as follow:
+
+```python
+import revgraph.core as rc
+
+
+class MyGradientDescent(rc.optimizer):
+    def __init__(self, learning_rate):
+        super().__init__()
+        self.learning_rate = learning_rate
+
+    def update(self, param, memory, global_memory):
+        param.data -= param.gradient * self.learning_rate
+
+
+x = rc.variable(0.0)
+y = x*x + 2*x - 3
+step = MyGradientDescent(0.3).minimize(y)
+
+for _ in range(1000):
+    rc.run(step)
+
+print(f'Solved: y is minimized ({rc.run(y)}) when x={rc.run(x)}.')
+```
+
+#### Output
+
+```text
+Solved: y is minimized (-4.0) when x=-1.0.
+```

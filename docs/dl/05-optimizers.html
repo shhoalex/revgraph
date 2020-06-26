@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Activation Functions · GitBook</title>
+        <title>Optimizers · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="03-initializers.html" />
     
-    
-    <link rel="prev" href="01-layers.html" />
+    <link rel="prev" href="04-loss-function.html" />
     
 
     </head>
@@ -222,7 +220,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.3" data-path="02-activation-functions.html">
+        <li class="chapter " data-level="3.3" data-path="02-activation-functions.html">
             
                 <a href="02-activation-functions.html">
             
@@ -261,7 +259,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.6" data-path="05-optimizers.html">
+        <li class="chapter active" data-level="3.6" data-path="05-optimizers.html">
             
                 <a href="05-optimizers.html">
             
@@ -304,7 +302,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Activation Functions</a>
+        <a href=".." >Optimizers</a>
     </h1>
 </div>
 
@@ -319,50 +317,40 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="activation-functions">Activation Functions</h1>
-<p>An <code>ActivationFunction</code> is a function of type <code>tensor -&gt; tensor</code>. </p>
-<p>In the <code>activation</code> field of <code>dense</code> and <code>conv2d</code>, it accepts an <code>ActivationFunction</code>
-and applies it to the original output. For example: <code>activation=lambda x: x/2</code> is valid
-since it returns a tensor as output.</p>
-<p>Here is a list of pre-defined activation functions:</p>
+                                <h1 id="optimizers">Optimizers</h1>
+<p>An <code>optimizer</code> is a function that takes a tensor and return another 
+tensor that&apos;s derived from the class <code>rc.optimizer</code>. Its interface
+is exactly the same as the ones in 
+<a href="../core/03-differentiable-functions.html">differentiable functions</a>.
+Only this time the <code>minimize</code> target doesn&apos;t need to be specified.</p>
+<h3 id="predefined-optimizers">Predefined Optimizers</h3>
 <table>
 <thead>
 <tr>
 <th>Name</th>
-<th>Description</th>
-<th>Extra Argument(s)</th>
+<th>Arguments</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>dl.linear</code></td>
-<td>f(x) = x</td>
-<td>-</td>
+<td><code>sgd</code></td>
+<td><code>lr=0.001</code>, <code>momentum=0.0</code>, <code>decay=0.0</code>, <code>nesterov=False</code></td>
 </tr>
 <tr>
-<td><code>dl.tanh</code></td>
-<td>f(x) = tanh(x)</td>
-<td>-</td>
+<td><code>rmsprop</code></td>
+<td><code>lr=0.001</code>, <code>rho=0.9</code>, <code>epsilon=1e-9</code>, <code>decay=0.0</code></td>
 </tr>
 <tr>
-<td><code>dl.sigmoid</code></td>
-<td>f(x) = 1 / (1 + exp(-x))</td>
-<td>-</td>
+<td><code>adagrad</code></td>
+<td><code>lr=0.001</code>, <code>epsilon=1e-9</code>, <code>decay=0.0</code></td>
 </tr>
 <tr>
-<td><code>dl.relu</code></td>
-<td>f(x) = x if x&gt;0 else 0</td>
-<td>-</td>
+<td><code>adadelta</code></td>
+<td><code>lr=1.0</code>, <code>rho=0.95</code>, <code>epsilon=1e-6</code>, <code>decay=0.0</code></td>
 </tr>
 <tr>
-<td><code>dl.softmax</code></td>
-<td>e^x / sum(e^x)</td>
-<td><code>axis</code>, <code>keepdims</code></td>
-</tr>
-<tr>
-<td><code>dl.softplus</code></td>
-<td>ln(e^x + 1)</td>
-<td>-</td>
+<td><code>adam</code></td>
+<td><code>lr=0.001</code>, <code>beta1=0.9</code>, <code>beta2=0.999</code>, <code>amsgrad=False</code>, <code>epsilon=1e-6</code>, <code>decay=0.0</code></td>
 </tr>
 </tbody>
 </table>
@@ -393,14 +381,10 @@ since it returns a tensor as output.</p>
 
             
                 
-                <a href="01-layers.html" class="navigation navigation-prev " aria-label="Previous page: Layers">
+                <a href="04-loss-function.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Loss Functions">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="03-initializers.html" class="navigation navigation-next " aria-label="Next page: Initializers">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -409,7 +393,7 @@ since it returns a tensor as output.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Activation Functions","level":"3.3","depth":1,"next":{"title":"Initializers","level":"3.4","depth":1,"path":"dl/03-initializers.md","ref":"dl/03-initializers.md","articles":[]},"previous":{"title":"Layers","level":"3.2","depth":1,"path":"dl/01-layers.md","ref":"dl/01-layers.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/02-activation-functions.md","mtime":"2020-06-25T12:20:37.542Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T01:29:09.386Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Optimizers","level":"3.6","depth":1,"previous":{"title":"Loss Functions","level":"3.5","depth":1,"path":"dl/04-loss-function.md","ref":"dl/04-loss-function.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/05-optimizers.md","mtime":"2020-06-26T01:12:07.435Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T01:29:09.386Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

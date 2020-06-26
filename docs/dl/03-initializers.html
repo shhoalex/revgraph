@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Non-Differentiable Functions · GitBook</title>
+        <title>Initializers · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="05-a-simple-multilayer-perceptron.html" />
+    <link rel="next" href="04-loss-function.html" />
     
     
-    <link rel="prev" href="03-differentiable-functions.html" />
+    <link rel="prev" href="02-activation-functions.html" />
     
 
     </head>
@@ -111,9 +111,9 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="00-example-usage.html">
+        <li class="chapter " data-level="2.1" data-path="../core/00-example-usage.html">
             
-                <a href="00-example-usage.html">
+                <a href="../core/00-example-usage.html">
             
                     
                     Example Usage
@@ -124,9 +124,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="01-value.html">
+        <li class="chapter " data-level="2.2" data-path="../core/01-value.html">
             
-                <a href="01-value.html">
+                <a href="../core/01-value.html">
             
                     
                     Value
@@ -137,9 +137,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="02-function.html">
+        <li class="chapter " data-level="2.3" data-path="../core/02-function.html">
             
-                <a href="02-function.html">
+                <a href="../core/02-function.html">
             
                     
                     Function
@@ -150,9 +150,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.4" data-path="03-differentiable-functions.html">
+        <li class="chapter " data-level="2.4" data-path="../core/03-differentiable-functions.html">
             
-                <a href="03-differentiable-functions.html">
+                <a href="../core/03-differentiable-functions.html">
             
                     
                     Differentiable Functions
@@ -163,9 +163,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.5" data-path="04-non-differentiable-functions.html">
+        <li class="chapter " data-level="2.5" data-path="../core/04-non-differentiable-functions.html">
             
-                <a href="04-non-differentiable-functions.html">
+                <a href="../core/04-non-differentiable-functions.html">
             
                     
                     Non-Differentiable Functions
@@ -176,9 +176,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.6" data-path="05-a-simple-multilayer-perceptron.html">
+        <li class="chapter " data-level="2.6" data-path="../core/05-a-simple-multilayer-perceptron.html">
             
-                <a href="05-a-simple-multilayer-perceptron.html">
+                <a href="../core/05-a-simple-multilayer-perceptron.html">
             
                     
                     A Simple Multilayer Perceptron
@@ -196,9 +196,9 @@
         
         
     
-        <li class="chapter " data-level="3.1" data-path="../dl/00-example-usage.html">
+        <li class="chapter " data-level="3.1" data-path="00-example-usage.html">
             
-                <a href="../dl/00-example-usage.html">
+                <a href="00-example-usage.html">
             
                     
                     Example Usage
@@ -209,9 +209,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.2" data-path="../dl/01-layers.html">
+        <li class="chapter " data-level="3.2" data-path="01-layers.html">
             
-                <a href="../dl/01-layers.html">
+                <a href="01-layers.html">
             
                     
                     Layers
@@ -222,9 +222,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.3" data-path="../dl/02-activation-functions.html">
+        <li class="chapter " data-level="3.3" data-path="02-activation-functions.html">
             
-                <a href="../dl/02-activation-functions.html">
+                <a href="02-activation-functions.html">
             
                     
                     Activation Functions
@@ -235,9 +235,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.4" data-path="../dl/03-initializers.html">
+        <li class="chapter active" data-level="3.4" data-path="03-initializers.html">
             
-                <a href="../dl/03-initializers.html">
+                <a href="03-initializers.html">
             
                     
                     Initializers
@@ -248,9 +248,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.5" data-path="../dl/04-loss-function.html">
+        <li class="chapter " data-level="3.5" data-path="04-loss-function.html">
             
-                <a href="../dl/04-loss-function.html">
+                <a href="04-loss-function.html">
             
                     
                     Loss Functions
@@ -261,9 +261,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.6" data-path="../dl/05-optimizers.html">
+        <li class="chapter " data-level="3.6" data-path="05-optimizers.html">
             
-                <a href="../dl/05-optimizers.html">
+                <a href="05-optimizers.html">
             
                     
                     Optimizers
@@ -304,7 +304,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Non-Differentiable Functions</a>
+        <a href=".." >Initializers</a>
     </h1>
 </div>
 
@@ -319,104 +319,63 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="non-differentiable-functions">Non-Differentiable Functions</h1>
-<p><code>NoGradFunction</code> is a class that generates functions that won&apos;t propagate its gradient to its child nodes. Most of the comparison functions are non-differentiable.</p>
-<p>Here&apos;s a list of non-differentiable functions.</p>
+                                <h1 id="initializer">Initializer</h1>
+<p>An <code>Initializer</code> takes the shape of a tensor and returns a <code>float64</code>
+numpy array of that shape. For example, 
+<code>kernel_initialilzer=lambda s: np.ones(shape=s)</code> is a valid initializer.</p>
+<h3 id="types-of-initializer">Types of initializer</h3>
+<ul>
+<li><strong>Kernel Initializer</strong>: Specifies how to initialize the weights.</li>
+<li><strong>Bias Initializer</strong>: Specifies how to initialize the bias.</li>
+</ul>
+<h3 id="predefined-initializer">Predefined Initializer</h3>
+<p>Here is a list of predefined initializers:</p>
 <table>
 <thead>
 <tr>
 <th>Name</th>
-<th>Arguments</th>
 <th>Description</th>
+<th>Extra Argument(s)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>rc.len</code></td>
-<td><code>xs: tensor</code></td>
-<td>Dynamically evaluates the length (dim0) of a tensor at runtime</td>
+<td><code>zeros</code></td>
+<td>All 0s</td>
+<td>-</td>
 </tr>
 <tr>
-<td><code>&gt;</code></td>
-<td><code>a: tensor</code>, <code>b: tensor</code></td>
-<td>a&gt;b</td>
+<td><code>ones</code></td>
+<td>All 1s</td>
+<td>-</td>
 </tr>
 <tr>
-<td><code>&lt;</code></td>
-<td><code>a: tensor</code>, <code>b: tensor</code></td>
-<td>a&lt;b</td>
+<td><code>const</code></td>
+<td>All <code>n</code>s</td>
+<td><code>n: float = 1.0</code></td>
 </tr>
 <tr>
-<td><code>&gt;=</code></td>
-<td><code>a: tensor</code>, <code>b: tensor</code></td>
-<td>a&gt;=b</td>
+<td><code>random_normal</code></td>
+<td>Random normal</td>
+<td><code>mean: float = 0.0</code>, <code>stddev: float = 0.05</code></td>
 </tr>
 <tr>
-<td><code>&lt;=</code></td>
-<td><code>a: tensor</code>, <code>b: tensor</code></td>
-<td>a&lt;=b</td>
+<td><code>random_uniform</code></td>
+<td>Random uniform</td>
+<td><code>minval: float = -0.05</code>, <code>maxval: float = 0.05</code></td>
 </tr>
 <tr>
-<td><code>==</code></td>
-<td><code>a: tensor</code>, <code>b: tensor</code></td>
-<td>a==b</td>
+<td><code>glorot_normal</code></td>
+<td><code>sqrt(2 / (prod(shape[:-1]) + shape[-1]))</code></td>
+<td>-</td>
 </tr>
 <tr>
-<td><code>!=</code></td>
-<td><code>a: tensor</code>, <code>b: tensor</code></td>
-<td>a!=b</td>
-</tr>
-<tr>
-<td><code>rc.all</code></td>
-<td><code>a: tensor</code></td>
-<td>Same as <code>np.all</code></td>
-</tr>
-<tr>
-<td><code>rc.any</code></td>
-<td><code>a: tensor</code></td>
-<td>Same as <code>np.any</code></td>
-</tr>
-<tr>
-<td><code>rc.argmax</code></td>
-<td><code>a: tensor</code>, <code>axis = -1</code></td>
-<td>Same as <code>np.argmax</code></td>
-</tr>
-<tr>
-<td><code>rc.argmin</code></td>
-<td><code>a: tensor</code>, <code>axis = -1</code></td>
-<td>Same as <code>np.argmin</code></td>
+<td><code>glorot_uniform</code></td>
+<td><code>sqrt(6 / (prod(shape[:-1]) + shape[-1]))</code></td>
+<td>-</td>
 </tr>
 </tbody>
 </table>
-<h1 id="custom-differentiable-function">Custom Differentiable Function</h1>
-<p>The <code>@rc.no_grad</code> decorator allows the creation of custom 
-non-differentiable functions.</p>
-<h3 id="nograd-example"><code>no_grad</code> example</h3>
-<h4 id="code">Code</h4>
-<pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.core <span class="hljs-keyword">as</span> rc
-
-<span class="hljs-meta">@rc.no_grad</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">f</span><span class="hljs-params">(x)</span>:</span>
-    print(<span class="hljs-string">&apos;Running&apos;</span>)
-    <span class="hljs-keyword">return</span> x*<span class="hljs-number">2</span>
-
-<span class="hljs-comment"># Defining the graph</span>
-a = rc.constant(<span class="hljs-number">3</span>)
-b = rc.constant(<span class="hljs-number">4</span>)
-c = a + f(b)
-
-<span class="hljs-comment"># Run the node c</span>
-print(<span class="hljs-string">&apos;Before Evaluation&apos;</span>)
-d = rc.run(c)  <span class="hljs-comment"># Dynamically evaluates the function f</span>
-print(<span class="hljs-string">&apos;After Evaluation&apos;</span>)
-print(<span class="hljs-string">&apos;result is&apos;</span>, d)
-</code></pre>
-<h4 id="result">Result</h4>
-<pre><code class="lang-text">Before Evaluation
-Running
-After Evaluation
-result is 11.0
-</code></pre>
 
                                 
                                 </section>
@@ -444,12 +403,12 @@ result is 11.0
 
             
                 
-                <a href="03-differentiable-functions.html" class="navigation navigation-prev " aria-label="Previous page: Differentiable Functions">
+                <a href="02-activation-functions.html" class="navigation navigation-prev " aria-label="Previous page: Activation Functions">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="05-a-simple-multilayer-perceptron.html" class="navigation navigation-next " aria-label="Next page: A Simple Multilayer Perceptron">
+                <a href="04-loss-function.html" class="navigation navigation-next " aria-label="Next page: Loss Functions">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -460,7 +419,7 @@ result is 11.0
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Non-Differentiable Functions","level":"2.5","depth":1,"next":{"title":"A Simple Multilayer Perceptron","level":"2.6","depth":1,"path":"core/05-a-simple-multilayer-perceptron.md","ref":"core/05-a-simple-multilayer-perceptron.md","articles":[]},"previous":{"title":"Differentiable Functions","level":"2.4","depth":1,"path":"core/03-differentiable-functions.md","ref":"core/03-differentiable-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"core/04-non-differentiable-functions.md","mtime":"2020-06-25T12:04:39.537Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T01:29:09.386Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Initializers","level":"3.4","depth":1,"next":{"title":"Loss Functions","level":"3.5","depth":1,"path":"dl/04-loss-function.md","ref":"dl/04-loss-function.md","articles":[]},"previous":{"title":"Activation Functions","level":"3.3","depth":1,"path":"dl/02-activation-functions.md","ref":"dl/02-activation-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/03-initializers.md","mtime":"2020-06-26T00:25:17.181Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T01:29:09.386Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -16,4 +16,7 @@
 
 * [Example Usage](dl/00-example-usage.md)
 * [Layers](dl/01-layers.md)
-* [Activation Function](dl/02-activation-functions.md)
+* [Activation Functions](dl/02-activation-functions.md)
+* [Initializers](dl/03-initializers.md)
+* [Loss Functions](dl/04-loss-function.md)
+* [Optimizers](dl/05-optimizers.md)
