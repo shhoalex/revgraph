@@ -24,3 +24,4 @@
 * [Optimizers](dl/07-optimizers.md)
 * [Model](dl/08-model.md)
 * [Callbacks](dl/09-callbacks.md)
+* [Putting it all together - MNIST CNN](dl/10-mnist-cnn.md)

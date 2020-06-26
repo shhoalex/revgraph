@@ -1,0 +1,693 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Putting it all together - MNIST CNN · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="09-callbacks.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Revgraph Documentation</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Core Library</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../core/00-example-usage.html">
+            
+                <a href="../core/00-example-usage.html">
+            
+                    
+                    Example Usage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../core/01-value.html">
+            
+                <a href="../core/01-value.html">
+            
+                    
+                    Value
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../core/02-function.html">
+            
+                <a href="../core/02-function.html">
+            
+                    
+                    Function
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../core/03-differentiable-functions.html">
+            
+                <a href="../core/03-differentiable-functions.html">
+            
+                    
+                    Differentiable Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../core/04-non-differentiable-functions.html">
+            
+                <a href="../core/04-non-differentiable-functions.html">
+            
+                    
+                    Non-Differentiable Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../core/05-a-simple-multilayer-perceptron.html">
+            
+                <a href="../core/05-a-simple-multilayer-perceptron.html">
+            
+                    
+                    A Simple Multilayer Perceptron
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Deep Learning Library</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="00-example-usage.html">
+            
+                <a href="00-example-usage.html">
+            
+                    
+                    Example Usage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="01-layers.html">
+            
+                <a href="01-layers.html">
+            
+                    
+                    Layers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="02-activation-functions.html">
+            
+                <a href="02-activation-functions.html">
+            
+                    
+                    Activation Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="03-initializers.html">
+            
+                <a href="03-initializers.html">
+            
+                    
+                    Initializers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="04-loss-functions.html">
+            
+                <a href="04-loss-functions.html">
+            
+                    
+                    Loss Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="05-regularizers.html">
+            
+                <a href="05-regularizers.html">
+            
+                    
+                    Regularizers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7" data-path="06-metrics.html">
+            
+                <a href="06-metrics.html">
+            
+                    
+                    Metrics
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.8" data-path="07-optimizers.html">
+            
+                <a href="07-optimizers.html">
+            
+                    
+                    Optimizers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.9" data-path="08-model.html">
+            
+                <a href="08-model.html">
+            
+                    
+                    Model
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.10" data-path="09-callbacks.html">
+            
+                <a href="09-callbacks.html">
+            
+                    
+                    Callbacks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.11" data-path="10-mnist-cnn.html">
+            
+                <a href="10-mnist-cnn.html">
+            
+                    
+                    Putting it all together - MNIST CNN
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Putting it all together - MNIST CNN</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="putting-it-all-together---mnist-cnn">Putting it all together - MNIST CNN</h1>
+<p>To summarize, we are going to build a convolutional neural network and train 
+it on the MNIST dataset for handwritten digit classification.</p>
+<h2 id="part-1---training-the-model">Part 1 - Training the Model</h2>
+<h3 id="import-dl">Import DL</h3>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.dl <span class="hljs-keyword">as</span> dl
+</code></pre>
+<h3 id="load-the-training-data">Load the training data</h3>
+<p>The library also ships with the mnist dataset for users to mess around
+with it.</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.datasets.mnist <span class="hljs-keyword">as</span> mnist
+
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+</code></pre>
+<h3 id="defining-the-model">Defining the model</h3>
+<p>Just a random CNN configuration...</p>
+<pre><code class="lang-python">layers = dl.sequential(
+    dl.inputs(<span class="hljs-number">784</span>),
+    dl.reshape((<span class="hljs-number">28</span>, <span class="hljs-number">28</span>, <span class="hljs-number">1</span>)),
+    dl.conv2d(
+        filters=<span class="hljs-number">12</span>,
+        kernel_size=(<span class="hljs-number">3</span>,<span class="hljs-number">3</span>),
+        padding=<span class="hljs-string">&apos;same&apos;</span>,
+        activation=<span class="hljs-string">&apos;relu&apos;</span>,
+        use_bias=<span class="hljs-keyword">True</span>,
+        kernel_regularizer=dl.l1(),
+        bias_regularizer=dl.l1(),
+        bias_initializer=<span class="hljs-string">&apos;zeros&apos;</span>
+    ),
+    dl.flatten(),
+    dl.dense(
+        units=<span class="hljs-number">128</span>,
+        activation=<span class="hljs-string">&apos;relu&apos;</span>,
+        use_bias=<span class="hljs-keyword">True</span>,
+        kernel_regularizer=dl.l1(),
+        bias_regularizer=dl.l1()
+    ),
+    dl.dense(
+        units=<span class="hljs-number">10</span>,
+        activation=<span class="hljs-string">&apos;softmax&apos;</span>,
+        use_bias=<span class="hljs-keyword">True</span>,
+        kernel_regularizer=dl.l1(),
+        bias_regularizer=dl.l1()
+    )
+)
+</code></pre>
+<h3 id="training-configuration">Training Configuration</h3>
+<p>Again, just some standard stuffs...</p>
+<pre><code class="lang-python">model = dl.Model(
+    model=layers,
+    loss=dl.categorical_cross_entropy(),
+    optimizer=dl.adam(lr=<span class="hljs-number">0.01</span>, decay=<span class="hljs-number">0.01</span>),
+    metrics={
+        <span class="hljs-string">&apos;Accuracy&apos;</span>: dl.categorical_accuracy()
+    }
+)
+</code></pre>
+<h3 id="compiling-the-model">Compiling the model</h3>
+<ul>
+<li>Note that the validation set used is the remaining 15% of <code>(x_train, y_train)</code>,
+while the test set is stored in a completely different variable <code>(x_test, y_test)</code>.</li>
+</ul>
+<pre><code class="lang-python">model.compile()
+
+model.fit(
+    x=x_train,
+    y=y_train,
+    epochs=<span class="hljs-number">3</span>,
+    batch_size=<span class="hljs-number">500</span>,
+    train_test_validation=(<span class="hljs-number">0.85</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.15</span>),
+    callbacks=[dl.callbacks.progress(),
+               dl.callbacks.validation(),
+               dl.callbacks.test(x_test=x_test, y_test=y_test),
+               dl.callbacks.save(<span class="hljs-string">&apos;cnn.pkl&apos;</span>)]
+)
+</code></pre>
+<h3 id="result">Result</h3>
+<ul>
+<li>After 3 epochs (crazy slow I know :( ), the model achieved 98.13% accuracy
+on test set, not too bad!</li>
+</ul>
+<pre><code class="lang-text">Training Model tensor(addr=0x10dfdf650) with 51000 records
+  + Epoch 1/3
+    [##########] (100.0%)
+    Time Elapsed: 101.355s
+    Validation Accuracy: 0.978
+  + Epoch 2/3
+    [##########] (100.0%)
+    Time Elapsed: 97.104s
+    Validation Accuracy: 0.9828888888888889
+  + Epoch 3/3
+    [##########] (100.0%)
+    Time Elapsed: 96.655s
+    Validation Accuracy: 0.9836666666666667
+Training Completed.
+Total Time Elapsed: 337.059s
+Test Accuracy: 0.9813
+Saving session &lt;revgraph.dl.model.model.Model object at 0x10de82390&gt; to &apos;cnn.pkl&apos;
+</code></pre>
+<h2 id="part-2---visualizing-the-results">Part 2 - Visualizing the results</h2>
+<p>In a new file, we load the saved model (and also the test dataset for testing).</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.dl <span class="hljs-keyword">as</span> dl
+<span class="hljs-keyword">from</span> revgraph.datasets.mnist <span class="hljs-keyword">import</span> load_data
+
+_, (images, _) = load_data()
+</code></pre>
+<h3 id="visualization-function">Visualization function</h3>
+<p>We define a small helper function for &quot;displaying&quot; the images 
+(it&apos;s just me being too lazy to add <code>matplotlib</code> as dependency :P).</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_img</span><span class="hljs-params">(img)</span>:</span>
+    img = img.reshape(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)
+    print(<span class="hljs-string">&apos;--&apos;</span> * <span class="hljs-number">30</span>)
+    <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> img:
+        print(<span class="hljs-string">&apos;| &apos;</span>, end=<span class="hljs-string">&apos;&apos;</span>)
+        <span class="hljs-keyword">for</span> cell <span class="hljs-keyword">in</span> row:
+            print(<span class="hljs-string">&apos;##&apos;</span> <span class="hljs-keyword">if</span> cell&gt;<span class="hljs-number">0.5</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&apos;  &apos;</span>, end=<span class="hljs-string">&apos;&apos;</span>)
+        print(<span class="hljs-string">&apos; |&apos;</span>)
+    print(<span class="hljs-string">&apos;--&apos;</span> * <span class="hljs-number">30</span>)
+</code></pre>
+<h3 id="prediction-function">Prediction Function</h3>
+<p>We use numpy&apos;s argmax function to see which digit is the 
+model predicting (since the higher the value the more 
+probable that the image belongs to that class).</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">show_and_predict</span><span class="hljs-params">(img)</span>:</span>
+    dist = model.predict_one(img)
+    digit = np.argmax(dist)
+    print_img(img)
+    print(f<span class="hljs-string">&quot;It&apos;s a &apos;{digit}&apos;!&quot;</span>)
+</code></pre>
+<h3 id="sampling">Sampling</h3>
+<p>Now we sample 3 image as our target and predict them.</p>
+<pre><code class="lang-python">indices = np.random.choice([i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10000</span>)], <span class="hljs-number">5</span>)
+
+<span class="hljs-keyword">for</span> index <span class="hljs-keyword">in</span> indices:
+    show_and_predict(images[index])
+</code></pre>
+<pre><code class="lang-text">------------------------------------------------------------
+|                                                          |
+|                                                          |
+|                                                          |
+|                                                          |
+|                                           ####           |
+|                                       ########           |
+|                                     ########             |
+|                                     ########             |
+|                                   ########               |
+|                                 ########                 |
+|                                 ######                   |
+|                                 ####                     |
+|                               ####                       |
+|                             ####                         |
+|                           ####                           |
+|                       ########                           |
+|                     ########                             |
+|                   ########                               |
+|                 ########                                 |
+|                 ######                                   |
+|               ########                                   |
+|               ######                                     |
+|             ########                                     |
+|             ######                                       |
+|                                                          |
+|                                                          |
+|                                                          |
+|                                                          |
+------------------------------------------------------------
+It&apos;s a &apos;1&apos;!
+------------------------------------------------------------
+|                                                          |
+|                                                          |
+|                                                          |
+|                                                          |
+|                                                          |
+|                                                          |
+|                                                          |
+|               ####################                       |
+|           ############################                   |
+|           ##############################                 |
+|                                 ##########               |
+|                                     ######               |
+|                                     ######               |
+|                                   ########               |
+|                                   ########               |
+|                                 ########                 |
+|                               ########                   |
+|                               ########                   |
+|                             ########                     |
+|                           ########                       |
+|                         ##########                       |
+|                       ##########                         |
+|                     ##########                           |
+|                     ########                             |
+|                     ######                               |
+|                   ########                               |
+|                     ####                                 |
+|                                                          |
+------------------------------------------------------------
+It&apos;s a &apos;7&apos;!
+------------------------------------------------------------
+|                                                          |
+|                                                          |
+|                                                          |
+|                                                          |
+|                                                          |
+|                                                          |
+|                                                          |
+|                               ############               |
+|                       ##########################         |
+|                   ##################################     |
+|                 ##############                           |
+|               ##########                                 |
+|               ########                                   |
+|                 ##########                               |
+|                   ############                           |
+|                       ##########                         |
+|                               ####                       |
+|                               ####                       |
+|                                 ####                     |
+|                                 ####                     |
+|                             ########                     |
+|                         ##########                       |
+|             ##################                           |
+|               ############                               |
+|                                                          |
+|                                                          |
+|                                                          |
+|                                                          |
+------------------------------------------------------------
+It&apos;s a &apos;5&apos;!
+</code></pre>
+<p>Yeahh it works :)</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="09-callbacks.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Callbacks">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Putting it all together - MNIST CNN","level":"3.11","depth":1,"previous":{"title":"Callbacks","level":"3.10","depth":1,"path":"dl/09-callbacks.md","ref":"dl/09-callbacks.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/10-mnist-cnn.md","mtime":"2020-06-26T07:55:53.943Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T07:57:54.904Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
