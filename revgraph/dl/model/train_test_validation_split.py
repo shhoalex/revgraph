@@ -6,6 +6,9 @@ def train_test_validation_split(x: np.array,
                                 train: float,
                                 test: float,
                                 validation: float) -> List[Tuple[np.array, np.array]]:
+    """
+    Performs train test validation split.
+    """
     validate((
         abs(train + test + validation - 1.0) < 1e-9,
         'Sum of train, test and validation must be 1.0'

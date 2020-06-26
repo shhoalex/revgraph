@@ -4,6 +4,9 @@ from ..utils import *
 
 
 def sequential(*layers: GraphBuilder) -> GraphBuilderNoParam:
+    """
+    dl.sequential layer builder
+    """
     validate((len(layers) > 0, 'length of \'layers\' must be > 0'))
 
     def graph_builder() -> Metadata:

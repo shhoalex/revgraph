@@ -4,6 +4,9 @@ from .base_callback import BaseCallback, invoked_when
 
 
 class Progress(BaseCallback):
+    """
+    Callback for progress bar.
+    """
     def __init__(self):
         super().__init__()
 

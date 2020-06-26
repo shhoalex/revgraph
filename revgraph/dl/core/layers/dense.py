@@ -9,6 +9,9 @@ def dense(units: int,
           kernel_regularizer: Regularizer = None,
           bias_regularizer: Regularizer = None,
           activity_regularizer: Regularizer = None) -> GraphBuilder:
+    """
+    dl.dense layer builder
+    """
     validate((units > 0,
               f'\'units\' must be a positive integer, instead of {units}'),
              (callable(activation) or activation is None or isinstance(activation, str),

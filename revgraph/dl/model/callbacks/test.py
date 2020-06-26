@@ -4,6 +4,9 @@ from .base_callback import BaseCallback, invoked_when
 
 
 class Test(BaseCallback):
+    """
+    Callback for evaluating the test set AFTER training.
+    """
     def __init__(self,
                  x_test: 'Iterator[Any]' = None,
                  y_test: 'Iterator[Any]' = None):

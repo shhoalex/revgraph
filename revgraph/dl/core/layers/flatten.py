@@ -2,6 +2,9 @@ from ..utils import *
 
 
 def flatten() -> GraphBuilder:
+    """
+    dl.flatten layer builder
+    """
     def graph_builder(prev_layer: Metadata) -> Metadata:
         metadata = {}
         init_regularized_nodes(metadata, prev_layer)

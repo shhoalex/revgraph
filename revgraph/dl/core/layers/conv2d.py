@@ -12,6 +12,9 @@ def conv2d(filters: int,
            kernel_regularizer: Regularizer = None,
            bias_regularizer: Regularizer = None,
            activity_regularizer: Regularizer = None) -> GraphBuilder:
+    """
+    dl.conv2d layer builder
+    """
     validate((filters > 0,
               f'\'filters\' must be a positive integer, instead of {filters}'),
              (callable(activation) or activation is None or isinstance(activation, str),

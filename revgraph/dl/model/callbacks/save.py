@@ -4,6 +4,9 @@ from .base_callback import BaseCallback, invoked_when
 
 
 class Save(BaseCallback):
+    """
+    Callback for saving the model to a file.
+    """
     def __init__(self,
                  path: str,
                  save_after_every: int = None,

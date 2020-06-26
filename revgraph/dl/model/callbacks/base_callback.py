@@ -5,6 +5,10 @@ import numpy as np
 
 
 class BaseCallback(object):
+    """
+    Inheriting this class allows arbitrary function to be executed during the
+    execution of .fit method in Model.
+    """
     def __init__(self):
         self.callbacks = []
 

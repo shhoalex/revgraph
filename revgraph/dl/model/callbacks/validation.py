@@ -4,6 +4,10 @@ from .base_callback import BaseCallback, invoked_when
 
 
 class Validation(BaseCallback):
+    """
+    Callback for evaluating the validation set after every "after_every"
+    epochs.
+    """
     def __init__(self,
                  after_every: int = 1,
                  x_validation: Iterable[Any] = None,

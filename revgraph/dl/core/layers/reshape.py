@@ -2,6 +2,9 @@ from ..utils import *
 
 
 def reshape(new_shape: TensorShape) -> GraphBuilder:
+    """
+    dl.reshape layer builder
+    """
     def graph_builder(prev_layer: Metadata) -> Metadata:
         nonlocal new_shape
         metadata = {}

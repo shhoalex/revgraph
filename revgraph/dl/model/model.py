@@ -9,6 +9,10 @@ from .train_test_validation_split import train_test_validation_split
 
 
 class Model(object):
+    """
+    Wrapper class for combining all the sub-components such as layers, loss
+    function, metrics and optimizer.
+    """
     def __init__(self,
                  model: GraphBuilderNoParam,
                  loss: GraphBuilder,
@@ -46,6 +50,9 @@ class Model(object):
             return new_session
 
     def compile(self):
+        """
+        Compiling the high level specifications to 1 big computational graph.
+        """
         self.compiled = True
         metadata = self.model_builder()
         output_shape = ((metadata['units'],)
@@ -85,6 +92,9 @@ class Model(object):
     @staticmethod
     @contextmanager
     def temporary(metadata, field, before=True, after=False):
+        """
+        Temporarily sets a field in metadata.
+        """
         try:
             metadata[field] = before
             yield metadata
@@ -100,6 +110,9 @@ class Model(object):
             train_test_validation: Tuple[float, float, float] = (1.0, 0.0, 0.0),
             verbose: bool = True,
             callbacks: List['base_callback'] = None):
+        """
+        The "train loop" of the model that integrates with callbacks.
+        """
         callbacks = callbacks if callbacks is not None else []
         output = print if verbose else (lambda *args, **kwargs: None)
         if not isinstance(x, np.ndarray):
