@@ -1,6 +1,6 @@
 # Value
 
-A `value` is a fundamental component of a computational graph. It has an 
+A `value` is a fundamental component of a computational graph that extends the functionality of a `rc.tensor`. It has an 
 internal property `data` that represents the actual `numpy` array. All 
 `value`s act as a wrapper class that form computational graphs with other 
 `value` or `function_primitive`.
@@ -10,7 +10,7 @@ User can build computational graphs using the 3 subclasses of `value`:
 
 ## Constant
 
-A `constant` is a value that isn't suppose to change during graph execution.
+A `constant` is a value that isn't supposed to change during graph execution.
 Manipulation with the `data` property would raise a `ValueError` exception.
 
 ```
@@ -44,7 +44,7 @@ print(result)
 ## Placeholder
 
 A placeholder is a value whose actual content (the numpy array) is not 
-specified until graph execution in `feed_dict`.
+specified until graph is being executed.
 
 ```python
 rc.placeholder(name, shape)

@@ -10,7 +10,8 @@ import numpy as np
 import revgraph.core as rc
 ```
 
-The mappings that the perceptron classifying (one-hot encoded xor function):
+Then we define the mappings that the perceptron's going to classify. 
+(one-hot encoded xor function):
 
 ```python
 # Training Data
@@ -71,14 +72,14 @@ mean sqaured error:
 ```python
 l0 = x_ph
 l1 = rc.tanh(l0.dot(w0) + b0)
-predict = l2 = sigmoid(l1.dot(w1) + b1)
+predict = sigmoid(l1.dot(w1) + b1)
 loss = mse(y_ph, predict)
 fit = rc.sgd(lr=0.1, momentum=0.9).minimize(loss)
 ```
 
 Now we train the classifier for 100 epochs:
 
-Note that we feed the training data in 1 by 1 (which makes batch_size=1)
+Note that we feed the training data in 1 by 1 (which makes the batch_size=1)
 
 ```python
 for _ in range(100):

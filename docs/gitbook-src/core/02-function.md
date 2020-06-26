@@ -1,8 +1,7 @@
 # Function
 
 A `function_primitive` is another fundamental component of a computational
-graph. It binds zero or more value(s) together and transforms it into another
-`np.ndarray`.
+graph. It binds zero or more value(s) together and transforms it into another `np.tensor`.
 
 Calling the function wraps the arguments (values) into another class that 
 derives from `function`. The function itself won't be executed until it's 

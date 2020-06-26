@@ -59,14 +59,15 @@ using gradient descent (in this case).
 ```python
 import revgraph.core as rc
 
-x = rc.variable(0)
-y = rc.variable(0)
+x = rc.variable(0.0)
+y = rc.variable(0.0)
 f = (x**2 + y - 11) ** 2 + (x + y**2 - 7) ** 2
 
 step = rc.sgd().minimize(f)  # Define the objective
-optimize = rc.simple_loop(10000, step)
-optimize() 
-print('x = {:.9f}, y = {:.9f}'.format(x(), y())) # Output the result (9 s.f.)
+
+for _ in range(1000): step()
+ 
+print('x = {:.9f}, y = {:.9f}'.format(x(), y()))
 ```
 
 #### Output
@@ -75,5 +76,5 @@ print('x = {:.9f}, y = {:.9f}'.format(x(), y())) # Output the result (9 s.f.)
 x = 3.000000000, y = 2.000000000
 ```
 
-Using the simplest model, the program solves it in less than 10 lines of code
-with error < 10<sup>-14</sup>!
+Using a simple construct, the program finds the local minima it in less than 10
+lines of code!

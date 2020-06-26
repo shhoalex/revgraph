@@ -1,7 +1,6 @@
 # Putting it all together - MNIST CNN
 
-To summarize, we are going to build a convolutional neural network and train 
-it on the MNIST dataset for handwritten digit classification.
+To summarize, we are going to build a convolutional neural network and train it on the MNIST dataset for handwritten digit classification.
 
 ## Part 1 - Training the Model
 
@@ -77,7 +76,7 @@ model = dl.Model(
 ### Compiling the model
 
 + Note that the validation set used is the remaining 15% of `(x_train, y_train)`,
-  while the test set is stored in a completely different variable `(x_test, y_test)`.
+  while the test set is stored in completely different variables `(x_test, y_test)`.
 
 
 ```python
@@ -98,8 +97,7 @@ model.fit(
 
 ### Result
 
-+ After 3 epochs (crazy slow I know :( ), the model achieved 98.13% accuracy
-  on test set, not too bad!
++ After 3 epochs (crazy slow I know :( ), the model achieved 98.13% accuracy on the test set, fairly decent!
 
 ```text
 Training Model tensor(addr=0x10dfdf650) with 51000 records
@@ -135,7 +133,7 @@ _, (images, _) = load_data()
 ### Visualization function
 
 We define a small helper function for "displaying" the images 
-(it's just me being too lazy to add `matplotlib` as dependency :P).
+(it's just me being lazy and not wanting to add `matplotlib` as dev dependency :P).
 
 
 ```python
@@ -152,7 +150,7 @@ def print_img(img):
 
 ### Prediction Function
 
-We use numpy's argmax function to see which digit is the 
+We use numpy's `argmax` function to see which digit is the 
 model predicting (since the higher the value the more 
 probable that the image belongs to that class).
 
@@ -168,7 +166,7 @@ def show_and_predict(img):
 
 ### Sampling
 
-Now we sample 3 image as our target and predict them.
+Now we randomly sample 3 images as our targets:
 
 ```python
 indices = np.random.choice([i for i in range(10000)], 5)

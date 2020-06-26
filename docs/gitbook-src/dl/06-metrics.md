@@ -1,10 +1,8 @@
 # Metrics
 
-A `metric` is a function that provides metric for how good/bad the model
+A `metric` is a function that indicates how good/bad the model
 is performing. **Any loss function can also be used as metric.** 
-
-The metric is simply an indicator of the performance of the model, 
-it won't affect the optimization process of the model at all.
+Metrics won't affect the optimization process of the model at all.
 
 #### Predefined Metric
 

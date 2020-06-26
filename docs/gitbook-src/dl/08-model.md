@@ -1,6 +1,7 @@
 # Model
 
-A `Model` is a class that binds everything (the layers, loss function and optimizer) together
+A `Model` is a class that binds everything (the layers, loss function, 
+ the metrics and optimizer) together
 and provides a unified interface for training it.
 
 ### Initializing a Model
@@ -31,7 +32,7 @@ my_model = dl.Model(
 )
 ``` 
 
-Note that for metrics you have to provide a dictionary with `(name_of_metric, metric)` pair.
+Note that for metrics you have to provide a dictionary with `(name_of_metric, metric)` pairs.
 
 
 ### Compiling the model

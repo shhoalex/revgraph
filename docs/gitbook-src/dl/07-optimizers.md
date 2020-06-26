@@ -1,6 +1,6 @@
 # Optimizers
 
-An `optimizer` is a function that takes a tensor and return another 
+An `optimizer` is a function that takes a tensor and returns another 
 tensor that's derived from the class `rc.optimizer`. Its interface
 is exactly the same as the ones in 
 [differentiable functions](../core/03-differentiable-functions.md).

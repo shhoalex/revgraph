@@ -14,10 +14,10 @@ creates the tensor with structure similar to
 + `units: int`: Number of units in this layer.
 + `use_bias: bool = True`: Create bias units or not
 + `activation: ActivationFunction = 'linear'`: Activation Function used
-+ Initializers
++ [Initializers](./03-initializers.md)
     * `kernel_initializer: Initializer = 'glorot_normal'`
     * `bias_initializer: Initializer = 'glorot_normal`
-+ Regularizers
++ [Regularizers](./05-regularizers.md)
     * `kernel_regularizer: Regularizer = None`: Method used to regularize weights.
     * `bias_regularizer: Regularizer = None`: Method used to regularize bias.
     * `activity_regularizer: Regularizer = None`: Method used to regularize output (after applying activation function).
@@ -91,10 +91,10 @@ The output of previous layer must be a 4D tensor of shape (batch_size, h, w, in_
 + `padding: str = 'valid' or 'same'`: Whether the output keeps the same height and width.
 + `activation: ActivationFunction = 'linear'`: Activation Function used.
 + `use_bias: bool = False`: Create bias units or not.
-+ Initializers
++ [Initializers](./03-initializers.md)
     * `kernel_initializer: Initializer = 'glorot_normal'`: Kernel means the filters
     * `bias_initializer: Initializer = 'glorot_normal'`
-+ Regularizers
++ [Regularizers](./05-regularizers.md)
     * `kernel_regularizer: Regularizer = None`: Method used to regularize the filters.
     * `bias_regularizer: Regularizer = None`: Method used to regularize bias.
     * `activity_regularizer: Regularizer = None`: Method used to regularize output (after applying activation function).

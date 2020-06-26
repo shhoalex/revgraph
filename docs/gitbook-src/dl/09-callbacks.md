@@ -104,8 +104,8 @@ training.
 
 **Parameters**
 
-+ `x_test: np.ndarray = None`: specifies the inputs of the training data. If it's `None`, the portion divided in `train_test_validation` will be used.
-+ `y_test: np.ndarray = None`: specifies the outputs of the training data. If it's `None`, the portion divided in `train_test_validation` will be used.
++ `x_test: np.ndarray = None`: specifies the inputs of the testing data. If it's `None`, the portion divided in `train_test_validation` will be used.
++ `y_test: np.ndarray = None`: specifies the outputs of the testing data. If it's `None`, the portion divided in `train_test_validation` will be used.
 
 Suppose we train the xor classifier for 300 epochs and use the test
 callback on the entire x and y.

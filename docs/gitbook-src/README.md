@@ -10,7 +10,7 @@ I hacked together this project just to deepen my own understanding of how deep
 learning frameworks work under the hood. **It is probably the most inefficient 
 implementation you could have ever found (lol), so please don't use it for 
 anything real.** It's simply a hackable toy computational graph / deep 
-learning library that tries to replicate some of tensorflow and keras' 
+learning library that tries to replicate some of tensorflow and kera's 
 interfaces.
 
 
@@ -33,7 +33,7 @@ The project is divided into 2 main parts:
 
 ### Credits
 
-The structure/implementation of this library draws heavily on the following 
+The structure / implementation of this library draws heavily on the following 
 projects, please don't forget to check them out!
 
 + `tensorflow`: The computational graph's API is modelled after this.
