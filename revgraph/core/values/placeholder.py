@@ -6,6 +6,10 @@ from revgraph.core.base.value import Value
 
 
 class Placeholder(Value):
+    """
+    A placeholder represents a value in which the actual data won't be present
+    until the actual execution.
+    """
     def __init__(self,
                  name: str,
                  shape: Tuple[Optional[int], ...]):

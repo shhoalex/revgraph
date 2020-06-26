@@ -23,6 +23,11 @@ def gradient_wrt_arg(key: Any) -> GradientFunction:
 
 
 class GenericFunction(Function, ABC):
+    """
+    A function that takes n argument(s) may not be tensor and accumulates
+    gradient on all the argument (same bug as the one in tensor.py).
+    This might be the most buggy/hacky class in the entire project.
+    """
     def __init__(self,
                  *args: Union[Tensor, list, int, float],
                  **kwargs: Any):

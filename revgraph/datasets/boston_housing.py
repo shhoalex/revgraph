@@ -2,6 +2,8 @@ import os
 
 import numpy as np
 
+# Source: http://lib.stat.cmu.edu/datasets/boston
+
 
 def load_data(as_dict: bool = False,
               train_test_split: float = 0.75

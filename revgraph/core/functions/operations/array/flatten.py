@@ -4,6 +4,9 @@ from revgraph.core.functions.base.generic_function import GenericFunction, gradi
 
 
 class Flatten(GenericFunction):
+    """
+    Flattens the entire tensor
+    """
     def apply(self,
               xs: np.ndarray,
               exclude_dim_0=True) -> np.ndarray:

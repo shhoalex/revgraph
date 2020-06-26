@@ -1,4 +1,8 @@
 class TensorMagic(object):
+    """
+    A class for implementing all the magic methods without the problem of
+    circular imports.
+    """
     def __add__(self, other):
         from revgraph.core.functions.operations.math.add import Add
         return Add(self, other)
@@ -76,6 +80,9 @@ class TensorMagic(object):
         return Sum(self, axis=axis, keepdims=keepdims)
 
     def __len__(self):
+        """
+        Potentially buggy.
+        """
         from revgraph.core.functions.miscellaneous import len
         return len(self)
 

@@ -8,14 +8,9 @@ import numpy as np
 # Source: http://yann.lecun.com/exdb/mnist/
 
 
-XYPair = Tuple[np.ndarray, np.ndarray]
-Dataset = Union[Tuple[XYPair, XYPair],
-                Dict[str, Dict[str, np.ndarray]]]
-
-
 def load_data(as_dict: bool = False,
               one_hot: bool = True,
-              normalize: bool = True) -> Dataset:
+              normalize: bool = True):
     base_path = os.path.dirname(os.path.abspath(__file__))
     x_train_path = os.path.join(base_path, 'data/mnist/train-images-idx3-ubyte.gz')
     y_train_path = os.path.join(base_path, 'data/mnist/train-labels-idx1-ubyte.gz')

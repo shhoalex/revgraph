@@ -6,6 +6,10 @@ from revgraph.core.base.value import Value
 
 
 class Constant(Value):
+    """
+    A constant raises an error whenever a gradient is being accumulated to
+    itself or whenever it's being registered to a parent node.
+    """
     def __init__(self,
                  data: Union[np.ndarray, list]):
         self.assigned = False

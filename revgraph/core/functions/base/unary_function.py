@@ -8,6 +8,9 @@ from revgraph.core.base.function import Function
 
 
 class UnaryFunction(Function, ABC):
+    """
+    A function that takes 1 tensor and accumulates gradient on it.
+    """
     def __init__(self,
                  a: Union[Tensor, list, int, float]):
         super(UnaryFunction, self).__init__(args=[a])

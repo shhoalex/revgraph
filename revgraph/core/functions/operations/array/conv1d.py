@@ -5,6 +5,10 @@ from revgraph.core.functions.operations.array.conv2d import Conv2D
 
 
 class Conv1D(Conv2D):
+    """
+    Conv1D simply wraps up Conv2D and reshapes the result back to its 1D
+    counterpart.
+    """
     def apply(self, a, b, padding='VALID', stride=1) -> np.ndarray:
         i, j, k = a.shape
         a = a.reshape((i, j, 1, k))

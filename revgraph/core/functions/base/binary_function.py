@@ -8,6 +8,9 @@ from revgraph.core.base.function import Function
 
 
 class BinaryFunction(Function, ABC):
+    """
+    A function that takes 2 tensors and accumulates gradient on both of them.
+    """
     def __init__(self,
                  a: Union[Tensor, list, int, float],
                  b: Union[Tensor, list, int, float]):

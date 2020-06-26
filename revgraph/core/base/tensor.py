@@ -9,9 +9,16 @@ from .tensor_magic import TensorMagic
 
 
 class Tensor(ABC, TensorMagic):
+    """
+    The most basic unit of computation in this library.
+    """
     def __init__(self,
                  shape: Optional[Tuple[int, ...]] = None,
                  requires_grad: bool = False):
+        """
+        The shape can be None and requires_grad specifies whether this tensor
+        requires gradient from parent nodes.
+        """
         self.gradient = None
         self.shape = shape
         self.requires_grad = requires_grad
@@ -20,13 +27,23 @@ class Tensor(ABC, TensorMagic):
         self.ctx_counter = None
 
     def context_completed(self):
+        """
+        Check whether the tensor has received all gradients from all its parent
+        nodes within a "gradient context".
+        """
         return self.ctx_counter == 0
 
     def new_context(self):
+        """
+        Create a new "gradient context".
+        """
         self.ctx = self.references.copy()
         self.ctx_counter = sum(self.ctx.values())
 
     def accumulate(self, reference: 'Tensor', gradient: np.array):
+        """
+        Accumulate gradient FROM the reference to itself.
+        """
         if self.ctx[reference] <= 0:
             raise ValueError('Invalid node for gradient propagation')
         else:
@@ -46,12 +63,19 @@ class Tensor(ABC, TensorMagic):
                 self.gradient += self.unbroadcast(gradient)
 
     def register(self, reference: 'Tensor'):
-        # Add a permanent computational node (independent of context)
+        """
+        Add a permanent computational node (independent of context)
+        """
         self.references[reference] += 1
 
     def unbroadcast(self,
                     matrix: np.ndarray,
                     shape: Optional[Tuple[int, ...]] = None) -> np.ndarray:
+        """
+        Try to match the matrix's shape with its own
+        (same "unbroadcasting rule" as the one in autograd and numpy)
+        Source: https://github.com/HIPS/autograd/blob/c6f630a5ec18bd30f1485bc0dbbccb8664c77510/autograd/numpy/numpy_vjps.py#L647
+        """
         shape = shape if shape else self.shape
         if shape is ():
             return matrix.sum()

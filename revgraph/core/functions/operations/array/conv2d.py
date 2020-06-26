@@ -2,10 +2,12 @@ import numpy as np
 
 from revgraph.core.functions.base.generic_function import GenericFunction, gradient_wrt_arg
 
-# Reference: This implementation is based on the repository www.github.com/renmengye/np-conv2d
-
 
 class Conv2D(GenericFunction):
+    """
+    Reference: This implementation is hugely based on the repository
+    https://www.github.com/renmengye/np-conv2d
+    """
     def apply(self, a, b, padding='VALID', stride=(1, 1)) -> np.ndarray:
         # Buggy Implementation when padding='SAME'
         # if padding is 'SAME':

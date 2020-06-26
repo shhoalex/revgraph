@@ -10,6 +10,9 @@ class Value(Tensor):
                  data: Optional[Union[np.ndarray, list]] = None,
                  shape: Optional[Tuple[Optional[int], ...]] = None,
                  requires_grad: bool = False):
+        """
+        A value represents tensor with the data property.
+        """
         super(Value, self).__init__(shape, requires_grad)
         self.data = data
         self.dependencies = {self}

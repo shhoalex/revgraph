@@ -10,6 +10,9 @@ class Pad(GenericFunction):
               xs: np.ndarray,
               pad_width: Union[int, Tuple[int, ...]],
               constant_values: Union[int, float] = 0) -> np.ndarray:
+        """
+        Pad the tensor with constant_values.
+        """
         return np.pad(array=xs,
                       pad_width=pad_width,
                       constant_values=constant_values)

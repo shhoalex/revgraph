@@ -2,6 +2,10 @@ from revgraph.core.base.tensor import Tensor
 
 
 class SimpleLoop(Tensor):
+    """
+    Repeat the action for n times (only created for debugging)
+    Not recommended since it mixes control flow with data.
+    """
     def __init__(self, n, action, feed_dict=None):
         super().__init__()
         self.iterations = n

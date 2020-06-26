@@ -10,6 +10,10 @@ from revgraph.core.values.placeholder import Placeholder
 
 
 def get_placeholders(node: Tensor) -> DefaultDict[Union[str, Tensor], Tensor]:
+    """
+    Traverses the entire graph generates a dictionary that provides constant
+    time access to the placeholder's reference.
+    """
     stack = [node]
     namespace = defaultdict(lambda: None)
     while stack:
@@ -24,6 +28,10 @@ def get_placeholders(node: Tensor) -> DefaultDict[Union[str, Tensor], Tensor]:
 
 def run(node: Union[Tensor, Iterable[Tensor]],
         feed_dict: Dict[Union[str, Placeholder], Union[Any]] = None) -> Union[np.ndarray, List[np.array]]:
+    """
+    Execute the node with the placeholder being substitute by the values in
+    feed_dict.
+    """
     if not isinstance(node, Tensor):
         return run_many(node, feed_dict)
     feed_dict = feed_dict if feed_dict else {}
@@ -42,10 +50,16 @@ def run(node: Union[Tensor, Iterable[Tensor]],
 
 def run_many(nodes: Iterable[Tensor],
              feed_dict: Dict[Union[str, Placeholder], Union[Any]] = None) -> List[np.ndarray]:
+    """
+    Shorthand for running multiple nodes.
+    """
     return [run(node, feed_dict) for node in nodes]
 
 
 def new_backward_context(dependencies: Set[Tensor]):
+    """
+    Generate a dictionary for creating a "gradient context".
+    """
     for node in dependencies:
         node.ctx = defaultdict(lambda: 0)
         for p,n in node.references.items():
@@ -56,6 +70,10 @@ def new_backward_context(dependencies: Set[Tensor]):
 
 def instantiate_placeholders(feed_dict: Dict[Union[str, Placeholder], Union[Any]],
                              placeholders: DefaultDict[Union[str, Tensor], Tensor]):
+    """
+    Helper function for substituting placeholders in a graph with the values in
+    feed_dict.
+    """
     for c,v in feed_dict.items():
         node = c if isinstance(c, Placeholder) else placeholders[c]
         if node is None:

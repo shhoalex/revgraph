@@ -8,6 +8,10 @@ from .generic_function import GenericFunction
 
 
 class NoGradFunction(GenericFunction, ABC):
+    """
+    Represents functions that do not propagate its gradient back to its child
+    nodes.
+    """
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
         self.target_function = None

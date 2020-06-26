@@ -8,9 +8,19 @@ from .value import Value
 
 
 class Function(Tensor, ABC):
+    """
+    A Function represents a transformation from one tensor to another.
+    """
     def __init__(self,
                  args: Iterable[Union[Tensor, list, int, float]] = None,
                  kwargs: Dict[str, Any] = None):
+        """
+        Note that gradient wouldn't be properly propagated when using kwargs
+        (a bug). To fix it, simply implement a system for declaring
+        parameters in a function (e.g. in f(a,b), the specification states that
+        gradient only should be accumulated to b and a is just a normal
+        parameter.
+        """
         args = [] if args is None else args
         kwargs = {} if kwargs is None else kwargs
         self.args = []
@@ -28,17 +38,27 @@ class Function(Tensor, ABC):
         super(Function, self).__init__(requires_grad=requires_grad)
 
     def accumulate(self, reference: Tensor, gradient: np.ndarray):
+        """
+        Accumulate gradient FROM the reference to itself and then propagate
+        the gradient to its child nodes.
+        """
         super(Function, self).accumulate(reference, gradient)
         if self.context_completed():
             self.backward(*self.args, **self.kwargs)
 
     def new_context(self):
+        """
+        Initialize a new gradient accumulation context.
+        """
         super(Function, self).new_context()
         for arg in self.args:
             arg.new_context()
 
     @staticmethod
     def match_shape(a, shape, axis):
+        """
+        Check whether the shape is "broadcasable".
+        """
         if shape == () or a.shape == shape:
             return a
         axis = list(axis) if isinstance(axis, tuple) else axis

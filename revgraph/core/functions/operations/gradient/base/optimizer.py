@@ -7,6 +7,10 @@ from revgraph.core.values.variable import Variable
 
 
 class Optimizer(Gradient):
+    """
+    Subclasses gradient and attempt to minimize the "objective" with the update
+    rule.
+    """
     def __init__(self):
         super().__init__()
         self._objective = None
