@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Example Usage · GitBook</title>
+        <title>Callbacks · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="01-layers.html" />
     
-    
-    <link rel="prev" href="../core/05-a-simple-multilayer-perceptron.html" />
+    <link rel="prev" href="08-model.html" />
     
 
     </head>
@@ -196,7 +194,7 @@
         
         
     
-        <li class="chapter active" data-level="3.1" data-path="00-example-usage.html">
+        <li class="chapter " data-level="3.1" data-path="00-example-usage.html">
             
                 <a href="00-example-usage.html">
             
@@ -313,7 +311,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.10" data-path="09-callbacks.html">
+        <li class="chapter active" data-level="3.10" data-path="09-callbacks.html">
             
                 <a href="09-callbacks.html">
             
@@ -356,7 +354,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Example Usage</a>
+        <a href=".." >Callbacks</a>
     </h1>
 </div>
 
@@ -371,45 +369,116 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="deep-learning-library">Deep Learning Library</h1>
-<p>The package <code>revgraph.dl</code> is a toy deep learning library that provides a
-keras-like interface for defining deep learning models. It is built 
-entirely on top of <code>revgraph.core</code> such that the interfaces are merely
-graph builders and wrappers of <code>rc.tensor</code>.</p>
-<h3 id="quick-example-xor-mlp">Quick Example: XOR MLP</h3>
-<p>Here is a simple MLP (almost identical with the one in the <a href="../core/05-a-simple-multilayer-perceptron.html">previous post</a>) but defined using 
-<code>revgraph.dl</code> instead of <code>revgraph.core</code>.</p>
-<pre><code class="lang-python"><span class="hljs-keyword">import</span> revgraph.dl <span class="hljs-keyword">as</span> dl
-
-<span class="hljs-comment"># Training Data</span>
-x = [[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>],
-     [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>], 
-     [<span class="hljs-number">1</span>,<span class="hljs-number">0</span>], 
-     [<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]]
-
-y = [[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>], 
-     [<span class="hljs-number">1</span>,<span class="hljs-number">0</span>], 
-     [<span class="hljs-number">1</span>,<span class="hljs-number">0</span>], 
-     [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]]
-
-architecture = dl.sequential(
-    dl.inputs(<span class="hljs-number">2</span>),
-    dl.dense(<span class="hljs-number">8</span>, activation=<span class="hljs-string">&apos;tanh&apos;</span>),
-    dl.dense(<span class="hljs-number">2</span>, activation=<span class="hljs-string">&apos;sigmoid&apos;</span>)
+                                <h1 id="callbacks">Callbacks</h1>
+<p>A <code>callback</code> extends <code>.fit</code>&apos;s functionality and can be used by 
+adding them to the <code>callbacks</code> parameter of <code>.fit()</code>. For example,</p>
+<pre><code class="lang-python">my_model.fit(
+    callbacks=[
+        dl.callbacks.progress(),
+        dl.callbacks.another_callback()
+    ],
+    ...
 )
-
-model = dl.Model(
-    model=architecture,
-    loss=dl.mean_squared_error(),
-    optimizer=dl.sgd(lr=<span class="hljs-number">0.1</span>, momentum=<span class="hljs-number">0.9</span>)
-)
-
-model.compile()  <span class="hljs-comment"># Compile specifications to a graph</span>
-model.fit(x, y, epochs=<span class="hljs-number">100</span>, batch_size=<span class="hljs-number">1</span>)
-print(model.predict(x))
 </code></pre>
-<p>As you can see, the library abstracts away the creation of low level 
-tensors and focuses on the architecture of the neural network itself.</p>
+<h2 id="dlcallbacksprogress"><code>dl.callbacks.progress</code></h2>
+<p>Progress shows the current training progress and the time elapsed
+after training/each epoch. </p>
+<p><strong>Parameters</strong></p>
+<p>None</p>
+<p><strong>For example:</strong></p>
+<p>Suppose the fit configurations are as below:</p>
+<pre><code class="lang-python">model.fit(
+    x=x,
+    y=y,
+    epochs=<span class="hljs-number">5</span>,
+    batch_size=<span class="hljs-number">1</span>,
+    callbacks=[
+        dl.callbacks.progress()
+    ]
+)
+</code></pre>
+<h4 id="output">Output</h4>
+<pre><code class="lang-text">Training Model tensor(addr=0x118011810) with 4 records
+  + Epoch 1/5
+    [##########] (100.0%)
+    Time Elapsed: 0.002s
+  + Epoch 2/5
+    [##########] (100.0%)
+    Time Elapsed: 0.002s
+  + Epoch 3/5
+    [##########] (100.0%)
+    Time Elapsed: 0.002s
+  + Epoch 4/5
+    [##########] (100.0%)
+    Time Elapsed: 0.002s
+  + Epoch 5/5
+    [##########] (100.0%)
+    Time Elapsed: 0.003s
+Training Completed.
+Total Time Elapsed: 0.012s
+</code></pre>
+<h2 id="dlcallbacksvalidation"><code>dl.callbacks.validation</code></h2>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>after_every: int = 1</code>: Perform validation after every n epoch (1 means after every epoch).</li>
+<li><code>x_validation: np.ndarray = None</code>: specifies the inputs of the training data. If it&apos;s <code>None</code>, the portion divided in <code>train_test_validation</code> will be used.</li>
+<li><code>y_validation: np.ndarray = None</code>: specifies the outputs of the training data. If it&apos;s <code>None</code>, the portion divided in <code>train_test_validation</code> will be used.</li>
+</ul>
+<h4 id="output">Output</h4>
+<p>After<code>after_every</code> epoch, the <code>metrics</code> will be evaluated on the validation set. </p>
+<p>For example, when used with <code>progress</code> and <code>metrics</code> is <code>{ &apos;Accuracy&apos;: dl.categorical_accuracy() }</code>:</p>
+<pre><code class="lang-text">Training Model tensor(addr=0x10dabd850) with 4 records
+  + Epoch 1/3
+    [##########] (100.0%)
+    Time Elapsed: 0.002s
+    Validation Accuracy: 0.5
+  + Epoch 2/3
+    [##########] (100.0%)
+    Time Elapsed: 0.002s
+    Validation Accuracy: 0.25
+  + Epoch 3/3
+    [##########] (100.0%)
+    Time Elapsed: 0.002s
+    Validation Accuracy: 0.75
+Training Completed.
+Total Time Elapsed: 0.007s
+[[0.4170601  0.45031412]
+ [0.54590443 0.52044246]
+ [0.40001153 0.56573361]
+ [0.51021093 0.61924151]]
+</code></pre>
+<h2 id="dlcallbackstest"><code>dl.callbacks.test</code></h2>
+<p>Similar to <code>validation</code>, but instead of testing the validation set
+at the end of certain epochs, it tests the test set at the end of
+training.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>x_test: np.ndarray = None</code>: specifies the inputs of the training data. If it&apos;s <code>None</code>, the portion divided in <code>train_test_validation</code> will be used.</li>
+<li><code>y_test: np.ndarray = None</code>: specifies the outputs of the training data. If it&apos;s <code>None</code>, the portion divided in <code>train_test_validation</code> will be used.</li>
+</ul>
+<p>Suppose we train the xor classifier for 300 epochs and use the test
+callback on the entire x and y.</p>
+<h4 id="output">Output</h4>
+<pre><code class="lang-text">...
+Training Completed.
+Total Time Elapsed: 0.645s
+Test Accuracy: 1.0
+[[0.01598295 0.98440468]
+ [0.9871009  0.0150855 ]
+ [0.98141776 0.01882638]
+ [0.01973683 0.97951813]]
+</code></pre>
+<h2 id="dlcallbackssave"><code>dl.callbacks.save</code></h2>
+<p>This callback saves the entire trained model after certain epochs and after training. It saves the entire tensor using <code>dill</code> as a
+.pkl file (extremely inefficient I know).</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>path: str</code>: string representing the path of the file.</li>
+<li><code>save_after_every: int = None</code>: Save after every n epochs. If <code>None</code>, the default behaviour is to save the model after training.</li>
+<li><code>save_after_all: bool = True</code>: Save after training.</li>
+</ul>
+<p>Suppose the callback <code>dl.callbacks.save(&apos;my_model.pkl&apos;)</code> is added.
+The file <code>my_model.pkl</code> will be created once the training ends.</p>
 
                                 
                                 </section>
@@ -437,14 +506,10 @@ tensors and focuses on the architecture of the neural network itself.</p>
 
             
                 
-                <a href="../core/05-a-simple-multilayer-perceptron.html" class="navigation navigation-prev " aria-label="Previous page: A Simple Multilayer Perceptron">
+                <a href="08-model.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Model">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="01-layers.html" class="navigation navigation-next " aria-label="Next page: Layers">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -453,7 +518,7 @@ tensors and focuses on the architecture of the neural network itself.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Example Usage","level":"3.1","depth":1,"next":{"title":"Layers","level":"3.2","depth":1,"path":"dl/01-layers.md","ref":"dl/01-layers.md","articles":[]},"previous":{"title":"A Simple Multilayer Perceptron","level":"2.6","depth":1,"path":"core/05-a-simple-multilayer-perceptron.md","ref":"core/05-a-simple-multilayer-perceptron.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/00-example-usage.md","mtime":"2020-06-26T03:30:25.814Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T04:27:55.652Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Callbacks","level":"3.10","depth":1,"previous":{"title":"Model","level":"3.9","depth":1,"path":"dl/08-model.md","ref":"dl/08-model.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dl/09-callbacks.md","mtime":"2020-06-26T03:54:55.101Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-26T04:27:55.652Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
