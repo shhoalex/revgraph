@@ -22,3 +22,4 @@
 * [Regularizers](dl/05-regularizers.md)
 * [Optimizers](dl/06-optimizers.md)
 * [Model](dl/07-model.md)
+* [Callbacks](dl/08-callbacks.md)
