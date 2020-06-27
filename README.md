@@ -17,6 +17,15 @@ learning library that tries to replicate some of tensorflow and kera's
 interfaces.
 
 
+### Installation
+
+The package has been uploaded to PyPi.
+Make sure your python version is at least 3.6.
+
+```text
+$ python3 -m pip install revgraph
+```
+
 ### Key Features
 
 * Gradient Descent Based Optimization Methods
