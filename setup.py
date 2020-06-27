@@ -9,10 +9,13 @@ setup(
     name='revgraph',
     author='shhoalex',
     version='0.0.1',
-    url='https://github.com/shhoalex/revgraph',
     description='A toy deep learning library built using numpy as its only dependency.',
     long_description=long_description,
     long_description_content_type='text/markdown',
+    project_urls={
+        'Source Code': 'https://github.com/shhoalex/revgraph',
+        'Documentation': 'https://shhoalex.github.io/revgraph'
+    },
     classifiers=[
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
@@ -30,10 +33,9 @@ setup(
     python_requires='>=3.6',
 
     # Exporting the following packages
-    py_modules=find_packages(where='revgraph'),
-    package_dir={'': 'revgraph'},
+    packages=find_packages(),
     package_data={
-        # Configs for the package 'revgraph.dataset'
-        '': ['*.data', '*.gz']
-    },
+        # Also export the sample datasets
+        'revgraph.datasets': ['data/*/*']
+    }
 )
